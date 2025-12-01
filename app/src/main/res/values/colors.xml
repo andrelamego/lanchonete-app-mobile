@@ -8,4 +8,8 @@
     <color name="detail_gray">#ECEFF1</color>
     <color name="text_gray">#37474F</color>
     <color name="yellow">#FFCA28</color>
+    <color name="danger_red">#F32013</color>
+
+    <!-- Cores Produto -->
+    <color name="produto_main">#FFA726</color>
 </resources>

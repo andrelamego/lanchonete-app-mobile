@@ -48,6 +48,33 @@
     <string name="SalvarPedido">Save Order</string>
     <string name="Cliente">Customer</string>
     <string name="Status">Status</string>
+    <string name="ordersLabel">Orders:</string>
+    <string name="orderListLabel">Order #</string>
+    <string name="orderListCustomerLabel">Customer: </string>
+    <string name="orderListValue">$</string>
+
+    <!-- Dialog Pedido -->
+    <string name="dataPedidoLabel">Date: </string>
+    <string name="produtosPedido">Products:</string>
+    <string name="botaoEditar">Edit</string>
+    <string name="botaoExcluir">Delete</string>
+    <string name="valorTotal">Total: $</string>
+    <string name="closeButton">Close</string>
+
+    <!-- Tela Gerenciar Pedido -->
+    <string name="novoPedido">New Order</string>
+    <string name="buscarPedido">Search Order</string>
+    <string name="nomeCliente">Customer Name</string>
+    <string name="dataPedido">Date</string>
+
+    <!-- List Itens Pedido -->
+    <string name="quantidade">x</string>
+    <string name="nomeItem"> - </string>
+
+    <!-- Tela Gerenciar Produtos -->
+    <string name="novoProduto">New Product</string>
+    <string name="buscarProduto">Search Product</string>
+    <string name="titleListaProdutos">Products:</string>
 
     <string name="TituloTelaProduto">Product Management</string>
     <string name="TituloTelaPedido2">Order</string>

@@ -28,6 +28,7 @@
         <activity android:name=".adapters.ui.CargoActivity" />
         <activity android:name=".adapters.ui.CategoriaActivity" />
         <activity android:name=".adapters.ui.GerenciarPedidoActivity" />
+        <activity android:name=".adapters.ui.FormPedidoActivity" />
     </application>
 
 </manifest>
