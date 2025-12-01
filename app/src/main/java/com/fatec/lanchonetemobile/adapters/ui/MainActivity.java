@@ -58,7 +58,7 @@ public class MainActivity extends AppCompatActivity {
         });
 
         btnPedidos.setOnClickListener(e -> {
-            Intent intent = new Intent(this, PedidoActivity.class);
+            Intent intent = new Intent(this, GerenciarPedidoActivity.class);
             startActivity(intent);
         });
 
