@@ -1,19 +1,78 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/main"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context=".MainActivity">
+    android:layout_height="match_parent">
+
+    <Button
+        android:id="@+id/VerPedido"
+        android:layout_width="180dp"
+        android:layout_height="60dp"
+        android:text="@string/GerenciaPedido"
+        tools:layout_editor_absoluteX="215dp"
+        tools:layout_editor_absoluteY="408dp" />
 
     <TextView
+        android:id="@+id/textView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Hello World!"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        android:text="@string/TituloTelaMain"
+        tools:layout_editor_absoluteX="126dp"
+        tools:layout_editor_absoluteY="42dp" />
 
+    <Button
+        android:id="@+id/cadProduto"
+        android:layout_width="180dp"
+        android:layout_height="60dp"
+        android:text="@string/CadastraProduto"
+        tools:layout_editor_absoluteX="16dp"
+        tools:layout_editor_absoluteY="158dp" />
+
+    <Button
+        android:id="@+id/cadFunc"
+        android:layout_width="180dp"
+        android:layout_height="60dp"
+        android:text="@string/CadastraFuncionario"
+        tools:layout_editor_absoluteX="16dp"
+        tools:layout_editor_absoluteY="241dp" />
+
+    <Button
+        android:id="@+id/cadCliente"
+        android:layout_width="180dp"
+        android:layout_height="60dp"
+        android:text="@string/CadastraCliente"
+        tools:layout_editor_absoluteX="16dp"
+        tools:layout_editor_absoluteY="325dp" />
+
+    <Button
+        android:id="@+id/Pedido"
+        android:layout_width="180dp"
+        android:layout_height="60dp"
+        android:text="@string/FazerPedido"
+        tools:layout_editor_absoluteX="16dp"
+        tools:layout_editor_absoluteY="408dp" />
+
+    <Button
+        android:id="@+id/cadForn"
+        android:layout_width="180dp"
+        android:layout_height="60dp"
+        android:text="@string/CadastraFornecedor"
+        tools:layout_editor_absoluteX="215dp"
+        tools:layout_editor_absoluteY="158dp" />
+
+    <Button
+        android:id="@+id/cadCargo"
+        android:layout_width="180dp"
+        android:layout_height="60dp"
+        android:text="@string/CadastraCargo"
+        tools:layout_editor_absoluteX="215dp"
+        tools:layout_editor_absoluteY="241dp" />
+
+    <Button
+        android:id="@+id/cadCat"
+        android:layout_width="180dp"
+        android:layout_height="60dp"
+        android:text="@string/CadastraCategoria"
+        tools:layout_editor_absoluteX="215dp"
+        tools:layout_editor_absoluteY="325dp" />
 </androidx.constraintlayout.widget.ConstraintLayout>

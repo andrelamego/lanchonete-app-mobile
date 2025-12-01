@@ -2,7 +2,6 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/cliente"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
@@ -12,7 +11,7 @@
         android:layout_height="40dp"
         android:ems="10"
         android:inputType="text"
-        android:text="Logradouro:"
+        android:text="@string/Logradouro"
         tools:layout_editor_absoluteX="242dp"
         tools:layout_editor_absoluteY="76dp" />
 
@@ -22,7 +21,7 @@
         android:layout_height="40dp"
         android:ems="10"
         android:inputType="text"
-        android:text="Numero:"
+        android:text="@string/Numero"
         tools:layout_editor_absoluteX="242dp"
         tools:layout_editor_absoluteY="134dp" />
 
@@ -32,7 +31,7 @@
         android:layout_height="40dp"
         android:ems="10"
         android:inputType="text"
-        android:text="CEP:"
+        android:text="@string/CEP"
         tools:layout_editor_absoluteX="242dp"
         tools:layout_editor_absoluteY="192dp" />
 
@@ -42,7 +41,7 @@
         android:layout_height="40dp"
         android:ems="10"
         android:inputType="text"
-        android:text="Complemento:"
+        android:text="@string/Complemento"
         tools:layout_editor_absoluteX="242dp"
         tools:layout_editor_absoluteY="247dp" />
 
@@ -50,7 +49,7 @@
         android:id="@+id/salvar"
         android:layout_width="119dp"
         android:layout_height="65dp"
-        android:text="Salvar"
+        android:text="@string/Salvar"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.883"
         app:layout_constraintStart_toStartOf="parent"
@@ -60,7 +59,7 @@
         android:id="@+id/excluir"
         android:layout_width="119dp"
         android:layout_height="65dp"
-        android:text="Excluir"
+        android:text="@string/remove"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.198"
         app:layout_constraintStart_toStartOf="parent"
@@ -70,7 +69,7 @@
         android:id="@+id/listar"
         android:layout_width="119dp"
         android:layout_height="65dp"
-        android:text="Procurar"
+        android:text="@string/Procurar"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.198"
         app:layout_constraintStart_toStartOf="parent"
@@ -78,17 +77,17 @@
 
     <TextView
         android:id="@+id/titulo"
-        android:layout_width="168dp"
-        android:layout_height="40dp"
-        android:text="Gerenciamento de clientes"
-        tools:layout_editor_absoluteX="121dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/TituloTelaCliente"
+        tools:layout_editor_absoluteX="142dp"
         tools:layout_editor_absoluteY="16dp" />
 
     <Button
         android:id="@+id/atualizar"
         android:layout_width="119dp"
         android:layout_height="65dp"
-        android:text="Atualizar"
+        android:text="@string/atualizar"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.883"
         app:layout_constraintStart_toStartOf="parent"
@@ -100,7 +99,7 @@
         android:layout_height="40dp"
         android:ems="10"
         android:inputType="text"
-        android:text="ID:"
+        android:text="@string/ID"
         tools:layout_editor_absoluteX="16dp"
         tools:layout_editor_absoluteY="76dp" />
 
@@ -110,7 +109,7 @@
         android:layout_height="40dp"
         android:ems="10"
         android:inputType="text"
-        android:text="Nome:"
+        android:text="@string/Nome"
         tools:layout_editor_absoluteX="16dp"
         tools:layout_editor_absoluteY="134dp" />
 
@@ -120,7 +119,7 @@
         android:layout_height="40dp"
         android:ems="10"
         android:inputType="text"
-        android:text="Tel:"
+        android:text="@string/Numero"
         tools:layout_editor_absoluteX="16dp"
         tools:layout_editor_absoluteY="192dp" />
 
@@ -130,7 +129,7 @@
         android:layout_height="40dp"
         android:ems="10"
         android:inputType="text"
-        android:text="CPF:"
+        android:text="@string/CPF"
         tools:layout_editor_absoluteX="16dp"
         tools:layout_editor_absoluteY="247dp" />
 
