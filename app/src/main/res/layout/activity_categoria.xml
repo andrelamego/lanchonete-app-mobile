@@ -2,7 +2,6 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/categoria"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
@@ -10,7 +9,7 @@
         android:id="@+id/salvar"
         android:layout_width="119dp"
         android:layout_height="65dp"
-        android:text="Salvar"
+        android:text="@string/Salvar"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.828"
         app:layout_constraintStart_toStartOf="parent"
@@ -20,7 +19,7 @@
         android:id="@+id/excluir"
         android:layout_width="119dp"
         android:layout_height="65dp"
-        android:text="Excluir"
+        android:text="@string/remove"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.198"
         app:layout_constraintStart_toStartOf="parent"
@@ -30,7 +29,7 @@
         android:id="@+id/listar"
         android:layout_width="119dp"
         android:layout_height="65dp"
-        android:text="Procurar"
+        android:text="@string/Procurar"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.198"
         app:layout_constraintStart_toStartOf="parent"
@@ -38,17 +37,17 @@
 
     <TextView
         android:id="@+id/titulo"
-        android:layout_width="251dp"
-        android:layout_height="30dp"
-        android:text="Gerenciamento de categoria"
-        tools:layout_editor_absoluteX="99dp"
-        tools:layout_editor_absoluteY="33dp" />
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/TituloTelaCargo"
+        tools:layout_editor_absoluteX="148dp"
+        tools:layout_editor_absoluteY="34dp" />
 
     <Button
         android:id="@+id/atualizar"
         android:layout_width="119dp"
         android:layout_height="65dp"
-        android:text="Atualizar"
+        android:text="@string/atualizar"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.828"
         app:layout_constraintStart_toStartOf="parent"
@@ -60,7 +59,7 @@
         android:layout_height="wrap_content"
         android:ems="10"
         android:inputType="text"
-        android:text="ID:"
+        android:text="@string/ID"
         tools:layout_editor_absoluteX="99dp"
         tools:layout_editor_absoluteY="87dp" />
 
@@ -70,7 +69,7 @@
         android:layout_height="wrap_content"
         android:ems="10"
         android:inputType="text"
-        android:text="Nome:"
+        android:text="@string/Nome"
         tools:layout_editor_absoluteX="100dp"
         tools:layout_editor_absoluteY="163dp" />
 
@@ -80,7 +79,7 @@
         android:layout_height="wrap_content"
         android:ems="10"
         android:inputType="text"
-        android:text="Descrição:"
+        android:text="@string/Descrição"
         tools:layout_editor_absoluteX="99dp"
         tools:layout_editor_absoluteY="237dp" />
 
