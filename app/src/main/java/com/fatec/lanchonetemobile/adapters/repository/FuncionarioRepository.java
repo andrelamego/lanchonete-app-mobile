@@ -9,6 +9,7 @@ import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.time.ZoneId;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -26,7 +27,7 @@ public class FuncionarioRepository implements RepositoryNoReturn<Funcionario> {
         ps.setString(1, entidade.getNome());
         ps.setString(2, entidade.getTel());
         ps.setString(3, entidade.getEmail());
-        ps.setDate(4, Date.valueOf(entidade.getDataContrato()));
+        ps.setDate(4, Date.valueOf(String.valueOf(entidade.getDataContrato())));
         ps.setInt(5, entidade.getCargo().getId());
         ps.execute();
         ps.close();
@@ -39,7 +40,7 @@ public class FuncionarioRepository implements RepositoryNoReturn<Funcionario> {
         ps.setString(1, entidade.getNome());
         ps.setString(2, entidade.getTel());
         ps.setString(3, entidade.getEmail());
-        ps.setDate(4, Date.valueOf(entidade.getDataContrato()));
+        ps.setDate(4, Date.valueOf(String.valueOf(entidade.getDataContrato())));
         ps.setInt(5, entidade.getCargo().getId());
         ps.setInt(6, entidade.getId());
         ps.execute();
@@ -80,7 +81,7 @@ public class FuncionarioRepository implements RepositoryNoReturn<Funcionario> {
             entidade.setNome(rs.getString("Nome_Func"));
             entidade.setTel(rs.getString("Telefone"));
             entidade.setEmail(rs.getString("Email"));
-            entidade.setDataContrato(rs.getDate("DataContrato").toLocalDate());
+            entidade.setDataContrato(rs.getDate("DataContrato").toInstant().atZone(ZoneId.systemDefault()).toLocalDate());
             entidade.setCargo(cargo);
             
             cont++;
@@ -119,7 +120,7 @@ public class FuncionarioRepository implements RepositoryNoReturn<Funcionario> {
             entidade.setNome(rs.getString("Nome_Func"));
             entidade.setTel(rs.getString("Telefone"));
             entidade.setEmail(rs.getString("Email"));
-            entidade.setDataContrato(rs.getDate("DataContrato").toLocalDate());
+            entidade.setDataContrato(rs.getDate("DataContrato").toInstant().atZone(ZoneId.systemDefault()).toLocalDate());
             entidade.setCargo(cargo);
 
             entidades.add(entidade);
@@ -155,7 +156,7 @@ public class FuncionarioRepository implements RepositoryNoReturn<Funcionario> {
             entidade.setNome(rs.getString("Nome_Func"));
             entidade.setTel(rs.getString("Telefone"));
             entidade.setEmail(rs.getString("Email"));
-            entidade.setDataContrato(rs.getDate("DataContrato").toLocalDate());
+            entidade.setDataContrato(rs.getDate("DataContrato").toInstant().atZone(ZoneId.systemDefault()).toLocalDate());
             entidade.setCargo(cargo);
             
             cont++;

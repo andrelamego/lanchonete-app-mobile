@@ -10,6 +10,7 @@ import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.time.ZoneId;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -25,7 +26,7 @@ public class PedidoRepository implements RepositoryReturn<Pedido> {
         String sql = "INSERT INTO Pedido(ValorTotal, DataPedido, StatusPedido, ID_Cliente) VALUES (?, ?, ?, ?)";
         PreparedStatement ps = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
         ps.setDouble(1, entidade.getValorTotal());
-        ps.setDate(2, Date.valueOf(entidade.getData()));
+        ps.setDate(2, Date.valueOf(String.valueOf(entidade.getData())));
         ps.setString(3, entidade.getStatus());
         ps.setInt(4, entidade.getCliente().getId());
         ps.execute();
@@ -46,16 +47,16 @@ public class PedidoRepository implements RepositoryReturn<Pedido> {
         String sql = "UPDATE Pedido SET ValorTotal = ?, DataPedido = ?, StatusPedido = ?, ID_Cliente = ? WHERE Num_Pedido = ?";
         PreparedStatement ps = connection.prepareStatement(sql);
         ps.setDouble(1, entidade.getValorTotal());
-        ps.setDate(2, Date.valueOf(entidade.getData()));
+        ps.setDate(2, Date.valueOf(String.valueOf(entidade.getData())));
         ps.setString(3, entidade.getStatus());
         ps.setInt(4, entidade.getCliente().getId());
         ps.setInt(5, entidade.getnPedido());
         ps.execute();
         ps.close();
     }
-
+    
     //Por conta da regra de negócio, não será possível excluir um pedido
-    //Mas o método foi implementado para garantir que todas as operações de CRUD
+    //Mas o mét odo foi implementado para garantir que todas as operações de CRUD
     //estejam presentes na classe de repositório, permitindo assim futuras que alterações
     //na regra de negócio sejam implementadas facilmente.
     @Override
@@ -93,7 +94,7 @@ public class PedidoRepository implements RepositoryReturn<Pedido> {
 
             entidade.setnPedido(rs.getInt("Num_Pedido"));
             entidade.setValorTotal(rs.getDouble("ValorTotal"));
-            entidade.setData(rs.getDate("DataPedido").toLocalDate());
+            entidade.setData(rs.getDate("DataPedido").toInstant().atZone(ZoneId.systemDefault()).toLocalDate());
             entidade.setStatus(rs.getString("StatusPedido"));
             entidade.setCliente(cliente);
 
@@ -134,7 +135,7 @@ public class PedidoRepository implements RepositoryReturn<Pedido> {
             Pedido entidade = new Pedido();
             entidade.setnPedido(rs.getInt("Num_Pedido"));
             entidade.setValorTotal(rs.getDouble("ValorTotal"));
-            entidade.setData(rs.getDate("DataPedido").toLocalDate());
+            entidade.setData(rs.getDate("DataPedido").toInstant().atZone(ZoneId.systemDefault()).toLocalDate());
             entidade.setStatus(rs.getString("StatusPedido"));
             entidade.setCliente(cliente);
 
@@ -155,7 +156,7 @@ public class PedidoRepository implements RepositoryReturn<Pedido> {
         sql.append("ON p.ID_Cliente = c.ID ");
         sql.append("WHERE p.DataPedido = ?");
         PreparedStatement ps = connection.prepareStatement(sql.toString());
-        ps.setDate(1, Date.valueOf(entidade.getData()));
+        ps.setDate(1, Date.valueOf(String.valueOf(entidade.getData())));
 
         int cont = 0;
         ResultSet rs = ps.executeQuery();
@@ -172,7 +173,7 @@ public class PedidoRepository implements RepositoryReturn<Pedido> {
 
             entidade.setnPedido(rs.getInt("Num_Pedido"));
             entidade.setValorTotal(rs.getDouble("ValorTotal"));
-            entidade.setData(rs.getDate("DataPedido").toLocalDate());
+            entidade.setData(rs.getDate("DataPedido").toInstant().atZone(ZoneId.systemDefault()).toLocalDate());
             entidade.setStatus(rs.getString("StatusPedido"));
             entidade.setCliente(cliente);
 
