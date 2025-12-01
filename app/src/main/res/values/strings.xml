@@ -30,6 +30,7 @@
     <!--String Funcionario    -->
     <string name="Email">Email</string>
     <string name="TituloTelaFuncionario">Worker Management</string>
+    <string name="DataHint">Admission Date</string>
     <!--String Main -> Tela    -->
     <string name="TituloTelaMain">Choose one option below</string>
     <string name="CadastraFornecedor">Supplier Register</string>
@@ -52,7 +53,7 @@
     <string name="TituloTelaPedido2">Order</string>
     <string name="NumPedido">Order ID</string>
 
-
-
+    <string name="back">Back</string>
+    <string name="welcome_text">Welcome!</string>
 
 </resources>

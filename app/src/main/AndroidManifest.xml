@@ -20,6 +20,14 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity android:name=".adapters.ui.ProdutoActivity" />
+        <activity android:name=".adapters.ui.FuncionarioActivity" />
+        <activity android:name=".adapters.ui.ClienteActivity" />
+        <activity android:name=".adapters.ui.PedidoActivity" />
+        <activity android:name=".adapters.ui.FornecedorActivity" />
+        <activity android:name=".adapters.ui.CargoActivity" />
+        <activity android:name=".adapters.ui.CategoriaActivity" />
+        <activity android:name=".adapters.ui.GerenciarPedidoActivity" />
     </application>
 
 </manifest>
