@@ -1,69 +1,74 @@
 package com.fatec.lanchonetemobile.adapters.repository;
 
+import android.annotation.SuppressLint;
+import android.database.Cursor;
+import android.database.sqlite.SQLiteDatabase;
+import android.database.sqlite.SQLiteStatement;
+
 import com.fatec.lanchonetemobile.application.repository.RepositoryReturn;
 import com.fatec.lanchonetemobile.domain.entity.Categoria;
 import com.fatec.lanchonetemobile.domain.entity.Fornecedor;
 import com.fatec.lanchonetemobile.domain.entity.Produto;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
 public class ProdutoRepository implements RepositoryReturn<Produto> {
-    private Connection connection;
+    private SQLiteDatabase connection;
 
-    public ProdutoRepository(Connection connection){
+    public ProdutoRepository(SQLiteDatabase connection){
         this.connection = connection; 
     }
 
     @Override
     public int salvar(Produto entidade) throws SQLException {
         String sql = "INSERT INTO Produto(Nome, QtdEstoque, ValorUnit, ID_Categoria, ID_Fornecedor) VALUES (?, ?, ?, ?, ?)";
-        PreparedStatement ps = connection.prepareStatement(sql, PreparedStatement.RETURN_GENERATED_KEYS);
-        ps.setString(1, entidade.getNome());
-        ps.setInt(2, entidade.getQntdEstoq());
-        ps.setDouble(3, entidade.getValorUn());
-        ps.setInt(4, entidade.getCategoria().getId());
-        ps.setInt(5, entidade.getFornecedor().getId());
-        ps.execute();
+        SQLiteStatement ss = connection.compileStatement(sql);
+        ss.bindString(1, entidade.getNome());
+        ss.bindLong(2, entidade.getQntdEstoq());
+        ss.bindDouble(3, entidade.getValorUn());
+        ss.bindLong(4, entidade.getCategoria().getId());
+        ss.bindLong(5, entidade.getFornecedor().getId());
+        ss.execute();
 
-        int numPedido = 0;
-        ResultSet rs = ps.getGeneratedKeys();
-        
-        if(rs.next()){
-            numPedido = rs.getInt(1);
+        int idProduto = 0;
+        Cursor cursor = connection.rawQuery("SELECT last_insert_rowid()", null);
+        cursor.moveToFirst();
+
+        if(cursor.isAfterLast()){
+            idProduto = cursor.getInt(0);
         }
-        
-        ps.close();
-        return numPedido;
+
+        cursor.close();
+        ss.close();
+        return idProduto;
     }
 
     @Override
     public void atualizar(Produto entidade) throws SQLException {
         String sql = "UPDATE Produto SET Nome = ?, QtdEstoque = ?, ValorUnit = ?, ID_Categoria = ?, ID_Fornecedor = ? WHERE ID = ?";
-        PreparedStatement ps = connection.prepareStatement(sql);
-        ps.setString(1, entidade.getNome());
-        ps.setInt(2, entidade.getQntdEstoq());
-        ps.setDouble(3, entidade.getValorUn());
-        ps.setInt(4, entidade.getCategoria().getId());
-        ps.setInt(5, entidade.getFornecedor().getId());
-        ps.setInt(6, entidade.getId());
-        ps.execute();
-        ps.close();
+        SQLiteStatement ss = connection.compileStatement(sql);
+        ss.bindString(1, entidade.getNome());
+        ss.bindLong(2, entidade.getQntdEstoq());
+        ss.bindDouble(3, entidade.getValorUn());
+        ss.bindLong(4, entidade.getCategoria().getId());
+        ss.bindLong(5, entidade.getFornecedor().getId());
+        ss.bindLong(6, entidade.getId());
+        ss.execute();
+        ss.close();
     }
 
     @Override
     public void excluir(Produto entidade) throws SQLException {
         String sql = "DELETE FROM Produto WHERE ID = ?";
-        PreparedStatement ps = connection.prepareStatement(sql);
-        ps.setInt(1, entidade.getId());
-        ps.execute();
-        ps.close();
+        SQLiteStatement ss = connection.compileStatement(sql);
+        ss.bindLong(1, entidade.getId());
+        ss.execute();
+        ss.close();
     }
 
+    @SuppressLint("Range")
     @Override
     public Produto buscarPorID(Produto entidade) throws SQLException {
         StringBuilder sql = new StringBuilder();
@@ -74,33 +79,32 @@ public class ProdutoRepository implements RepositoryReturn<Produto> {
         sql.append("ON p.ID_Categoria = c.ID ");
         sql.append("INNER JOIN Fornecedor f ");
         sql.append("ON p.ID_Fornecedor = f.ID ");
-        sql.append("WHERE p.ID = ?");
-        PreparedStatement ps = connection.prepareStatement(sql.toString());
-        ps.setInt(1, entidade.getId());
+        sql.append("WHERE p.ID = ").append(entidade.getId());
 
         int cont = 0;
-        ResultSet rs = ps.executeQuery();
+        Cursor cursor = connection.rawQuery(sql.toString(), null);
+        cursor.moveToFirst();
 
-        if(rs.next()){
+        if(!cursor.isAfterLast()){
             Categoria categoria = new Categoria();
-            categoria.setId(rs.getInt("ID_Categoria"));
-            categoria.setNome(rs.getString("Nome_Categoria"));
-            categoria.setDescricao(rs.getString("Descricao"));
+            categoria.setId(cursor.getInt(cursor.getColumnIndex("ID_Categoria")));
+            categoria.setNome(cursor.getString(cursor.getColumnIndex("Nome_Categoria")));
+            categoria.setDescricao(cursor.getString(cursor.getColumnIndex("Descricao")));
 
             Fornecedor fornecedor = new Fornecedor();
-            fornecedor.setId(rs.getInt("ID_Fornecedor"));
-            fornecedor.setNome(rs.getString("Nome_Fornecedor"));
-            fornecedor.setTel(rs.getString("Telefone"));
-            fornecedor.setCnpj(rs.getString("CNPJ"));
-            fornecedor.setLogradouro(rs.getString("Logradouro"));
-            fornecedor.setNumero(rs.getInt("Numero"));
-            fornecedor.setCep(rs.getString("CEP"));
-            fornecedor.setComplemento(rs.getString("Complemento"));
+            fornecedor.setId(cursor.getInt(cursor.getColumnIndex("ID_Fornecedor")));
+            fornecedor.setNome(cursor.getString(cursor.getColumnIndex("Nome_Fornecedor")));
+            fornecedor.setTel(cursor.getString(cursor.getColumnIndex("Telefone")));
+            fornecedor.setCnpj(cursor.getString(cursor.getColumnIndex("CNPJ")));
+            fornecedor.setLogradouro(cursor.getString(cursor.getColumnIndex("Logradouro")));
+            fornecedor.setNumero(cursor.getInt(cursor.getColumnIndex("Numero")));
+            fornecedor.setCep(cursor.getString(cursor.getColumnIndex("CEP")));
+            fornecedor.setComplemento(cursor.getString(cursor.getColumnIndex("Complemento")));
 
-            entidade.setId(rs.getInt("ID_Produto"));
-            entidade.setNome(rs.getString("Nome_Produto"));
-            entidade.setQntdEstoq(rs.getInt("QtdEstoque"));
-            entidade.setValorUn(rs.getDouble("ValorUnit"));
+            entidade.setId(cursor.getInt(cursor.getColumnIndex("ID_Produto")));
+            entidade.setNome(cursor.getString(cursor.getColumnIndex("Nome_Produto")));
+            entidade.setQntdEstoq(cursor.getInt(cursor.getColumnIndex("QtdEstoque")));
+            entidade.setValorUn(cursor.getDouble(cursor.getColumnIndex("ValorUnit")));
             entidade.setCategoria(categoria);
             entidade.setFornecedor(fornecedor);
 
@@ -111,11 +115,11 @@ public class ProdutoRepository implements RepositoryReturn<Produto> {
             entidade = null;
         }
 
-        rs.close();
-        ps.close();
+        cursor.close();
         return entidade;
     }
 
+    @SuppressLint("Range")
     @Override
     public List<Produto> listar() throws SQLException {
         StringBuilder sql = new StringBuilder();
@@ -126,43 +130,44 @@ public class ProdutoRepository implements RepositoryReturn<Produto> {
         sql.append("ON p.ID_Categoria = c.ID ");
         sql.append("INNER JOIN Fornecedor f ");
         sql.append("ON p.ID_Fornecedor = f.ID ");
-        PreparedStatement ps = connection.prepareStatement(sql.toString());
 
         List<Produto> entidades = new ArrayList<>();
-        ResultSet rs = ps.executeQuery();
+        Cursor cursor = connection.rawQuery(sql.toString(), null);
+        cursor.moveToFirst();
 
-        while(rs.next()){
+        while(!cursor.isAfterLast()){
             Categoria categoria = new Categoria();
-            categoria.setId(rs.getInt("ID_Categoria"));
-            categoria.setNome(rs.getString("Nome_Categoria"));
-            categoria.setDescricao(rs.getString("Descricao"));
+            categoria.setId(cursor.getInt(cursor.getColumnIndex("ID_Categoria")));
+            categoria.setNome(cursor.getString(cursor.getColumnIndex("Nome_Categoria")));
+            categoria.setDescricao(cursor.getString(cursor.getColumnIndex("Descricao")));
 
             Fornecedor fornecedor = new Fornecedor();
-            fornecedor.setId(rs.getInt("ID_Fornecedor"));
-            fornecedor.setNome(rs.getString("Nome_Fornecedor"));
-            fornecedor.setTel(rs.getString("Telefone"));
-            fornecedor.setCnpj(rs.getString("CNPJ"));
-            fornecedor.setLogradouro(rs.getString("Logradouro"));
-            fornecedor.setNumero(rs.getInt("Numero"));
-            fornecedor.setCep(rs.getString("CEP"));
-            fornecedor.setComplemento(rs.getString("Complemento"));
+            fornecedor.setId(cursor.getInt(cursor.getColumnIndex("ID_Fornecedor")));
+            fornecedor.setNome(cursor.getString(cursor.getColumnIndex("Nome_Fornecedor")));
+            fornecedor.setTel(cursor.getString(cursor.getColumnIndex("Telefone")));
+            fornecedor.setCnpj(cursor.getString(cursor.getColumnIndex("CNPJ")));
+            fornecedor.setLogradouro(cursor.getString(cursor.getColumnIndex("Logradouro")));
+            fornecedor.setNumero(cursor.getInt(cursor.getColumnIndex("Numero")));
+            fornecedor.setCep(cursor.getString(cursor.getColumnIndex("CEP")));
+            fornecedor.setComplemento(cursor.getString(cursor.getColumnIndex("Complemento")));
 
             Produto entidade = new Produto();
-            entidade.setId(rs.getInt("ID_Produto"));
-            entidade.setNome(rs.getString("Nome_Produto"));
-            entidade.setQntdEstoq(rs.getInt("QtdEstoque"));
-            entidade.setValorUn(rs.getDouble("ValorUnit"));
+            entidade.setId(cursor.getInt(cursor.getColumnIndex("ID_Produto")));
+            entidade.setNome(cursor.getString(cursor.getColumnIndex("Nome_Produto")));
+            entidade.setQntdEstoq(cursor.getInt(cursor.getColumnIndex("QtdEstoque")));
+            entidade.setValorUn(cursor.getDouble(cursor.getColumnIndex("ValorUnit")));
             entidade.setCategoria(categoria);
             entidade.setFornecedor(fornecedor);
 
             entidades.add(entidade);
+            cursor.moveToNext();
         }
 
-        rs.close();
-        ps.close();
+        cursor.close();
         return entidades;
     }
 
+    @SuppressLint("Range")
     @Override
     public Produto buscarPorChaveSecundaria(Produto entidade) throws SQLException {
         StringBuilder sql = new StringBuilder();
@@ -173,33 +178,32 @@ public class ProdutoRepository implements RepositoryReturn<Produto> {
         sql.append("ON p.ID_Categoria = c.ID ");
         sql.append("INNER JOIN Fornecedor f ");
         sql.append("ON p.ID_Fornecedor = f.ID ");
-        sql.append("WHERE p.Nome = ?");
-        PreparedStatement ps = connection.prepareStatement(sql.toString());
-        ps.setString(1, entidade.getNome() + "%");
+        sql.append("WHERE p.Nome LIKE ").append(entidade.getNome());
 
         int cont = 0;
-        ResultSet rs = ps.executeQuery();
+        Cursor cursor = connection.rawQuery(sql.toString(), null);
+        cursor.moveToFirst();
 
-        if(rs.next()){
+        if(!cursor.isAfterLast()){
             Categoria categoria = new Categoria();
-            categoria.setId(rs.getInt("ID_Categoria"));
-            categoria.setNome(rs.getString("Nome_Categoria"));
-            categoria.setDescricao(rs.getString("Descricao"));
+            categoria.setId(cursor.getInt(cursor.getColumnIndex("ID_Categoria")));
+            categoria.setNome(cursor.getString(cursor.getColumnIndex("Nome_Categoria")));
+            categoria.setDescricao(cursor.getString(cursor.getColumnIndex("Descricao")));
 
             Fornecedor fornecedor = new Fornecedor();
-            fornecedor.setId(rs.getInt("ID_Fornecedor"));
-            fornecedor.setNome(rs.getString("Nome_Fornecedor"));
-            fornecedor.setTel(rs.getString("Telefone"));
-            fornecedor.setCnpj(rs.getString("CNPJ"));
-            fornecedor.setLogradouro(rs.getString("Logradouro"));
-            fornecedor.setNumero(rs.getInt("Numero"));
-            fornecedor.setCep(rs.getString("CEP"));
-            fornecedor.setComplemento(rs.getString("Complemento"));
+            fornecedor.setId(cursor.getInt(cursor.getColumnIndex("ID_Fornecedor")));
+            fornecedor.setNome(cursor.getString(cursor.getColumnIndex("Nome_Fornecedor")));
+            fornecedor.setTel(cursor.getString(cursor.getColumnIndex("Telefone")));
+            fornecedor.setCnpj(cursor.getString(cursor.getColumnIndex("CNPJ")));
+            fornecedor.setLogradouro(cursor.getString(cursor.getColumnIndex("Logradouro")));
+            fornecedor.setNumero(cursor.getInt(cursor.getColumnIndex("Numero")));
+            fornecedor.setCep(cursor.getString(cursor.getColumnIndex("CEP")));
+            fornecedor.setComplemento(cursor.getString(cursor.getColumnIndex("Complemento")));
 
-            entidade.setId(rs.getInt("ID_Produto"));
-            entidade.setNome(rs.getString("Nome_Produto"));
-            entidade.setQntdEstoq(rs.getInt("QtdEstoque"));
-            entidade.setValorUn(rs.getDouble("ValorUnit"));
+            entidade.setId(cursor.getInt(cursor.getColumnIndex("ID_Produto")));
+            entidade.setNome(cursor.getString(cursor.getColumnIndex("Nome_Produto")));
+            entidade.setQntdEstoq(cursor.getInt(cursor.getColumnIndex("QtdEstoque")));
+            entidade.setValorUn(cursor.getDouble(cursor.getColumnIndex("ValorUnit")));
             entidade.setCategoria(categoria);
             entidade.setFornecedor(fornecedor);
 
@@ -210,8 +214,7 @@ public class ProdutoRepository implements RepositoryReturn<Produto> {
             entidade = null;
         }
 
-        rs.close();
-        ps.close();
+        cursor.close();
         return entidade;
     }
 }

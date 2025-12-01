@@ -1,82 +1,84 @@
 package com.fatec.lanchonetemobile.adapters.repository;
 
+import android.annotation.SuppressLint;
+import android.database.Cursor;
+import android.database.sqlite.SQLiteDatabase;
+import android.database.sqlite.SQLiteStatement;
+
 import com.fatec.lanchonetemobile.application.repository.RepositoryNoReturn;
 import com.fatec.lanchonetemobile.domain.entity.Fornecedor;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
 public class FornecedorRepository implements RepositoryNoReturn<Fornecedor>{
-    private Connection connection;
+    private SQLiteDatabase connection;
 
-    public FornecedorRepository(Connection connection){
+    public FornecedorRepository(SQLiteDatabase connection){
         this.connection = connection; 
     }
 
     @Override
     public void salvar(Fornecedor entidade) throws SQLException {
         String sql = "INSERT INTO Fornecedor(Nome, Telefone, CNPJ, Logradouro, Numero, CEP, Complemento) VALUES (?, ?, ?, ?, ?, ?, ?)";
-        PreparedStatement ps = connection.prepareStatement(sql);
-        ps.setString(1, entidade.getNome());
-        ps.setString(2, entidade.getTel());
-        ps.setString(3, entidade.getCnpj());
-        ps.setString(4, entidade.getLogradouro());
-        ps.setInt(5, entidade.getNumero());
-        ps.setString(6, entidade.getCep());
-        ps.setString(7, entidade.getComplemento());
-        ps.execute();
-        ps.close();
+        SQLiteStatement ss = connection.compileStatement(sql);
+        ss.bindString(1, entidade.getNome());
+        ss.bindString(2, entidade.getTel());
+        ss.bindString(3, entidade.getCnpj());
+        ss.bindString(4, entidade.getLogradouro());
+        ss.bindLong(5, entidade.getNumero());
+        ss.bindString(6, entidade.getCep());
+        ss.bindString(7, entidade.getComplemento());
+        ss.execute();
+        ss.close();
     }
 
     @Override
     public void atualizar(Fornecedor entidade) throws SQLException {
         String sql = "UPDATE Fornecedor SET Nome = ?, Telefone = ?, CNPJ = ?, Logradouro = ?, " +
                     "Numero = ?, CEP = ?, Complemento = ? WHERE ID = ?";
-        PreparedStatement ps = connection.prepareStatement(sql);
-        ps.setString(1, entidade.getNome());
-        ps.setString(2, entidade.getTel());
-        ps.setString(3, entidade.getCnpj());
-        ps.setString(4, entidade.getLogradouro());
-        ps.setInt(5, entidade.getNumero());
-        ps.setString(6, entidade.getCep());
-        ps.setString(7, entidade.getComplemento());
-        ps.setInt(8, entidade.getId());
-        ps.execute();
-        ps.close();
+        SQLiteStatement ss = connection.compileStatement(sql);
+        ss.bindString(1, entidade.getNome());
+        ss.bindString(2, entidade.getTel());
+        ss.bindString(3, entidade.getCnpj());
+        ss.bindString(4, entidade.getLogradouro());
+        ss.bindLong(5, entidade.getNumero());
+        ss.bindString(6, entidade.getCep());
+        ss.bindString(7, entidade.getComplemento());
+        ss.bindLong(8, entidade.getId());
+        ss.execute();
+        ss.close();
     }
 
     @Override
     public void excluir(Fornecedor entidade) throws SQLException {
         String sql = "DELETE FROM Fornecedor WHERE ID = ?";
-        PreparedStatement ps = connection.prepareStatement(sql);
-        ps.setInt(1, entidade.getId());
-        ps.execute();
-        ps.close();
+        SQLiteStatement ss = connection.compileStatement(sql);
+        ss.bindLong(1, entidade.getId());
+        ss.execute();
+        ss.close();
     }
 
+    @SuppressLint("Range")
     @Override
     public Fornecedor buscarPorID(Fornecedor entidade) throws SQLException {
-        String sql = "SELECT ID, Nome, Telefone, CNPJ, Logradouro, Numero, CEP, Complemento FROM Fornecedor WHERE ID = ?";
-        PreparedStatement ps = connection.prepareStatement(sql);
-        ps.setInt(1, entidade.getId());
+        String sql = "SELECT ID, Nome, Telefone, CNPJ, Logradouro, Numero, CEP, Complemento FROM Fornecedor WHERE ID = " + entidade.getId();
 
         int cont = 0;
-        ResultSet rs = ps.executeQuery();
+        Cursor cursor = connection.rawQuery(sql, null);
+        cursor.moveToFirst();
 
-        if(rs.next()){
-            entidade.setId(rs.getInt("ID"));
-            entidade.setNome(rs.getString("Nome"));
-            entidade.setTel(rs.getString("Telefone"));
-            entidade.setCnpj(rs.getString("CNPJ"));
-            entidade.setLogradouro(rs.getString("Logradouro"));
-            entidade.setNumero(rs.getInt("Numero"));
-            entidade.setCep(rs.getString("CEP"));
-            entidade.setComplemento(rs.getString("Complemento"));
-            
+        if(!cursor.isAfterLast()){
+            entidade.setId(cursor.getInt(cursor.getColumnIndex("ID")));
+            entidade.setNome(cursor.getString(cursor.getColumnIndex("Nome")));
+            entidade.setTel(cursor.getString(cursor.getColumnIndex("Telefone")));
+            entidade.setCnpj(cursor.getString(cursor.getColumnIndex("CNPJ")));
+            entidade.setLogradouro(cursor.getString(cursor.getColumnIndex("Logradouro")));
+            entidade.setNumero(cursor.getInt(cursor.getColumnIndex("Numero")));
+            entidade.setCep(cursor.getString(cursor.getColumnIndex("CEP")));
+            entidade.setComplemento(cursor.getString(cursor.getColumnIndex("Complemento")));
+
             cont++;
         }
 
@@ -84,57 +86,57 @@ public class FornecedorRepository implements RepositoryNoReturn<Fornecedor>{
             entidade = null;
         }
 
-        rs.close();
-        ps.close();
+        cursor.close();
         return entidade;
     }
 
+    @SuppressLint("Range")
     @Override
     public List<Fornecedor> listar() throws SQLException {
         String sql = "SELECT ID, Nome, Telefone, CNPJ, Logradouro, Numero, CEP, Complemento FROM Fornecedor";
-        PreparedStatement ps = connection.prepareStatement(sql);
 
         List<Fornecedor> entidades = new ArrayList<>();
-        ResultSet rs = ps.executeQuery();
+        Cursor cursor = connection.rawQuery(sql, null);
+        cursor.moveToFirst();
 
-        while(rs.next()){
+        while(!cursor.isAfterLast()){
             Fornecedor entidade = new Fornecedor();
-            entidade.setId(rs.getInt("ID"));
-            entidade.setNome(rs.getString("Nome"));
-            entidade.setTel(rs.getString("Telefone"));
-            entidade.setCnpj(rs.getString("CNPJ"));
-            entidade.setLogradouro(rs.getString("Logradouro"));
-            entidade.setNumero(rs.getInt("Numero"));
-            entidade.setCep(rs.getString("CEP"));
-            entidade.setComplemento(rs.getString("Complemento"));
+            entidade.setId(cursor.getInt(cursor.getColumnIndex("ID")));
+            entidade.setNome(cursor.getString(cursor.getColumnIndex("Nome")));
+            entidade.setTel(cursor.getString(cursor.getColumnIndex("Telefone")));
+            entidade.setCnpj(cursor.getString(cursor.getColumnIndex("CNPJ")));
+            entidade.setLogradouro(cursor.getString(cursor.getColumnIndex("Logradouro")));
+            entidade.setNumero(cursor.getInt(cursor.getColumnIndex("Numero")));
+            entidade.setCep(cursor.getString(cursor.getColumnIndex("CEP")));
+            entidade.setComplemento(cursor.getString(cursor.getColumnIndex("Complemento")));
 
             entidades.add(entidade);
+            cursor.moveToNext();
         }
 
-        rs.close();
-        ps.close();
+        cursor.close();
         return entidades;
     }
     
+    @SuppressLint("Range")
     @Override
     public Fornecedor buscarPorChaveSecundaria(Fornecedor entidade) throws SQLException {
-        String sql = "SELECT ID, Nome, Telefone, CNPJ, Logradouro, Numero, CEP, Complemento FROM Fornecedor WHERE CNPJ = ?";
-        PreparedStatement ps = connection.prepareStatement(sql);
-        ps.setString(1, entidade.getCnpj());
+        String sql = "SELECT ID, Nome, Telefone, CNPJ, Logradouro, Numero, CEP, Complemento FROM Fornecedor WHERE CNPJ = " + entidade.getCnpj();
 
         int cont = 0;
-        ResultSet rs = ps.executeQuery();
+        Cursor cursor = connection.rawQuery(sql, null);
+        cursor.moveToFirst();
 
-        if(rs.next()){
-            entidade.setId(rs.getInt("ID"));
-            entidade.setNome(rs.getString("Nome"));
-            entidade.setTel(rs.getString("Telefone"));
-            entidade.setCnpj(rs.getString("CNPJ"));
-            entidade.setLogradouro(rs.getString("Logradouro"));
-            entidade.setNumero(rs.getInt("Numero"));
-            entidade.setCep(rs.getString("CEP"));
-            entidade.setComplemento(rs.getString("Complemento"));
-            
+        if(!cursor.isAfterLast()){
+            entidade.setId(cursor.getInt(cursor.getColumnIndex("ID")));
+            entidade.setNome(cursor.getString(cursor.getColumnIndex("Nome")));
+            entidade.setTel(cursor.getString(cursor.getColumnIndex("Telefone")));
+            entidade.setCnpj(cursor.getString(cursor.getColumnIndex("CNPJ")));
+            entidade.setLogradouro(cursor.getString(cursor.getColumnIndex("Logradouro")));
+            entidade.setNumero(cursor.getInt(cursor.getColumnIndex("Numero")));
+            entidade.setCep(cursor.getString(cursor.getColumnIndex("CEP")));
+            entidade.setComplemento(cursor.getString(cursor.getColumnIndex("Complemento")));
+
             cont++;
         }
 
@@ -142,8 +144,7 @@ public class FornecedorRepository implements RepositoryNoReturn<Fornecedor>{
             entidade = null;
         }
 
-        rs.close();
-        ps.close();
+        cursor.close();
         return entidade;
     }
 }
