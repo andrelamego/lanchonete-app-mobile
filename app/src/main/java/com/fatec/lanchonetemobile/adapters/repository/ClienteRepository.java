@@ -1,82 +1,83 @@
 package com.fatec.lanchonetemobile.adapters.repository;
 
+import android.annotation.SuppressLint;
+import android.database.Cursor;
+import android.database.sqlite.SQLiteDatabase;
+import android.database.sqlite.SQLiteStatement;
+
 import com.fatec.lanchonetemobile.domain.entity.Cliente;
 import com.fatec.lanchonetemobile.application.repository.RepositoryNoReturn;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
 public class ClienteRepository implements RepositoryNoReturn<Cliente> {
-    private Connection connection;
+    private SQLiteDatabase connection;
 
-    public ClienteRepository(Connection connection){
+    public ClienteRepository(SQLiteDatabase connection){
         this.connection = connection; 
     }
 
     @Override
     public void salvar(Cliente entidade) throws SQLException {
         String sql = "INSERT INTO Cliente(Nome, Telefone, CPF, Logradouro, Numero, CEP, Complemento) VALUES (?, ?, ?, ?, ?, ?, ?)";
-        PreparedStatement ps = connection.prepareStatement(sql);
-        ps.setString(1, entidade.getNome());
-        ps.setString(2, entidade.getTel());
-        ps.setString(3, entidade.getCpf());
-        ps.setString(4, entidade.getLogradouro());
-        ps.setInt(5, entidade.getNumero());
-        ps.setString(6, entidade.getCep());
-        ps.setString(7, entidade.getComplemento());
-        ps.execute();
-        ps.close();
+        SQLiteStatement ss = connection.compileStatement(sql);
+        ss.bindString(1, entidade.getNome());
+        ss.bindString(2, entidade.getTel());
+        ss.bindString(3, entidade.getCpf());
+        ss.bindString(4, entidade.getLogradouro());
+        ss.bindLong(5, entidade.getNumero());
+        ss.bindString(6, entidade.getCep());
+        ss.bindString(7, entidade.getComplemento());
+        ss.execute();
+        ss.close();
     }
 
     @Override
     public void atualizar(Cliente entidade) throws SQLException {
         String sql = "UPDATE Cliente SET Nome = ?, Telefone = ?, CPF = ?, Logradouro = ?, " +
                     "Numero = ?, CEP = ?, Complemento = ? WHERE ID = ?";
-        PreparedStatement ps = connection.prepareStatement(sql);
-        ps.setString(1, entidade.getNome());
-        ps.setString(2, entidade.getTel());
-        ps.setString(3, entidade.getCpf());
-        ps.setString(4, entidade.getLogradouro());
-        ps.setInt(5, entidade.getNumero());
-        ps.setString(6, entidade.getCep());
-        ps.setString(7, entidade.getComplemento());
-        ps.setInt(8, entidade.getId());
-        ps.execute();
-        ps.close();
+        SQLiteStatement ss = connection.compileStatement(sql);
+        ss.bindString(1, entidade.getNome());
+        ss.bindString(2, entidade.getTel());
+        ss.bindString(3, entidade.getCpf());
+        ss.bindString(4, entidade.getLogradouro());
+        ss.bindLong(5, entidade.getNumero());
+        ss.bindString(6, entidade.getCep());
+        ss.bindString(7, entidade.getComplemento());
+        ss.bindLong(8, entidade.getId());
+        ss.execute();
+        ss.close();
     }
 
     @Override
     public void excluir(Cliente entidade) throws SQLException {
         String sql = "DELETE FROM Cliente WHERE ID = ?";
-        PreparedStatement ps = connection.prepareStatement(sql);
-        ps.setInt(1, entidade.getId());
-        ps.execute();
-        ps.close();
+        SQLiteStatement ss = connection.compileStatement(sql);
+        ss.bindLong(1, entidade.getId());
+        ss.execute();
+        ss.close();
     }
 
+    @SuppressLint("Range")
     @Override
     public Cliente buscarPorID(Cliente entidade) throws SQLException {
-        String sql = "SELECT ID, Nome, Telefone, CPF, Logradouro, Numero, CEP, Complemento FROM Cliente WHERE ID = ?";
-        PreparedStatement ps = connection.prepareStatement(sql);
-        ps.setInt(1, entidade.getId());
-
+        String sql = "SELECT ID, Nome, Telefone, CPF, Logradouro, Numero, CEP, Complemento FROM Cliente WHERE ID = " + entidade.getId();
         int cont = 0;
-        ResultSet rs = ps.executeQuery();
+        Cursor cursor = connection.rawQuery(sql, null);
+        cursor.moveToFirst();
 
-        if(rs.next()){
-            entidade.setId(rs.getInt("ID"));
-            entidade.setNome(rs.getString("Nome"));
-            entidade.setTel(rs.getString("Telefone"));
-            entidade.setCpf(rs.getString("CPF"));
-            entidade.setLogradouro(rs.getString("Logradouro"));
-            entidade.setNumero(rs.getInt("Numero"));
-            entidade.setCep(rs.getString("CEP"));
-            entidade.setComplemento(rs.getString("Complemento"));
-            
+        if(!cursor.isAfterLast()){
+            entidade.setId(cursor.getInt(cursor.getColumnIndex("ID")));
+            entidade.setNome(cursor.getString(cursor.getColumnIndex("Nome")));
+            entidade.setTel(cursor.getString(cursor.getColumnIndex("Telefone")));
+            entidade.setCpf(cursor.getString(cursor.getColumnIndex("CPF")));
+            entidade.setLogradouro(cursor.getString(cursor.getColumnIndex("Logradouro")));
+            entidade.setNumero(cursor.getInt(cursor.getColumnIndex("Numero")));
+            entidade.setCep(cursor.getString(cursor.getColumnIndex("CEP")));
+            entidade.setComplemento(cursor.getString(cursor.getColumnIndex("Complemento")));
+
             cont++;
         }
 
@@ -84,57 +85,57 @@ public class ClienteRepository implements RepositoryNoReturn<Cliente> {
             return null;
         }
 
-        rs.close();
-        ps.close();
+        cursor.close();
         return entidade;
     }
 
+    @SuppressLint("Range")
     @Override
     public List<Cliente> listar() throws SQLException {
         String sql = "SELECT ID, Nome, Telefone, CPF, Logradouro, Numero, CEP, Complemento FROM Cliente";
-        PreparedStatement ps = connection.prepareStatement(sql);
 
         List<Cliente> entidades = new ArrayList<>();
-        ResultSet rs = ps.executeQuery();
+        Cursor cursor = connection.rawQuery(sql, null);
+        cursor.moveToFirst();
 
-        while(rs.next()){
+        while(!cursor.isAfterLast()){
             Cliente entidade = new Cliente();
-            entidade.setId(rs.getInt("ID"));
-            entidade.setNome(rs.getString("Nome"));
-            entidade.setTel(rs.getString("Telefone"));
-            entidade.setCpf(rs.getString("CPF"));
-            entidade.setLogradouro(rs.getString("Logradouro"));
-            entidade.setNumero(rs.getInt("Numero"));
-            entidade.setCep(rs.getString("CEP"));
-            entidade.setComplemento(rs.getString("Complemento"));
+            entidade.setId(cursor.getInt(cursor.getColumnIndex("ID")));
+            entidade.setNome(cursor.getString(cursor.getColumnIndex("Nome")));
+            entidade.setTel(cursor.getString(cursor.getColumnIndex("Telefone")));
+            entidade.setCpf(cursor.getString(cursor.getColumnIndex("CPF")));
+            entidade.setLogradouro(cursor.getString(cursor.getColumnIndex("Logradouro")));
+            entidade.setNumero(cursor.getInt(cursor.getColumnIndex("Numero")));
+            entidade.setCep(cursor.getString(cursor.getColumnIndex("CEP")));
+            entidade.setComplemento(cursor.getString(cursor.getColumnIndex("Complemento")));
 
             entidades.add(entidade);
+            cursor.moveToNext();
         }
 
-        rs.close();
-        ps.close();
+        cursor.close();
         return entidades;
     }
     
+    @SuppressLint("Range")
     @Override
     public Cliente buscarPorChaveSecundaria(Cliente entidade) throws SQLException {
-        String sql = "SELECT ID, Nome, Telefone, CPF, Logradouro, Numero, CEP, Complemento FROM Cliente WHERE CPF = ?";
-        PreparedStatement ps = connection.prepareStatement(sql);
-        ps.setString(1, entidade.getCpf());
+        String sql = "SELECT ID, Nome, Telefone, CPF, Logradouro, Numero, CEP, Complemento FROM Cliente WHERE CPF = " + entidade.getCpf();
 
         int cont = 0;
-        ResultSet rs = ps.executeQuery();
+        Cursor cursor = connection.rawQuery(sql, null);
+        cursor.moveToFirst();
 
-        if(rs.next()){
-            entidade.setId(rs.getInt("ID"));
-            entidade.setNome(rs.getString("Nome"));
-            entidade.setTel(rs.getString("Telefone"));
-            entidade.setCpf(rs.getString("CPF"));
-            entidade.setLogradouro(rs.getString("Logradouro"));
-            entidade.setNumero(rs.getInt("Numero"));
-            entidade.setCep(rs.getString("CEP"));
-            entidade.setComplemento(rs.getString("Complemento"));
-            
+        if(!cursor.isAfterLast()){
+            entidade.setId(cursor.getInt(cursor.getColumnIndex("ID")));
+            entidade.setNome(cursor.getString(cursor.getColumnIndex("Nome")));
+            entidade.setTel(cursor.getString(cursor.getColumnIndex("Telefone")));
+            entidade.setCpf(cursor.getString(cursor.getColumnIndex("CPF")));
+            entidade.setLogradouro(cursor.getString(cursor.getColumnIndex("Logradouro")));
+            entidade.setNumero(cursor.getInt(cursor.getColumnIndex("Numero")));
+            entidade.setCep(cursor.getString(cursor.getColumnIndex("CEP")));
+            entidade.setComplemento(cursor.getString(cursor.getColumnIndex("Complemento")));
+
             cont++;
         }
 
@@ -142,8 +143,7 @@ public class ClienteRepository implements RepositoryNoReturn<Cliente> {
             entidade = null;
         }
 
-        rs.close();
-        ps.close();
+        cursor.close();
         return entidade;
     }
 }

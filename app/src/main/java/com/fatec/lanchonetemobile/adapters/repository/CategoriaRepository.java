@@ -1,66 +1,68 @@
 package com.fatec.lanchonetemobile.adapters.repository;
 
+import android.annotation.SuppressLint;
+import android.database.Cursor;
+import android.database.sqlite.SQLiteDatabase;
+import android.database.sqlite.SQLiteStatement;
+
 import com.fatec.lanchonetemobile.application.repository.RepositoryNoReturn;
 import com.fatec.lanchonetemobile.domain.entity.Categoria;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
 public class CategoriaRepository implements RepositoryNoReturn<Categoria> {
-    private Connection connection;
+    private SQLiteDatabase connection;
 
-    public CategoriaRepository(Connection connection){
-        this.connection = connection; 
+    public CategoriaRepository(SQLiteDatabase connection){
+        this.connection = connection;
     }
 
     @Override
     public void salvar(Categoria entidade) throws SQLException {
         String sql = "INSERT INTO Categoria(Nome, Descricao) VALUES(?, ?)";
-        PreparedStatement ps = connection.prepareStatement(sql);
-        ps.setString(1, entidade.getNome());
-        ps.setString(2, entidade.getDescricao());
-        ps.execute();
-        ps.close();
+        SQLiteStatement ss = connection.compileStatement(sql);
+        ss.bindString(1, entidade.getNome());
+        ss.bindString(2, entidade.getDescricao());
+        ss.execute();
+        ss.close();
     }
 
     @Override
     public void atualizar(Categoria entidade) throws SQLException {
         String sql = "UPDATE Categoria SET Nome = ?, Descricao = ? WHERE ID = ?";
-        PreparedStatement ps = connection.prepareStatement(sql);
-        ps.setString(1, entidade.getNome());
-        ps.setString(2, entidade.getDescricao());
-        ps.setInt(3, entidade.getId());
-        ps.execute();
-        ps.close();
+        SQLiteStatement ss = connection.compileStatement(sql);
+        ss.bindString(1, entidade.getNome());
+        ss.bindString(2, entidade.getDescricao());
+        ss.bindLong(3, entidade.getId());
+        ss.execute();
+        ss.close();
     }
 
     @Override
     public void excluir(Categoria entidade) throws SQLException {
         String sql = "DELETE FROM Categoria WHERE ID = ?";
-        PreparedStatement ps = connection.prepareStatement(sql);
-        ps.setInt(1, entidade.getId());
-        ps.execute();
-        ps.close();
+        SQLiteStatement ss = connection.compileStatement(sql);
+        ss.bindLong(1, entidade.getId());
+        ss.execute();
+        ss.close();
     }
 
+    @SuppressLint("Range")
     @Override
     public Categoria buscarPorID(Categoria entidade) throws SQLException {
-        String sql = "SELECT ID, Nome, Descricao FROM Categoria WHERE ID = ?";
-        PreparedStatement ps = connection.prepareStatement(sql);
-        ps.setInt(1, entidade.getId());
+        String sql = "SELECT ID, Nome, Descricao FROM Categoria WHERE ID = " + entidade.getId();
 
         int cont = 0;
-        ResultSet rs = ps.executeQuery();
+        Cursor cursor = connection.rawQuery(sql, null);
+        cursor.moveToFirst();
 
-        if(rs.next()){
-            entidade.setId(rs.getInt("ID"));
-            entidade.setNome(rs.getString("Nome"));
-            entidade.setDescricao(rs.getString("Descricao"));
-            
+        if(!cursor.isAfterLast()){
+            entidade.setId(cursor.getInt(cursor.getColumnIndex("ID")));
+            entidade.setNome(cursor.getString(cursor.getColumnIndex("Nome")));
+            entidade.setDescricao(cursor.getString(cursor.getColumnIndex("Descricao")));
+
             cont++;
         }
 
@@ -68,47 +70,47 @@ public class CategoriaRepository implements RepositoryNoReturn<Categoria> {
             entidade = null;
         }
 
-        rs.close();
-        ps.close();
+        cursor.close();
         return entidade;
     }
 
+    @SuppressLint("Range")
     @Override
     public List<Categoria> listar() throws SQLException {
         String sql = "SELECT ID, Nome, Descricao FROM Categoria";
-        PreparedStatement ps = connection.prepareStatement(sql);
 
         List<Categoria> entidades = new ArrayList<>();
-        ResultSet rs = ps.executeQuery();
+        Cursor cursor = connection.rawQuery(sql, null);
+        cursor.moveToFirst();
 
-        while(rs.next()){
+        while(!cursor.isAfterLast()){
             Categoria entidade = new Categoria();
-            entidade.setId(rs.getInt("ID"));
-            entidade.setNome(rs.getString("Nome"));
-            entidade.setDescricao(rs.getString("Descricao"));
-            
+            entidade.setId(cursor.getInt(cursor.getColumnIndex("ID")));
+            entidade.setNome(cursor.getString(cursor.getColumnIndex("Nome")));
+            entidade.setDescricao(cursor.getString(cursor.getColumnIndex("Descricao")));
+
             entidades.add(entidade);
+            cursor.moveToNext();
         }
 
-        rs.close();
-        ps.close();
+        cursor.close();
         return entidades;
     }
 
+    @SuppressLint("Range")
     @Override
     public Categoria buscarPorChaveSecundaria(Categoria entidade) throws SQLException {
-       String sql = "SELECT ID, Nome, Descricao FROM Categoria WHERE Nome LIKE ?";
-        PreparedStatement ps = connection.prepareStatement(sql);
-        ps.setString(1, entidade.getNome() + "%");
+       String sql = "SELECT ID, Nome, Descricao FROM Categoria WHERE Nome LIKE " + entidade.getNome() + "%";
 
         int cont = 0;
-        ResultSet rs = ps.executeQuery();
+        Cursor cursor = connection.rawQuery(sql, null);
+        cursor.moveToFirst();
 
-        if(rs.next()){
-            entidade.setId(rs.getInt("ID"));
-            entidade.setNome(rs.getString("Nome"));
-            entidade.setDescricao(rs.getString("Descricao"));
-            
+        if(!cursor.isAfterLast()){
+            entidade.setId(cursor.getInt(cursor.getColumnIndex("ID")));
+            entidade.setNome(cursor.getString(cursor.getColumnIndex("Nome")));
+            entidade.setDescricao(cursor.getString(cursor.getColumnIndex("Descricao")));
+
             cont++;
         }
 
@@ -116,9 +118,7 @@ public class CategoriaRepository implements RepositoryNoReturn<Categoria> {
             entidade = null;
         }
 
-        rs.close();
-        ps.close();
+        cursor.close();
         return entidade;
     }
-
 }
