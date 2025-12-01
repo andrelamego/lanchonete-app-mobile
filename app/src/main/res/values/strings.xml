@@ -2,7 +2,7 @@
     <string name="app_name">Lanchonete Mobile</string>
 
     <!--Botões CRUD -->
-    <string name="atualizaer">Update</string>
+    <string name="atualizar">Update</string>
     <string name="remove">Remove</string>
     <string name="Salvar">Create</string>
     <string name="Procurar">Search</string>
