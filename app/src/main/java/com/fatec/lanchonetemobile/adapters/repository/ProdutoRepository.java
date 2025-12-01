@@ -1,0 +1,217 @@
+package com.fatec.lanchonetemobile.adapters.repository;
+
+import com.fatec.lanchonetemobile.application.repository.RepositoryReturn;
+import com.fatec.lanchonetemobile.domain.entity.Categoria;
+import com.fatec.lanchonetemobile.domain.entity.Fornecedor;
+import com.fatec.lanchonetemobile.domain.entity.Produto;
+
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
+
+public class ProdutoRepository implements RepositoryReturn<Produto> {
+    private Connection connection;
+
+    public ProdutoRepository(Connection connection){
+        this.connection = connection; 
+    }
+
+    @Override
+    public int salvar(Produto entidade) throws SQLException {
+        String sql = "INSERT INTO Produto(Nome, QtdEstoque, ValorUnit, ID_Categoria, ID_Fornecedor) VALUES (?, ?, ?, ?, ?)";
+        PreparedStatement ps = connection.prepareStatement(sql, PreparedStatement.RETURN_GENERATED_KEYS);
+        ps.setString(1, entidade.getNome());
+        ps.setInt(2, entidade.getQntdEstoq());
+        ps.setDouble(3, entidade.getValorUn());
+        ps.setInt(4, entidade.getCategoria().getId());
+        ps.setInt(5, entidade.getFornecedor().getId());
+        ps.execute();
+
+        int numPedido = 0;
+        ResultSet rs = ps.getGeneratedKeys();
+        
+        if(rs.next()){
+            numPedido = rs.getInt(1);
+        }
+        
+        ps.close();
+        return numPedido;
+    }
+
+    @Override
+    public void atualizar(Produto entidade) throws SQLException {
+        String sql = "UPDATE Produto SET Nome = ?, QtdEstoque = ?, ValorUnit = ?, ID_Categoria = ?, ID_Fornecedor = ? WHERE ID = ?";
+        PreparedStatement ps = connection.prepareStatement(sql);
+        ps.setString(1, entidade.getNome());
+        ps.setInt(2, entidade.getQntdEstoq());
+        ps.setDouble(3, entidade.getValorUn());
+        ps.setInt(4, entidade.getCategoria().getId());
+        ps.setInt(5, entidade.getFornecedor().getId());
+        ps.setInt(6, entidade.getId());
+        ps.execute();
+        ps.close();
+    }
+
+    @Override
+    public void excluir(Produto entidade) throws SQLException {
+        String sql = "DELETE FROM Produto WHERE ID = ?";
+        PreparedStatement ps = connection.prepareStatement(sql);
+        ps.setInt(1, entidade.getId());
+        ps.execute();
+        ps.close();
+    }
+
+    @Override
+    public Produto buscarPorID(Produto entidade) throws SQLException {
+        StringBuilder sql = new StringBuilder();
+        sql.append("SELECT p.ID AS ID_Produto, p.Nome AS Nome_Produto, p.QtdEstoque, p.ValorUnit, ");
+        sql.append("c.ID AS ID_Categoria, c.Nome AS Nome_Categoria, c.Descricao, ");
+        sql.append("f.ID AS ID_Fornecedor, f.Nome AS Nome_Fornecedor, f.Telefone, f.CNPJ, f.Logradouro, f.Numero, f.CEP, f.Complemento ");
+        sql.append("FROM Produto p INNER JOIN Categoria c ");
+        sql.append("ON p.ID_Categoria = c.ID ");
+        sql.append("INNER JOIN Fornecedor f ");
+        sql.append("ON p.ID_Fornecedor = f.ID ");
+        sql.append("WHERE p.ID = ?");
+        PreparedStatement ps = connection.prepareStatement(sql.toString());
+        ps.setInt(1, entidade.getId());
+
+        int cont = 0;
+        ResultSet rs = ps.executeQuery();
+
+        if(rs.next()){
+            Categoria categoria = new Categoria();
+            categoria.setId(rs.getInt("ID_Categoria"));
+            categoria.setNome(rs.getString("Nome_Categoria"));
+            categoria.setDescricao(rs.getString("Descricao"));
+
+            Fornecedor fornecedor = new Fornecedor();
+            fornecedor.setId(rs.getInt("ID_Fornecedor"));
+            fornecedor.setNome(rs.getString("Nome_Fornecedor"));
+            fornecedor.setTel(rs.getString("Telefone"));
+            fornecedor.setCnpj(rs.getString("CNPJ"));
+            fornecedor.setLogradouro(rs.getString("Logradouro"));
+            fornecedor.setNumero(rs.getInt("Numero"));
+            fornecedor.setCep(rs.getString("CEP"));
+            fornecedor.setComplemento(rs.getString("Complemento"));
+
+            entidade.setId(rs.getInt("ID_Produto"));
+            entidade.setNome(rs.getString("Nome_Produto"));
+            entidade.setQntdEstoq(rs.getInt("QtdEstoque"));
+            entidade.setValorUn(rs.getDouble("ValorUnit"));
+            entidade.setCategoria(categoria);
+            entidade.setFornecedor(fornecedor);
+
+            cont++;
+        }
+
+        if(cont == 0){
+            entidade = null;
+        }
+
+        rs.close();
+        ps.close();
+        return entidade;
+    }
+
+    @Override
+    public List<Produto> listar() throws SQLException {
+        StringBuilder sql = new StringBuilder();
+        sql.append("SELECT p.ID AS ID_Produto, p.Nome AS Nome_Produto, p.QtdEstoque, p.ValorUnit, ");
+        sql.append("c.ID AS ID_Categoria, c.Nome AS Nome_Categoria, c.Descricao, ");
+        sql.append("f.ID AS ID_Fornecedor, f.Nome AS Nome_Fornecedor, f.Telefone, f.CNPJ, f.Logradouro, f.Numero, f.CEP, f.Complemento ");
+        sql.append("FROM Produto p INNER JOIN Categoria c ");
+        sql.append("ON p.ID_Categoria = c.ID ");
+        sql.append("INNER JOIN Fornecedor f ");
+        sql.append("ON p.ID_Fornecedor = f.ID ");
+        PreparedStatement ps = connection.prepareStatement(sql.toString());
+
+        List<Produto> entidades = new ArrayList<>();
+        ResultSet rs = ps.executeQuery();
+
+        while(rs.next()){
+            Categoria categoria = new Categoria();
+            categoria.setId(rs.getInt("ID_Categoria"));
+            categoria.setNome(rs.getString("Nome_Categoria"));
+            categoria.setDescricao(rs.getString("Descricao"));
+
+            Fornecedor fornecedor = new Fornecedor();
+            fornecedor.setId(rs.getInt("ID_Fornecedor"));
+            fornecedor.setNome(rs.getString("Nome_Fornecedor"));
+            fornecedor.setTel(rs.getString("Telefone"));
+            fornecedor.setCnpj(rs.getString("CNPJ"));
+            fornecedor.setLogradouro(rs.getString("Logradouro"));
+            fornecedor.setNumero(rs.getInt("Numero"));
+            fornecedor.setCep(rs.getString("CEP"));
+            fornecedor.setComplemento(rs.getString("Complemento"));
+
+            Produto entidade = new Produto();
+            entidade.setId(rs.getInt("ID_Produto"));
+            entidade.setNome(rs.getString("Nome_Produto"));
+            entidade.setQntdEstoq(rs.getInt("QtdEstoque"));
+            entidade.setValorUn(rs.getDouble("ValorUnit"));
+            entidade.setCategoria(categoria);
+            entidade.setFornecedor(fornecedor);
+
+            entidades.add(entidade);
+        }
+
+        rs.close();
+        ps.close();
+        return entidades;
+    }
+
+    @Override
+    public Produto buscarPorChaveSecundaria(Produto entidade) throws SQLException {
+        StringBuilder sql = new StringBuilder();
+        sql.append("SELECT p.ID AS ID_Produto, p.Nome AS Nome_Produto, p.QtdEstoque, p.ValorUnit, ");
+        sql.append("c.ID AS ID_Categoria, c.Nome AS Nome_Categoria, c.Descricao, ");
+        sql.append("f.ID AS ID_Fornecedor, f.Nome AS Nome_Fornecedor, f.Telefone, f.CNPJ, f.Logradouro, f.Numero, f.CEP, f.Complemento ");
+        sql.append("FROM Produto p INNER JOIN Categoria c ");
+        sql.append("ON p.ID_Categoria = c.ID ");
+        sql.append("INNER JOIN Fornecedor f ");
+        sql.append("ON p.ID_Fornecedor = f.ID ");
+        sql.append("WHERE p.Nome = ?");
+        PreparedStatement ps = connection.prepareStatement(sql.toString());
+        ps.setString(1, entidade.getNome() + "%");
+
+        int cont = 0;
+        ResultSet rs = ps.executeQuery();
+
+        if(rs.next()){
+            Categoria categoria = new Categoria();
+            categoria.setId(rs.getInt("ID_Categoria"));
+            categoria.setNome(rs.getString("Nome_Categoria"));
+            categoria.setDescricao(rs.getString("Descricao"));
+
+            Fornecedor fornecedor = new Fornecedor();
+            fornecedor.setId(rs.getInt("ID_Fornecedor"));
+            fornecedor.setNome(rs.getString("Nome_Fornecedor"));
+            fornecedor.setTel(rs.getString("Telefone"));
+            fornecedor.setCnpj(rs.getString("CNPJ"));
+            fornecedor.setLogradouro(rs.getString("Logradouro"));
+            fornecedor.setNumero(rs.getInt("Numero"));
+            fornecedor.setCep(rs.getString("CEP"));
+            fornecedor.setComplemento(rs.getString("Complemento"));
+
+            entidade.setId(rs.getInt("ID_Produto"));
+            entidade.setNome(rs.getString("Nome_Produto"));
+            entidade.setQntdEstoq(rs.getInt("QtdEstoque"));
+            entidade.setValorUn(rs.getDouble("ValorUnit"));
+            entidade.setCategoria(categoria);
+            entidade.setFornecedor(fornecedor);
+
+            cont++;
+        }
+
+        if(cont == 0){
+            entidade = null;
+        }
+
+        rs.close();
+        ps.close();
+        return entidade;
+    }
+}
