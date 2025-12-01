@@ -1,78 +1,121 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
     <Button
-        android:id="@+id/VerPedido"
-        android:layout_width="180dp"
-        android:layout_height="60dp"
+        android:id="@+id/btnGerenciarPedido"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginBottom="263dp"
         android:text="@string/GerenciaPedido"
-        tools:layout_editor_absoluteX="215dp"
-        tools:layout_editor_absoluteY="408dp" />
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/btnCadPedido"
+        app:layout_constraintTop_toBottomOf="@+id/btnCadCategoria" />
 
     <TextView
         android:id="@+id/textView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginTop="42dp"
+        android:layout_marginBottom="97dp"
         android:text="@string/TituloTelaMain"
-        tools:layout_editor_absoluteX="126dp"
-        tools:layout_editor_absoluteY="42dp" />
+        app:layout_constraintBottom_toTopOf="@+id/btnCadProduto"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <Button
-        android:id="@+id/cadProduto"
-        android:layout_width="180dp"
-        android:layout_height="60dp"
+        android:id="@+id/btnCadProduto"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="19dp"
+        android:layout_marginBottom="23dp"
         android:text="@string/CadastraProduto"
-        tools:layout_editor_absoluteX="16dp"
-        tools:layout_editor_absoluteY="158dp" />
+        app:layout_constraintBottom_toTopOf="@+id/btnCadFuncionario"
+        app:layout_constraintEnd_toStartOf="@+id/btnCadFornecedor"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView" />
 
     <Button
-        android:id="@+id/cadFunc"
-        android:layout_width="180dp"
-        android:layout_height="60dp"
+        android:id="@+id/btnCadFuncionario"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="19dp"
+        android:layout_marginBottom="24dp"
         android:text="@string/CadastraFuncionario"
-        tools:layout_editor_absoluteX="16dp"
-        tools:layout_editor_absoluteY="241dp" />
+        app:layout_constraintBottom_toTopOf="@+id/btnCadCliente"
+        app:layout_constraintEnd_toStartOf="@+id/btnCadCargo"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/btnCadProduto" />
 
     <Button
-        android:id="@+id/cadCliente"
-        android:layout_width="180dp"
-        android:layout_height="60dp"
+        android:id="@+id/btnCadCliente"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="19dp"
+        android:layout_marginBottom="23dp"
         android:text="@string/CadastraCliente"
-        tools:layout_editor_absoluteX="16dp"
-        tools:layout_editor_absoluteY="325dp" />
+        app:layout_constraintBottom_toTopOf="@+id/btnCadPedido"
+        app:layout_constraintEnd_toStartOf="@+id/btnCadCategoria"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/btnCadFuncionario" />
 
     <Button
-        android:id="@+id/Pedido"
-        android:layout_width="180dp"
-        android:layout_height="60dp"
+        android:id="@+id/btnCadPedido"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="19dp"
+        android:layout_marginBottom="263dp"
         android:text="@string/FazerPedido"
-        tools:layout_editor_absoluteX="16dp"
-        tools:layout_editor_absoluteY="408dp" />
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/btnGerenciarPedido"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/btnCadCliente" />
 
     <Button
-        android:id="@+id/cadForn"
-        android:layout_width="180dp"
-        android:layout_height="60dp"
+        android:id="@+id/btnCadFornecedor"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginTop="158dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginBottom="23dp"
         android:text="@string/CadastraFornecedor"
-        tools:layout_editor_absoluteX="215dp"
-        tools:layout_editor_absoluteY="158dp" />
+        app:layout_constraintBottom_toTopOf="@+id/btnCadCargo"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/btnCadProduto"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <Button
-        android:id="@+id/cadCargo"
-        android:layout_width="180dp"
-        android:layout_height="60dp"
+        android:id="@+id/btnCadCargo"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginBottom="24dp"
         android:text="@string/CadastraCargo"
-        tools:layout_editor_absoluteX="215dp"
-        tools:layout_editor_absoluteY="241dp" />
+        app:layout_constraintBottom_toTopOf="@+id/btnCadCategoria"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/btnCadFuncionario"
+        app:layout_constraintTop_toBottomOf="@+id/btnCadFornecedor" />
 
     <Button
-        android:id="@+id/cadCat"
-        android:layout_width="180dp"
-        android:layout_height="60dp"
+        android:id="@+id/btnCadCategoria"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginBottom="23dp"
         android:text="@string/CadastraCategoria"
-        tools:layout_editor_absoluteX="215dp"
-        tools:layout_editor_absoluteY="325dp" />
+        app:layout_constraintBottom_toTopOf="@+id/btnGerenciarPedido"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/btnCadCliente"
+        app:layout_constraintTop_toBottomOf="@+id/btnCadCargo" />
 </androidx.constraintlayout.widget.ConstraintLayout>
