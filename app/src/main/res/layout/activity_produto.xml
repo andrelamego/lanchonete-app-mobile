@@ -2,7 +2,6 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/produto"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
@@ -12,7 +11,6 @@
         android:layout_height="wrap_content"
         android:ems="10"
         android:inputType="text"
-        android:text="valorUn:"
         tools:layout_editor_absoluteX="16dp"
         tools:layout_editor_absoluteY="278dp" />
 
@@ -20,7 +18,7 @@
         android:id="@+id/salvar"
         android:layout_width="119dp"
         android:layout_height="65dp"
-        android:text="Salvar"
+        android:text="@string/Salvar"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.828"
         app:layout_constraintStart_toStartOf="parent"
@@ -30,7 +28,7 @@
         android:id="@+id/excluir"
         android:layout_width="119dp"
         android:layout_height="65dp"
-        android:text="Excluir"
+        android:text="@string/remove"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.198"
         app:layout_constraintStart_toStartOf="parent"
@@ -40,7 +38,7 @@
         android:id="@+id/listar"
         android:layout_width="119dp"
         android:layout_height="65dp"
-        android:text="Procurar"
+        android:text="@string/Procurar"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.198"
         app:layout_constraintStart_toStartOf="parent"
@@ -50,15 +48,15 @@
         android:id="@+id/titulo"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Gerenciamento de produtos"
-        tools:layout_editor_absoluteX="111dp"
-        tools:layout_editor_absoluteY="32dp" />
+        android:text="@string/TituloTelaProduto"
+        tools:layout_editor_absoluteX="138dp"
+        tools:layout_editor_absoluteY="33dp" />
 
     <Button
         android:id="@+id/atualizar"
         android:layout_width="119dp"
         android:layout_height="65dp"
-        android:text="Atualizar"
+        android:text="@string/atualizar"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.828"
         app:layout_constraintStart_toStartOf="parent"
@@ -70,7 +68,7 @@
         android:layout_height="wrap_content"
         android:ems="10"
         android:inputType="text"
-        android:text="ID:"
+        android:text="@string/ID"
         tools:layout_editor_absoluteX="16dp"
         tools:layout_editor_absoluteY="81dp" />
 
@@ -80,7 +78,7 @@
         android:layout_height="wrap_content"
         android:ems="10"
         android:inputType="text"
-        android:text="Nome:"
+        android:text="@string/Nome"
         tools:layout_editor_absoluteX="16dp"
         tools:layout_editor_absoluteY="144dp" />
 
@@ -90,19 +88,16 @@
         android:layout_height="wrap_content"
         android:ems="10"
         android:inputType="text"
-        android:text="qntdEstoque:"
         tools:layout_editor_absoluteX="16dp"
         tools:layout_editor_absoluteY="211dp" />
 
     <Spinner
-        android:id="@+id/categoria"
         android:layout_width="150dp"
         android:layout_height="45dp"
         tools:layout_editor_absoluteX="242dp"
         tools:layout_editor_absoluteY="81dp" />
 
     <Spinner
-        android:id="@+id/fornecedor"
         android:layout_width="150dp"
         android:layout_height="45dp"
         tools:layout_editor_absoluteX="242dp"
