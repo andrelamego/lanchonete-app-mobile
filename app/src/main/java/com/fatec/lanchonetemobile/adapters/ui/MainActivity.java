@@ -2,7 +2,6 @@ package com.fatec.lanchonetemobile.adapters.ui;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.widget.Button;
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
@@ -43,17 +42,17 @@ public class MainActivity extends AppCompatActivity {
         btnCategorias = findViewById(R.id.btnCategorias);
 
         btnProdutos.setOnClickListener(e -> {
-            Intent intent = new Intent(this, ProdutoActivity.class);
+            Intent intent = new Intent(this, GerenciarProdutoActivity.class);
             startActivity(intent);
         });
 
         btnFuncionarios.setOnClickListener(e -> {
-            Intent intent = new Intent(this, FuncionarioActivity.class);
+            Intent intent = new Intent(this, GerenciarFuncionarioActivity.class);
             startActivity(intent);
         });
 
         btnClientes.setOnClickListener(e -> {
-            Intent intent = new Intent(this, ClienteActivity.class);
+            Intent intent = new Intent(this, GerenciarClienteActivity.class);
             startActivity(intent);
         });
 
@@ -63,17 +62,17 @@ public class MainActivity extends AppCompatActivity {
         });
 
         btnFornecedores.setOnClickListener(e -> {
-            Intent intent = new Intent(this, FornecedorActivity.class);
+            Intent intent = new Intent(this, GerenciarFornecedorActivity.class);
             startActivity(intent);
         });
 
         btnCargos.setOnClickListener(e -> {
-            Intent intent = new Intent(this, CargoActivity.class);
+            Intent intent = new Intent(this, GerenciarCargoActivity.class);
             startActivity(intent);
         });
 
         btnCategorias.setOnClickListener(e -> {
-            Intent intent = new Intent(this, CategoriaActivity.class);
+            Intent intent = new Intent(this, GerenciarCategoriaActivity.class);
             startActivity(intent);
         });
     }
