@@ -75,26 +75,66 @@
     <string name="novoProduto">New Product</string>
     <string name="buscarProduto">Search Product</string>
     <string name="titleListaProdutos">Products:</string>
+    <!-- Tela Form Produto -->
+    <string name="hintNomeProduto">Product\'s name</string>
+    <string name="hintQuantidadeProduto">Quantity</string>
+    <string name="hintPrecoProduto">Price</string>
+    <string name="hintCategoriaProduto">Category</string>
+    <string name="hintFornecedorProduto">Supplier</string>
+    <string name="botaoSalvarProduto">Add Product</string>
+    <string name="botaoEditarProduto">Update Product</string>
 
-    <!-- Tela Gerenciar Produtos -->
+    <!-- Tela Gerenciar Clientes -->
     <string name="novoCliente">New Customer</string>
     <string name="buscarCliente">Search Customer</string>
     <string name="titleListaClientes">Customers:</string>
+    <!-- Tela Form Cliente -->
+    <string name="hintNomeCliente">Customer\'s name</string>
+    <string name="hintTelefoneCliente">Phone Number</string>
+    <string name="hintCPFCliente">CPF</string>
+    <string name="hintLogradouroCliente">Street</string>
+    <string name="hintNumeroCliente">Number</string>
+    <string name="hintCEPCliente">Postal Code</string>
+    <string name="hintComplementoCliente">Complement</string>
+    <string name="botaoSalvarCliente">Add Customer</string>
+    <string name="botaoEditarCliente">Update Customer</string>
 
     <!-- Tela Gerenciar Fornecedores -->
     <string name="novoFornecedor">New Supplier</string>
-    <string name="buscarFornecedor">Search Supplier</string>"
+    <string name="buscarFornecedor">Search Supplier</string>
     <string name="titleListaFornecedores">Suppliers:</string>
+    <!-- Tela Form Fornecedor -->
+    <string name="hintNomeFornecedor">Supplier\'s name</string>
+    <string name="hintTelefoneFornecedor">Phone Number</string>
+    <string name="hintCNPJFornecedor">CNPJ</string>
+    <string name="hintLogradouroFornecedor">Street</string>
+    <string name="hintNumeroFornecedor">Number</string>
+    <string name="hintCEPFornecedor">Postal Code</string>
+    <string name="hintComplementoFornecedor">Complement</string>
+    <string name="botaoSalvarFornecedor">Add Supplier</string>
+    <string name="botaoEditarFornecedor">Update Supplier</string>
 
     <!-- Tela Gerenciar Funcionarios -->
     <string name="novoFuncionario">New Worker</string>
     <string name="buscarFuncionario">Search Worker</string>
     <string name="titleListaFuncionarios">Workers:</string>
+    <!-- Tela Form Funcionario -->
+    <string name="hintNomeFuncionario">Worker\'s name</string>
+    <string name="hintTelefoneFuncionario">Phone Number</string>
+    <string name="hintDataFuncionario">Admission Date</string>
+    <string name="hintEmailFuncionario">Email</string>
+    <string name="botaoSalvarFuncionario">Add Worker</string>
+    <string name="botaoEditarFuncionario">Update Worker</string>
 
     <!-- Tela Gerenciar Categorias -->
     <string name="novoCategoria">New Category</string>
     <string name="buscarCategoria">Search Category</string>
     <string name="titleListaCategorias">Categories:</string>
+    <!-- Tela Form Categoria -->
+    <string name="hintNomeCategoria">Category\'s name</string>
+    <string name="hintDescricaoCategoria">Description</string>
+    <string name="botaoSalvarCategoria">Add Category</string>
+    <string name="botaoEditarCategoria">Update Category</string>
 
     <!-- Tela Gerenciar Cargos -->
     <string name="novoCargo">New Role</string>
@@ -105,6 +145,7 @@
     <string name="hintSalarioCargo">Salary</string>
     <string name="hintDescricaoCargo">Description</string>
     <string name="botaoSalvarCargo">Add Role</string>
+    <string name="botaoEditarCargo">Update Role</string>
 
     <string name="TituloTelaProduto">Product Management</string>
     <string name="TituloTelaPedido2">Order</string>
