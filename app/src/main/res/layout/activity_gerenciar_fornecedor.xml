@@ -78,7 +78,7 @@
 
                 <com.google.android.material.card.MaterialCardView
                     android:id="@+id/btnBuscarForn"
-                    android:layout_width="190dp"
+                    android:layout_width="0dp"
                     android:layout_height="150dp"
                     android:layout_marginTop="8dp"
                     android:layout_marginEnd="16dp"
@@ -87,6 +87,7 @@
                     app:cardElevation="8dp"
                     app:cardUseCompatPadding="true"
                     app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toEndOf="@+id/btnAddForn"
                     app:layout_constraintTop_toTopOf="parent">
 
                     <androidx.constraintlayout.widget.ConstraintLayout
@@ -124,7 +125,7 @@
 
                 <com.google.android.material.card.MaterialCardView
                     android:id="@+id/btnAddForn"
-                    android:layout_width="190dp"
+                    android:layout_width="0dp"
                     android:layout_height="150dp"
                     android:layout_marginStart="16dp"
                     android:layout_marginTop="8dp"
@@ -132,6 +133,7 @@
                     app:cardCornerRadius="10dp"
                     app:cardElevation="8dp"
                     app:cardUseCompatPadding="true"
+                    app:layout_constraintEnd_toStartOf="@+id/btnBuscarForn"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent">
 
