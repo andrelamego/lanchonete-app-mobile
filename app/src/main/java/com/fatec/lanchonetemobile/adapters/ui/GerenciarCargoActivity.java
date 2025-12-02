@@ -40,7 +40,7 @@ public class GerenciarCargoActivity extends AppCompatActivity {
 
     private RecyclerView rvCargos;
     private CargoAdapter adapter;
-    private List<CargoDTO> cargos = new ArrayList<>();
+    private List<CargoDTO> cargos;
 
     private CadastroFacade cadastroFacade;
 
@@ -81,17 +81,30 @@ public class GerenciarCargoActivity extends AppCompatActivity {
             finish();
         });
 
-        carregarCargos();
+        cargos = new ArrayList<>();
 
         rvCargos = findViewById(R.id.rvListaGerenciarCargo);
         rvCargos.setLayoutManager(new LinearLayoutManager(this));
-
         adapter = new CargoAdapter(cargos, (cargo, position) -> mostrarDialogPedido(cargo, position));
+        rvCargos.setAdapter(adapter);
+
+        carregarCargos();
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        carregarCargos();
     }
 
     private void carregarCargos(){
         try {
-            cargos = cadastroFacade.listarCargos();
+            List<CargoDTO> novosCargos = cadastroFacade.listarCargos();
+            if (novosCargos != null) {
+                cargos.clear();
+                cargos.addAll(novosCargos);
+                adapter.notifyDataSetChanged();
+            }
         } catch (SQLException e) {
             e.printStackTrace();
         }
