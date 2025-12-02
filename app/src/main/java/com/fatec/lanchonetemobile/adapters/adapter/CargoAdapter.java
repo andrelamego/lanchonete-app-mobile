@@ -10,7 +10,6 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.fatec.lanchonetemobile.R;
 import com.fatec.lanchonetemobile.application.dto.CargoDTO;
-import com.fatec.lanchonetemobile.application.dto.PedidoDTO;
 
 import java.util.List;
 
