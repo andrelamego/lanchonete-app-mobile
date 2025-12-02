@@ -20,14 +20,15 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".adapters.ui.ProdutoActivity" />
+        <activity android:name=".adapters.ui.GerenciarProdutoActivity" />
         <activity android:name=".adapters.ui.FuncionarioActivity" />
-        <activity android:name=".adapters.ui.ClienteActivity" />
+        <activity android:name=".adapters.ui.GerenciarClienteActivity" />
         <activity android:name=".adapters.ui.PedidoActivity" />
-        <activity android:name=".adapters.ui.FornecedorActivity" />
+        <activity android:name=".adapters.ui.GerenciarFornecedorActivity" />
         <activity android:name=".adapters.ui.CargoActivity" />
-        <activity android:name=".adapters.ui.CategoriaActivity" />
+        <activity android:name=".adapters.ui.GerenciarCategoriaActivity" />
         <activity android:name=".adapters.ui.GerenciarPedidoActivity" />
+        <activity android:name=".adapters.ui.GerenciarFuncionarioActivity" />
         <activity android:name=".adapters.ui.FormPedidoActivity" />
     </application>
 
