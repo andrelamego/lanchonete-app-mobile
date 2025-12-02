@@ -100,6 +100,11 @@
     <string name="novoCargo">New Role</string>
     <string name="buscarCargo">Search Role</string>
     <string name="titleListaCargos">Roles:</string>
+    <!-- Tela Form Cargo -->
+    <string name="hintNomeCargo">Role\'s name</string>
+    <string name="hintSalarioCargo">Salary</string>
+    <string name="hintDescricaoCargo">Description</string>
+    <string name="botaoSalvarCargo">Add Role</string>
 
     <string name="TituloTelaProduto">Product Management</string>
     <string name="TituloTelaPedido2">Order</string>
