@@ -2,7 +2,6 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/gerenciarPedidoActivity"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
@@ -16,27 +15,13 @@
             android:orientation="vertical" >
 
             <androidx.constraintlayout.widget.ConstraintLayout
-                android:id="@+id/gerenciarPedidoHeader"
+                android:id="@+id/headerGerenciarCargo"
                 android:layout_width="match_parent"
                 android:layout_height="200dp"
-                android:background="@color/main_blue" >
-
-                <TextView
-                    android:id="@+id/tvTitleGerenciarPedido"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="48dp"
-                    android:text="@string/TituloTelaPedido"
-                    android:textColor="@color/detail_gray"
-                    android:textSize="34sp"
-                    android:textStyle="bold"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
+                android:background="@color/cargo_main">
 
                 <ImageView
-                    android:id="@+id/ivBackGerenciarPedido"
+                    android:id="@+id/ivBackGerenciarCargo"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="8dp"
@@ -48,38 +33,52 @@
                     app:srcCompat="@drawable/back_resize" />
 
                 <TextView
-                    android:id="@+id/textView12"
+                    android:id="@+id/tvAppGerenciarCargo"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="20dp"
                     android:text="@string/app_name"
-                    android:textAlignment="center"
                     android:textColor="@color/detail_gray"
                     android:textSize="16sp"
                     android:textStyle="bold"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
+
+                <TextView
+                    android:id="@+id/tvTitleGerenciarCargo"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="48dp"
+                    android:text="@string/TituloTelaCargo"
+                    android:textAlignment="center"
+                    android:textColor="@color/detail_gray"
+                    android:textSize="34sp"
+                    android:textStyle="bold"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
             </androidx.constraintlayout.widget.ConstraintLayout>
 
             <androidx.constraintlayout.widget.ConstraintLayout
-                android:id="@+id/gerenciarPedidoBody"
+                android:id="@+id/bodyGerenciarCargo"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent">
+                android:layout_height="wrap_content">
 
                 <ImageView
-                    android:id="@+id/imageView10"
+                    android:id="@+id/imageView15"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:scaleType="centerCrop"
-                    app:tint="@color/main_blue"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
-                    app:srcCompat="@drawable/bg_arc_bar" />
+                    app:srcCompat="@drawable/bg_arc_bar"
+                    app:tint="@color/cargo_main" />
 
                 <com.google.android.material.card.MaterialCardView
-                    android:id="@+id/btnAddPedido"
+                    android:id="@+id/btnAddCargo"
                     android:layout_width="190dp"
                     android:layout_height="150dp"
                     android:layout_marginStart="16dp"
@@ -96,13 +95,13 @@
                         android:layout_height="match_parent">
 
                         <TextView
-                            android:id="@+id/tvAddPedido"
+                            android:id="@+id/tvAddCargo"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginStart="16dp"
                             android:layout_marginEnd="16dp"
                             android:layout_marginBottom="16dp"
-                            android:text="@string/novoPedido"
+                            android:text="@string/novoCargo"
                             android:textAlignment="center"
                             android:textAllCaps="false"
                             android:textSize="14sp"
@@ -112,19 +111,19 @@
                             app:layout_constraintStart_toStartOf="parent" />
 
                         <ImageView
-                            android:id="@+id/ivAddPedido"
+                            android:id="@+id/ivAddCargo"
                             android:layout_width="56dp"
                             android:layout_height="56dp"
                             android:layout_marginTop="16dp"
                             app:layout_constraintEnd_toEndOf="parent"
                             app:layout_constraintStart_toStartOf="parent"
                             app:layout_constraintTop_toTopOf="parent"
-                            app:srcCompat="@drawable/icon_add_pedido" />
+                            app:srcCompat="@drawable/icon_add_cargo" />
                     </androidx.constraintlayout.widget.ConstraintLayout>
                 </com.google.android.material.card.MaterialCardView>
 
                 <com.google.android.material.card.MaterialCardView
-                    android:id="@+id/btnBuscarPedido"
+                    android:id="@+id/btnBuscarCargo"
                     android:layout_width="190dp"
                     android:layout_height="150dp"
                     android:layout_marginTop="8dp"
@@ -141,13 +140,13 @@
                         android:layout_height="match_parent">
 
                         <TextView
-                            android:id="@+id/tvBuscarPedido"
+                            android:id="@+id/tvBuscarCargo"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginStart="16dp"
                             android:layout_marginEnd="16dp"
                             android:layout_marginBottom="16dp"
-                            android:text="@string/buscarPedido"
+                            android:text="@string/buscarCargo"
                             android:textAlignment="center"
                             android:textAllCaps="false"
                             android:textSize="14sp"
@@ -157,32 +156,32 @@
                             app:layout_constraintStart_toStartOf="parent" />
 
                         <ImageView
-                            android:id="@+id/ivBuscarPedido"
+                            android:id="@+id/ivBuscarCargo"
                             android:layout_width="56dp"
                             android:layout_height="56dp"
                             android:layout_marginTop="16dp"
                             app:layout_constraintEnd_toEndOf="parent"
                             app:layout_constraintStart_toStartOf="parent"
                             app:layout_constraintTop_toTopOf="parent"
-                            app:srcCompat="@drawable/icon_buscar_pedido" />
+                            app:srcCompat="@drawable/icon_buscar_cargo" />
                     </androidx.constraintlayout.widget.ConstraintLayout>
 
                 </com.google.android.material.card.MaterialCardView>
 
                 <TextView
-                    android:id="@+id/textView11"
+                    android:id="@+id/textView14"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="32dp"
                     android:layout_marginTop="24dp"
-                    android:text="@string/ordersLabel"
+                    android:text="@string/titleListaCargos"
                     android:textSize="24sp"
                     android:textStyle="bold"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/btnAddPedido" />
+                    app:layout_constraintTop_toBottomOf="@+id/btnAddCargo" />
 
                 <androidx.recyclerview.widget.RecyclerView
-                    android:id="@+id/rvPedidos"
+                    android:id="@+id/rvListaGerenciarCargo"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_marginStart="32dp"
@@ -190,7 +189,7 @@
                     android:layout_marginEnd="32dp"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/textView11" />
+                    app:layout_constraintTop_toBottomOf="@+id/textView14" />
 
             </androidx.constraintlayout.widget.ConstraintLayout>
         </LinearLayout>

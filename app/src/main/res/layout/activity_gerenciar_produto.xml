@@ -2,7 +2,7 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/gerenciarPedidoActivity"
+    android:id="@+id/produtoActivity"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
@@ -16,27 +16,13 @@
             android:orientation="vertical" >
 
             <androidx.constraintlayout.widget.ConstraintLayout
-                android:id="@+id/gerenciarPedidoHeader"
+                android:id="@+id/headerGerenciarProduto"
                 android:layout_width="match_parent"
                 android:layout_height="200dp"
-                android:background="@color/main_blue" >
-
-                <TextView
-                    android:id="@+id/tvTitleGerenciarPedido"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="48dp"
-                    android:text="@string/TituloTelaPedido"
-                    android:textColor="@color/detail_gray"
-                    android:textSize="34sp"
-                    android:textStyle="bold"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
+                android:background="@color/produto_main">
 
                 <ImageView
-                    android:id="@+id/ivBackGerenciarPedido"
+                    android:id="@+id/ivBackGerenciarProduto"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="8dp"
@@ -48,83 +34,52 @@
                     app:srcCompat="@drawable/back_resize" />
 
                 <TextView
-                    android:id="@+id/textView12"
+                    android:id="@+id/tvAppGerenciarProduto"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="20dp"
                     android:text="@string/app_name"
-                    android:textAlignment="center"
                     android:textColor="@color/detail_gray"
                     android:textSize="16sp"
                     android:textStyle="bold"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
+
+                <TextView
+                    android:id="@+id/tvTitleGerenciarProduto"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="48dp"
+                    android:text="@string/TituloTelaProduto"
+                    android:textAlignment="center"
+                    android:textColor="@color/detail_gray"
+                    android:textSize="34sp"
+                    android:textStyle="bold"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
             </androidx.constraintlayout.widget.ConstraintLayout>
 
             <androidx.constraintlayout.widget.ConstraintLayout
-                android:id="@+id/gerenciarPedidoBody"
+                android:id="@+id/bodyGerenciarProduto"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent">
 
                 <ImageView
-                    android:id="@+id/imageView10"
+                    android:id="@+id/imageView11"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:scaleType="centerCrop"
-                    app:tint="@color/main_blue"
+                    app:tint="@color/produto_main"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
                     app:srcCompat="@drawable/bg_arc_bar" />
 
                 <com.google.android.material.card.MaterialCardView
-                    android:id="@+id/btnAddPedido"
-                    android:layout_width="190dp"
-                    android:layout_height="150dp"
-                    android:layout_marginStart="16dp"
-                    android:layout_marginTop="8dp"
-                    app:cardBackgroundColor="@android:color/background_light"
-                    app:cardCornerRadius="10dp"
-                    app:cardElevation="8dp"
-                    app:cardUseCompatPadding="true"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent">
-
-                    <androidx.constraintlayout.widget.ConstraintLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent">
-
-                        <TextView
-                            android:id="@+id/tvAddPedido"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginStart="16dp"
-                            android:layout_marginEnd="16dp"
-                            android:layout_marginBottom="16dp"
-                            android:text="@string/novoPedido"
-                            android:textAlignment="center"
-                            android:textAllCaps="false"
-                            android:textSize="14sp"
-                            android:textStyle="bold"
-                            app:layout_constraintBottom_toBottomOf="parent"
-                            app:layout_constraintEnd_toEndOf="parent"
-                            app:layout_constraintStart_toStartOf="parent" />
-
-                        <ImageView
-                            android:id="@+id/ivAddPedido"
-                            android:layout_width="56dp"
-                            android:layout_height="56dp"
-                            android:layout_marginTop="16dp"
-                            app:layout_constraintEnd_toEndOf="parent"
-                            app:layout_constraintStart_toStartOf="parent"
-                            app:layout_constraintTop_toTopOf="parent"
-                            app:srcCompat="@drawable/icon_add_pedido" />
-                    </androidx.constraintlayout.widget.ConstraintLayout>
-                </com.google.android.material.card.MaterialCardView>
-
-                <com.google.android.material.card.MaterialCardView
-                    android:id="@+id/btnBuscarPedido"
+                    android:id="@+id/btnBuscarProduto"
                     android:layout_width="190dp"
                     android:layout_height="150dp"
                     android:layout_marginTop="8dp"
@@ -141,13 +96,13 @@
                         android:layout_height="match_parent">
 
                         <TextView
-                            android:id="@+id/tvBuscarPedido"
+                            android:id="@+id/tvBuscarProduto"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginStart="16dp"
                             android:layout_marginEnd="16dp"
                             android:layout_marginBottom="16dp"
-                            android:text="@string/buscarPedido"
+                            android:text="@string/buscarProduto"
                             android:textAlignment="center"
                             android:textAllCaps="false"
                             android:textSize="14sp"
@@ -157,32 +112,77 @@
                             app:layout_constraintStart_toStartOf="parent" />
 
                         <ImageView
-                            android:id="@+id/ivBuscarPedido"
+                            android:id="@+id/ivBuscarProduto"
                             android:layout_width="56dp"
                             android:layout_height="56dp"
                             android:layout_marginTop="16dp"
                             app:layout_constraintEnd_toEndOf="parent"
                             app:layout_constraintStart_toStartOf="parent"
                             app:layout_constraintTop_toTopOf="parent"
-                            app:srcCompat="@drawable/icon_buscar_pedido" />
+                            app:srcCompat="@drawable/icon_buscar_produto" />
                     </androidx.constraintlayout.widget.ConstraintLayout>
 
                 </com.google.android.material.card.MaterialCardView>
 
+                <com.google.android.material.card.MaterialCardView
+                    android:id="@+id/btnAddProduto"
+                    android:layout_width="190dp"
+                    android:layout_height="150dp"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginTop="8dp"
+                    app:cardBackgroundColor="@android:color/background_light"
+                    app:cardCornerRadius="10dp"
+                    app:cardElevation="8dp"
+                    app:cardUseCompatPadding="true"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent">
+
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent">
+
+                        <TextView
+                            android:id="@+id/tvAddProduto"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="16dp"
+                            android:layout_marginEnd="16dp"
+                            android:layout_marginBottom="16dp"
+                            android:text="@string/novoProduto"
+                            android:textAlignment="center"
+                            android:textAllCaps="false"
+                            android:textSize="14sp"
+                            android:textStyle="bold"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toStartOf="parent" />
+
+                        <ImageView
+                            android:id="@+id/ivAddProduto"
+                            android:layout_width="56dp"
+                            android:layout_height="56dp"
+                            android:layout_marginTop="16dp"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent"
+                            app:srcCompat="@drawable/addproduto" />
+                    </androidx.constraintlayout.widget.ConstraintLayout>
+                </com.google.android.material.card.MaterialCardView>
+
                 <TextView
-                    android:id="@+id/textView11"
+                    android:id="@+id/textView13"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="32dp"
                     android:layout_marginTop="24dp"
-                    android:text="@string/ordersLabel"
+                    android:text="@string/titleListaProdutos"
                     android:textSize="24sp"
                     android:textStyle="bold"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/btnAddPedido" />
+                    app:layout_constraintTop_toBottomOf="@+id/btnAddProduto" />
 
                 <androidx.recyclerview.widget.RecyclerView
-                    android:id="@+id/rvPedidos"
+                    android:id="@+id/rvListaGerenciarProduto"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_marginStart="32dp"
@@ -190,9 +190,10 @@
                     android:layout_marginEnd="32dp"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/textView11" />
+                    app:layout_constraintTop_toBottomOf="@+id/textView13" />
 
             </androidx.constraintlayout.widget.ConstraintLayout>
+
         </LinearLayout>
     </ScrollView>
 </androidx.constraintlayout.widget.ConstraintLayout>

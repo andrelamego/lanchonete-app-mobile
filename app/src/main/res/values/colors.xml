@@ -12,4 +12,21 @@
 
     <!-- Cores Produto -->
     <color name="produto_main">#FFA726</color>
+
+    <!-- Cores Cliente -->
+    <color name="cliente_main">#43A047</color>
+
+    <!-- Cores Fornecedores -->
+    <color name="fornecedor_main">#7E57C2</color>
+
+    <!-- Cores Categoria -->
+    <color name="categoria_main">#26C6DA</color>
+
+    <!-- Cores Funcionario -->
+    <color name="funcionario_main">#00897B</color>
+
+    <!-- Cores Cargo -->
+    <color name="cargo_main">#FBC02D</color>
+
+
 </resources>

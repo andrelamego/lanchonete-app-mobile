@@ -76,6 +76,31 @@
     <string name="buscarProduto">Search Product</string>
     <string name="titleListaProdutos">Products:</string>
 
+    <!-- Tela Gerenciar Produtos -->
+    <string name="novoCliente">New Customer</string>
+    <string name="buscarCliente">Search Customer</string>
+    <string name="titleListaClientes">Customers:</string>
+
+    <!-- Tela Gerenciar Fornecedores -->
+    <string name="novoFornecedor">New Supplier</string>
+    <string name="buscarFornecedor">Search Supplier</string>"
+    <string name="titleListaFornecedores">Suppliers:</string>
+
+    <!-- Tela Gerenciar Funcionarios -->
+    <string name="novoFuncionario">New Worker</string>
+    <string name="buscarFuncionario">Search Worker</string>
+    <string name="titleListaFuncionarios">Workers:</string>
+
+    <!-- Tela Gerenciar Categorias -->
+    <string name="novoCategoria">New Category</string>
+    <string name="buscarCategoria">Search Category</string>
+    <string name="titleListaCategorias">Categories:</string>
+
+    <!-- Tela Gerenciar Cargos -->
+    <string name="novoCargo">New Role</string>
+    <string name="buscarCargo">Search Role</string>
+    <string name="titleListaCargos">Roles:</string>
+
     <string name="TituloTelaProduto">Product Management</string>
     <string name="TituloTelaPedido2">Order</string>
     <string name="NumPedido">Order ID</string>
