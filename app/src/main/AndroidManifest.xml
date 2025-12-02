@@ -3,6 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <application
+        android:name=".LanchoneteApp"
         android:allowBackup="true"
         android:dataExtractionRules="@xml/data_extraction_rules"
         android:fullBackupContent="@xml/backup_rules"
@@ -30,6 +31,7 @@
         <activity android:name=".adapters.ui.GerenciarPedidoActivity" />
         <activity android:name=".adapters.ui.GerenciarFuncionarioActivity" />
         <activity android:name=".adapters.ui.FormPedidoActivity" />
+        <activity android:name=".adapters.ui.FormCargoActivity" />
     </application>
 
 </manifest>

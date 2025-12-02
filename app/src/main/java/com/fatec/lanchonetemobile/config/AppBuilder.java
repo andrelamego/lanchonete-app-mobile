@@ -1,5 +1,8 @@
 package com.fatec.lanchonetemobile.config;
 
+import android.content.Context;
+import android.database.sqlite.SQLiteDatabase;
+
 import com.fatec.lanchonetemobile.adapters.repository.*;
 import com.fatec.lanchonetemobile.adapters.repository.db.*;
 import com.fatec.lanchonetemobile.application.facade.*;
@@ -37,18 +40,19 @@ public class AppBuilder {
     private final RepositoryReturn<Produto> produtoRepository;
     private final RepositoryListById<ItemPedido> itemPedidoRepository;
 
-    public AppBuilder() throws SQLException, ClassNotFoundException {
-        c = new SQLiteConnection();
+    public AppBuilder(Context context) {
+        c = new SQLiteConnection(context);
+        SQLiteDatabase db = c.getConnection();
 
         // instancia repositórios
-        clienteRepository = new ClienteRepository(c.getConnection());
-        pedidoRepository = new PedidoRepository(c.getConnection());
-        cargoRepository = new CargoRepository(c.getConnection());
-        categoriaRepository = new CategoriaRepository(c.getConnection());
-        fornecedorRepository = new FornecedorRepository(c.getConnection());
-        funcionarioRepository = new FuncionarioRepository(c.getConnection());
-        produtoRepository = new ProdutoRepository(c.getConnection());
-        itemPedidoRepository = new ItemPedidoRepository(c.getConnection());
+        clienteRepository = new ClienteRepository(db);
+        pedidoRepository = new PedidoRepository(db);
+        cargoRepository = new CargoRepository(db);
+        categoriaRepository = new CategoriaRepository(db);
+        fornecedorRepository = new FornecedorRepository(db);
+        funcionarioRepository = new FuncionarioRepository(db);
+        produtoRepository = new ProdutoRepository(db);
+        itemPedidoRepository = new ItemPedidoRepository(db);
 
         // instancia services
         clienteService = new ClienteService(clienteRepository);
