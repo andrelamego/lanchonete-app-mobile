@@ -25,7 +25,7 @@
         <activity android:name=".adapters.ui.GerenciarClienteActivity" />
         <activity android:name=".adapters.ui.PedidoActivity" />
         <activity android:name=".adapters.ui.GerenciarFornecedorActivity" />
-        <activity android:name=".adapters.ui.CargoActivity" />
+        <activity android:name=".adapters.ui.GerenciarCargoActivity" />
         <activity android:name=".adapters.ui.GerenciarCategoriaActivity" />
         <activity android:name=".adapters.ui.GerenciarPedidoActivity" />
         <activity android:name=".adapters.ui.GerenciarFuncionarioActivity" />
