@@ -8,6 +8,7 @@ import com.fatec.lanchonetemobile.domain.entity.*;
 
 import java.sql.SQLException;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class CadastroFacadeImpl implements CadastroFacade{
 
@@ -67,7 +68,7 @@ public class CadastroFacadeImpl implements CadastroFacade{
     public List<ClienteDTO> listarClientes() throws SQLException {
         return clienteService.listarClientes().stream()
                 .map(clienteMapper::toDTO)
-                .toList();
+                .collect(Collectors.toList());
     }
 
     //==================================================================================
@@ -98,7 +99,7 @@ public class CadastroFacadeImpl implements CadastroFacade{
     public List<FuncionarioDTO> listarFuncionarios() throws SQLException {
         return funcionarioService.listarFuncionarios().stream()
                 .map(funcionarioMapper::toDTO)
-                .toList();
+                .collect(Collectors.toList());
     }
 
     //==================================================================================
@@ -129,7 +130,7 @@ public class CadastroFacadeImpl implements CadastroFacade{
     public List<CargoDTO> listarCargos() throws SQLException {
         return cargoService.listarCargos().stream()
                 .map(cargoMapper::toDTO)
-                .toList();
+                .collect(Collectors.toList());
     }
 
     //==================================================================================
@@ -160,7 +161,7 @@ public class CadastroFacadeImpl implements CadastroFacade{
         return produtoService.listarProdutos()
                 .stream()
                 .map(produtoMapper::toDTO)
-                .toList();
+                .collect(Collectors.toList());
     }
 
     //==================================================================================
@@ -190,7 +191,7 @@ public class CadastroFacadeImpl implements CadastroFacade{
     public List<CategoriaDTO> listarCategorias() throws SQLException {
         return categoriaService.listarCategorias().stream()
                 .map(categoriaMapper::toDTO)
-                .toList();
+                .collect(Collectors.toList());
     }
 
     //==================================================================================
@@ -220,6 +221,6 @@ public class CadastroFacadeImpl implements CadastroFacade{
     public List<FornecedorDTO> listarFornecedores() throws SQLException {
         return fornecedorService.listarFornecedores().stream()
                 .map(fornecedorMapper::toDTO)
-                .toList();
+                .collect(Collectors.toList());
     }
 }
