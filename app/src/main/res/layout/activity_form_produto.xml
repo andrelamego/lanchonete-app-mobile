@@ -1,8 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/formCargoActivity"
+    android:id="@+id/activity_form_produto"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
@@ -13,30 +12,16 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical">
+            android:orientation="vertical" >
 
             <androidx.constraintlayout.widget.ConstraintLayout
-                android:id="@+id/headerFormCargo"
+                android:id="@+id/headerFormProduto"
                 android:layout_width="match_parent"
                 android:layout_height="200dp"
-                android:background="@color/cargo_main">
-
-                <TextView
-                    android:id="@+id/tvTitleFormCargo"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="32dp"
-                    android:text="@string/TituloTelaCargo"
-                    android:textAlignment="center"
-                    android:textColor="@color/detail_gray"
-                    android:textSize="16sp"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
+                android:background="@color/produto_main">
 
                 <ImageView
-                    android:id="@+id/ivBackFormCargo"
+                    android:id="@+id/ivBackFormProduto"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="8dp"
@@ -48,7 +33,7 @@
                     app:srcCompat="@drawable/back_resize" />
 
                 <TextView
-                    android:id="@+id/tvAppFormCargo"
+                    android:id="@+id/tvAppFormProduto"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="20dp"
@@ -61,90 +46,125 @@
                     app:layout_constraintTop_toTopOf="parent" />
 
                 <TextView
-                    android:id="@+id/pageTitleFormCargo"
+                    android:id="@+id/tvTitleFormProduto"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@string/CadastraCargo"
+                    android:layout_marginTop="32dp"
+                    android:text="@string/TituloTelaProduto"
+                    android:textAlignment="center"
+                    android:textColor="@color/detail_gray"
+                    android:textSize="16sp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <TextView
+                    android:id="@+id/pageTitleFormProduto"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/CadastraProduto"
                     android:textColor="@color/detail_gray"
                     android:textSize="34sp"
                     android:textStyle="bold"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/tvTitleFormCargo" />
+                    app:layout_constraintTop_toBottomOf="@+id/tvTitleFormProduto" />
             </androidx.constraintlayout.widget.ConstraintLayout>
 
             <androidx.constraintlayout.widget.ConstraintLayout
-                android:id="@+id/bodyFormCargo"
+                android:id="@+id/bodyFormProduto"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent">
+                android:layout_height="wrap_content">
 
                 <ImageView
-                    android:id="@+id/imageView16"
+                    android:id="@+id/imageView21"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:scaleType="centerCrop"
+                    app:tint="@color/produto_main"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
-                    app:srcCompat="@drawable/bg_arc_bar"
-                    app:tint="@color/cargo_main" />
+                    app:srcCompat="@drawable/bg_arc_bar" />
 
                 <EditText
-                    android:id="@+id/etNomeFormCargo"
+                    android:id="@+id/etNomeFormProduto"
                     android:layout_width="0dp"
                     android:layout_height="48dp"
                     android:layout_marginStart="24dp"
                     android:layout_marginTop="32dp"
                     android:layout_marginEnd="24dp"
                     android:ems="10"
-                    android:hint="@string/hintNomeCargo"
+                    android:hint="@string/hintNomeProduto"
                     android:inputType="text"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/imageView16" />
+                    app:layout_constraintTop_toBottomOf="@+id/imageView21" />
 
                 <EditText
-                    android:id="@+id/etSalarioFormCargo"
+                    android:id="@+id/etQtdFormProduto"
+                    android:layout_width="0dp"
+                    android:layout_height="48dp"
+                    android:layout_marginStart="24dp"
+                    android:layout_marginTop="16dp"
+                    android:layout_marginEnd="8dp"
+                    android:ems="10"
+                    android:hint="@string/hintQuantidadeProduto"
+                    android:inputType="number"
+                    app:layout_constraintEnd_toStartOf="@+id/etPrecoFormProduto"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/etNomeFormProduto" />
+
+                <EditText
+                    android:id="@+id/etPrecoFormProduto"
+                    android:layout_width="0dp"
+                    android:layout_height="48dp"
+                    android:layout_marginStart="8dp"
+                    android:layout_marginTop="16dp"
+                    android:layout_marginEnd="24dp"
+                    android:ems="10"
+                    android:hint="@string/hintPrecoProduto"
+                    android:inputType="numberDecimal"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toEndOf="@+id/etQtdFormProduto"
+                    app:layout_constraintTop_toBottomOf="@+id/etNomeFormProduto" />
+
+                <Spinner
+                    android:id="@+id/spCategFormProduto"
+                    android:layout_width="match_parent"
+                    android:layout_height="48dp"
+                    android:layout_marginStart="24dp"
+                    android:layout_marginTop="16dp"
+                    android:layout_marginEnd="24dp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/etQtdFormProduto" />
+
+                <AutoCompleteTextView
+                    android:id="@+id/acFornFormProduto"
                     android:layout_width="0dp"
                     android:layout_height="48dp"
                     android:layout_marginStart="24dp"
                     android:layout_marginTop="16dp"
                     android:layout_marginEnd="24dp"
-                    android:ems="10"
-                    android:hint="@string/hintSalarioCargo"
-                    android:inputType="numberDecimal"
+                    android:hint="@string/hintFornecedorProduto"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/etNomeFormCargo" />
-
-                <EditText
-                    android:id="@+id/etDescricaoFormCargo"
-                    android:layout_width="0dp"
-                    android:layout_height="100dp"
-                    android:layout_marginStart="24dp"
-                    android:layout_marginTop="16dp"
-                    android:layout_marginEnd="24dp"
-                    android:ems="10"
-                    android:gravity="start|top"
-                    android:hint="@string/hintDescricaoCargo"
-                    android:inputType="textMultiLine"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/etSalarioFormCargo" />
+                    app:layout_constraintTop_toBottomOf="@+id/spCategFormProduto" />
 
                 <Button
-                    android:id="@+id/btnSalvarFormCargo"
+                    android:id="@+id/button"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="24dp"
                     android:layout_marginEnd="24dp"
                     android:layout_marginBottom="24dp"
-                    android:backgroundTint="@color/cargo_main"
-                    android:text="@string/botaoSalvarCargo"
+                    android:backgroundTint="@color/produto_main"
+                    android:text="@string/botaoSalvarProduto"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/etDescricaoFormCargo" />
-
+                    app:layout_constraintTop_toBottomOf="@+id/acFornFormProduto" />
             </androidx.constraintlayout.widget.ConstraintLayout>
         </LinearLayout>
     </ScrollView>
