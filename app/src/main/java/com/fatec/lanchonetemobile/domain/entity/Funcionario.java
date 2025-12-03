@@ -1,6 +1,6 @@
 package com.fatec.lanchonetemobile.domain.entity;
 
-import java.util.Date;
+import java.sql.Date;
 
 public class Funcionario {
     private int id;

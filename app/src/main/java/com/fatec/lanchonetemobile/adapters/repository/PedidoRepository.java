@@ -11,7 +11,6 @@ import com.fatec.lanchonetemobile.domain.entity.Pedido;
 
 import java.sql.Date;
 import java.sql.SQLException;
-import java.time.ZoneId;
 import java.util.ArrayList;
 import java.util.List;
 

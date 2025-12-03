@@ -4,7 +4,7 @@ import com.fatec.lanchonetemobile.application.mapper.ClienteMapper;
 import com.fatec.lanchonetemobile.domain.entity.Cliente;
 import com.fatec.lanchonetemobile.domain.entity.ItemPedido;
 
-import java.util.Date;
+import java.sql.Date;
 import java.util.List;
 
 public record PedidoDTO(
@@ -38,5 +38,5 @@ public record PedidoDTO(
         public ClienteDTO getClienteDTO(){
                 return clienteMapper.toDTO(cliente);
         }
-        
+
 }

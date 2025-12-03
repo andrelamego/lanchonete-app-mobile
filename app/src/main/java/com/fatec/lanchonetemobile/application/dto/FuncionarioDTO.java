@@ -3,7 +3,7 @@ package com.fatec.lanchonetemobile.application.dto;
 import com.fatec.lanchonetemobile.application.mapper.CargoMapper;
 import com.fatec.lanchonetemobile.domain.entity.Cargo;
 
-import java.util.Date;
+import java.sql.Date;
 
 public record FuncionarioDTO(
         int id,
