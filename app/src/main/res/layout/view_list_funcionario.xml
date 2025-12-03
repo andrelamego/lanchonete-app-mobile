@@ -1,41 +1,42 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:id="@+id/view_list_categoria"
+    android:id="@+id/view_list_funcionario"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:paddingTop="12dp"
     android:paddingBottom="12dp">
 
     <TextView
-        android:id="@+id/tvNomeCategoria"
+        android:id="@+id/tvNomeFuncionario"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:text="@string/orderListLabel"
         android:textSize="16sp"
         android:textStyle="bold"
-        app:layout_constraintBottom_toTopOf="@+id/tvDescricaoCategoria"
+        app:layout_constraintBottom_toTopOf="@+id/tvCargoFuncionario"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
-        android:id="@+id/tvDescricaoCategoria"
+        android:id="@+id/tvCargoFuncionario"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:text="@string/orderListCustomerLabel"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tvNomeCategoria" />
+        app:layout_constraintTop_toBottomOf="@+id/tvNomeFuncionario" />
 
     <TextView
-        android:id="@+id/tvIDCategoria"
+        android:id="@+id/tvIDFuncionario"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:text="@string/orderListValue"
         android:textAlignment="textEnd"
         android:textSize="16sp"
         android:textStyle="bold"
-        app:layout_constraintBottom_toTopOf="@+id/tvDescricaoCategoria"
+        app:layout_constraintBottom_toTopOf="@+id/tvCargoFuncionario"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 </androidx.constraintlayout.widget.ConstraintLayout>

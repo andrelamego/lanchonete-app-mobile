@@ -22,7 +22,6 @@
             </intent-filter>
         </activity>
         <activity android:name=".adapters.ui.GerenciarProdutoActivity" />
-        <activity android:name=".adapters.ui.FuncionarioActivity" />
         <activity android:name=".adapters.ui.GerenciarClienteActivity" />
         <activity android:name=".adapters.ui.PedidoActivity" />
         <activity android:name=".adapters.ui.GerenciarFornecedorActivity" />
@@ -32,6 +31,7 @@
         <activity android:name=".adapters.ui.GerenciarFuncionarioActivity" />
         <activity android:name=".adapters.ui.FormPedidoActivity" />
         <activity android:name=".adapters.ui.FormCargoActivity" />
+        <activity android:name=".adapters.ui.FormFuncionarioActivity" />
     </application>
 
 </manifest>

@@ -18,4 +18,9 @@ public record CargoDTO(
     public String getDescricao(){
         return descricao;
     }
+
+    @Override
+    public String toString() {
+        return nome;
+    }
 }

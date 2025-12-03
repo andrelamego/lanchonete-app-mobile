@@ -1,0 +1,149 @@
+package com.fatec.lanchonetemobile.adapters.ui;
+
+import android.os.Bundle;
+import android.widget.ArrayAdapter;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.ImageView;
+import android.widget.Spinner;
+import android.widget.Toast;
+
+import androidx.activity.EdgeToEdge;
+import androidx.appcompat.app.AlertDialog;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.graphics.Insets;
+import androidx.core.view.ViewCompat;
+import androidx.core.view.WindowInsetsCompat;
+
+import com.fatec.lanchonetemobile.LanchoneteApp;
+import com.fatec.lanchonetemobile.R;
+import com.fatec.lanchonetemobile.application.dto.CargoDTO;
+import com.fatec.lanchonetemobile.application.dto.FuncionarioDTO;
+import com.fatec.lanchonetemobile.application.exception.CargoInvalidoException;
+import com.fatec.lanchonetemobile.application.facade.CadastroFacade;
+import com.fatec.lanchonetemobile.application.mapper.CargoMapper;
+import com.fatec.lanchonetemobile.config.AppBuilder;
+
+import java.sql.Date;
+import java.sql.SQLException;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.List;
+import java.util.Locale;
+
+public class FormFuncionarioActivity extends AppCompatActivity {
+
+    private ImageView ivBack;
+
+    private EditText etNome;
+    private EditText etTelefone;
+    private EditText etData;
+    private EditText etEmail;
+    private Spinner spCargos;
+
+    private Button btnSalvar;
+
+
+    private List<CargoDTO> cargos;
+    private CadastroFacade cadastroFacade;
+    private CargoMapper cargoMapper = new CargoMapper();
+
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        EdgeToEdge.enable(this);
+        setContentView(R.layout.activity_form_funcionario);
+        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.activity_form_funcionario), (v, insets) -> {
+            Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
+            v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
+            return insets;
+        });
+
+        //--------------------INJETA DEPENDENCIAS--------------------
+        LanchoneteApp app = (LanchoneteApp) getApplication();
+        AppBuilder builder = app.getAppBuilder();
+
+        if (builder == null) {
+            throw new IllegalStateException("AppBuilder está null. Verifique LanchoneteApp.onCreate e o AndroidManifest.");
+        }
+
+        cadastroFacade = builder.getCadastroFacade();
+        //-----------------------------------------------------------
+
+
+        etNome = findViewById(R.id.etNomeFormFunc);
+        etTelefone = findViewById(R.id.etTelefoneFormFunc);
+        etData = findViewById(R.id.etDataFormFunc);
+        etEmail = findViewById(R.id.etEmailFormFunc);
+        spCargos = findViewById(R.id.spCargoFormFunc);
+
+        ivBack = findViewById(R.id.ivBackFormFunc);
+        ivBack.setOnClickListener(e -> {
+            finish();
+        });
+
+        btnSalvar = findViewById(R.id.btnSalvarFormFunc);
+        btnSalvar.setOnClickListener(e -> {
+            try {
+
+                // Formato que o usuário digita (ajuste conforme seu caso)
+                SimpleDateFormat formatoEntrada = new SimpleDateFormat("dd/MM/yyyy", Locale.getDefault());
+
+                // Formato que o SQL espera
+                SimpleDateFormat formatoSql = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault());
+
+                // Converte o texto para Date e depois para o formato SQL
+                java.util.Date dataUtil = formatoEntrada.parse(etData.getText().toString());
+                String dataFormatada = formatoSql.format(dataUtil);
+
+                FuncionarioDTO funcionario = new FuncionarioDTO(
+                        0,
+                        etNome.getText().toString(),
+                        etTelefone.getText().toString(),
+                        etEmail.getText().toString(),
+                        Date.valueOf(dataFormatada),
+                        cargoMapper.toEntity((CargoDTO) spCargos.getSelectedItem())
+                );
+
+                try {
+                    cadastroFacade.novoFuncionario(funcionario);
+                    mostrarAlerta("Cargo cadastrado!", "Cargo cadastrado com sucesso!");
+                } catch (CargoInvalidoException ex) {
+                    mostrarAlerta("Cargo inválido!", "Cargo já está cadastrado no sistema.");
+                } catch (SQLException sql) {
+                    mostrarAlerta("Erro ao cadastrar cargo!", "Erro ao cadastrar cargo no sistema.");
+                }
+            } catch (ParseException parse) {
+                parse.printStackTrace();
+                Toast.makeText(this, "Data inválida! Use o formato dd/MM/yyyy", Toast.LENGTH_SHORT).show();
+            }
+        });
+
+        carregarSpinnerCargos();
+    }
+
+    private void carregarSpinnerCargos() {
+        try {
+            cargos = cadastroFacade.listarCargos();
+
+            ArrayAdapter adapter = new ArrayAdapter(
+                    this,
+                    android.R.layout.simple_spinner_item,
+                    cargos
+            );
+            adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+            spCargos.setAdapter(adapter);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    private void mostrarAlerta(String titulo, String mensagem) {
+        new AlertDialog.Builder(this)
+                .setTitle(titulo)
+                .setMessage(mensagem)
+                .setPositiveButton("OK", null)
+                .show();
+    }
+}

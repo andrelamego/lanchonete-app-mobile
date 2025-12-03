@@ -6,7 +6,7 @@
     android:layout_height="match_parent">
 
     <Button
-        android:id="@+id/salvar"
+        android:id="@+id/btnSalvarFuncionario"
         android:layout_width="119dp"
         android:layout_height="65dp"
         android:text="@string/Procurar"
@@ -16,7 +16,7 @@
         tools:layout_editor_absoluteY="516dp" />
 
     <Button
-        android:id="@+id/excluir"
+        android:id="@+id/btnExcluirFuncionario"
         android:layout_width="119dp"
         android:layout_height="65dp"
         android:text="@string/remove"
@@ -34,7 +34,7 @@
         tools:layout_editor_absoluteY="29dp" />
 
     <Button
-        android:id="@+id/atualizar"
+        android:id="@+id/btnAtualizarFuncionario"
         android:layout_width="119dp"
         android:layout_height="65dp"
         android:text="@string/atualizar"
@@ -44,7 +44,7 @@
         tools:layout_editor_absoluteY="431dp" />
 
     <EditText
-        android:id="@+id/editTextText"
+        android:id="@+id/etIDFuncionario"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:ems="10"
@@ -54,7 +54,7 @@
         tools:layout_editor_absoluteY="103dp" />
 
     <EditText
-        android:id="@+id/editTextText2"
+        android:id="@+id/etNameFuncionario"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:ems="10"
