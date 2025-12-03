@@ -16,34 +16,31 @@ import androidx.core.view.WindowInsetsCompat;
 
 import com.fatec.lanchonetemobile.LanchoneteApp;
 import com.fatec.lanchonetemobile.R;
-import com.fatec.lanchonetemobile.application.dto.CargoDTO;
-import com.fatec.lanchonetemobile.application.exception.CargoInvalidoException;
+import com.fatec.lanchonetemobile.application.dto.CategoriaDTO;
+import com.fatec.lanchonetemobile.application.exception.CategoriaInvalidaException;
 import com.fatec.lanchonetemobile.application.facade.CadastroFacade;
 import com.fatec.lanchonetemobile.config.AppBuilder;
 
 import java.sql.SQLException;
 
-public class FormCargoActivity extends AppCompatActivity {
-
+public class FormCategoriaActivity extends AppCompatActivity {
     private ImageView ivBack;
 
     private EditText etNome;
-    private EditText etSalario;
     private EditText etDescricao;
 
-    int cargoId = 0;
+    int categoriaId = 0;
     private TextView pageTitle;
     private Button btnSalvar;
 
     private CadastroFacade cadastroFacade;
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         EdgeToEdge.enable(this);
-        setContentView(R.layout.activity_form_cargo);
-        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.formCargoActivity), (v, insets) -> {
+        setContentView(R.layout.activity_form_categoria);
+        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.activity_form_categoria), (v, insets) -> {
             Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
             return insets;
@@ -60,68 +57,64 @@ public class FormCargoActivity extends AppCompatActivity {
         cadastroFacade = builder.getCadastroFacade();
         //-----------------------------------------------------------
 
-        pageTitle = findViewById(R.id.pageTitleFormCargo);
+        pageTitle = findViewById(R.id.pageTitleFormCateg);
 
-        ivBack = findViewById(R.id.ivBackFormCargo);
+        ivBack = findViewById(R.id.ivBackFormCateg);
         ivBack.setOnClickListener(e -> {
             finish();
         });
 
-        etNome = findViewById(R.id.etNomeFormCargo);
-        etSalario = findViewById(R.id.etSalarioFormCargo);
-        etDescricao = findViewById(R.id.etDescricaoFormCargo);
+        etNome = findViewById(R.id.etNomeFormCateg);
+        etDescricao = findViewById(R.id.etDescricaoFormCateg);
 
-        btnSalvar = findViewById(R.id.btnSalvarFormCargo);
+        btnSalvar = findViewById(R.id.btnSalvarCateg);
 
         Intent intent = getIntent();
-        if (intent != null && intent.hasExtra("CARGO_ID")) {
-            cargoId = intent.getIntExtra("CARGO_ID", 0);
+        if (intent != null && intent.hasExtra("CATEGORIA_ID")) {
+            categoriaId = intent.getIntExtra("CATEGORIA_ID", 0);
 
             try {
-                CargoDTO cargo = cadastroFacade.buscarCargo(cargoId);
+                CategoriaDTO categoria = cadastroFacade.buscarCategoria(categoriaId);
 
-                etNome.setText(cargo.getNome());
-                etSalario.setText(String.valueOf(cargo.getSalario()));
-                etDescricao.setText(cargo.getDescricao());
+                etNome.setText(categoria.getNome());
+                etDescricao.setText(categoria.getDescricao());
 
-                pageTitle.setText(R.string.AtualizaCargo);
-                btnSalvar.setText(R.string.botaoEditarCargo);
+                pageTitle.setText(R.string.AtualizaCategoria);
+                btnSalvar.setText(R.string.botaoEditarCategoria);
             } catch (SQLException e) {
                 throw new RuntimeException(e);
             }
         }
 
         btnSalvar.setOnClickListener(e -> {
-            if(cargoId == 0) {
-                CargoDTO cargo = new CargoDTO(
+            if(categoriaId == 0) {
+                CategoriaDTO categoria = new CategoriaDTO(
                         0,
                         etNome.getText().toString(),
-                        Double.parseDouble(etSalario.getText().toString()),
                         etDescricao.getText().toString()
                 );
 
                 try {
-                    cadastroFacade.novoCargo(cargo);
-                    mostrarAlerta("Cargo cadastrado!", "Cargo cadastrado com sucesso!");
-                } catch (CargoInvalidoException ex) {
-                    mostrarAlerta("Cargo inválido!", "Cargo já está cadastrado no sistema.");
+                    cadastroFacade.novaCategoria(categoria);
+                    mostrarAlerta("Categoria cadastrado!", "Categoria cadastrado com sucesso!");
+                } catch (CategoriaInvalidaException ex) {
+                    mostrarAlerta("Categoria inválido!", "Categoria já está cadastrado no sistema.");
                 } catch (SQLException sql) {
-                    mostrarAlerta("Erro ao cadastrar cargo!", "Erro ao cadastrar cargo no sistema.");
+                    mostrarAlerta("Erro ao cadastrar Categoria!", "Erro ao cadastrar Categoria no sistema.");
                 }
             }
             else{
-                CargoDTO cargo = new CargoDTO(
-                        cargoId,
+                CategoriaDTO categoria = new CategoriaDTO(
+                        categoriaId,
                         etNome.getText().toString(),
-                        Double.parseDouble(etSalario.getText().toString()),
                         etDescricao.getText().toString()
                 );
 
                 try {
-                    cadastroFacade.atualizarCargo(cargo);
-                    mostrarAlerta("Cargo atualizado!", "Cargo atualizado com sucesso!");
+                    cadastroFacade.atualizarCategoria(categoria);
+                    mostrarAlerta("Categoria atualizado!", "Categoria atualizado com sucesso!");
                 } catch (SQLException sql) {
-                    mostrarAlerta("Erro ao atualizar cargo!", "Erro ao atualizar cargo no sistema.");
+                    mostrarAlerta("Erro ao atualizar categoria!", "Erro ao atualizar categoria no sistema.");
                 }
             }
         });
