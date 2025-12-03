@@ -32,6 +32,9 @@
         <activity android:name=".adapters.ui.FormPedidoActivity" />
         <activity android:name=".adapters.ui.FormCargoActivity" />
         <activity android:name=".adapters.ui.FormFuncionarioActivity" />
+        <activity android:name=".adapters.ui.FormCategoriaActivity" />
+        <activity android:name=".adapters.ui.FormFornecedorActivity" />
+        <activity android:name=".adapters.ui.FormClienteActivity" />
     </application>
 
 </manifest>
