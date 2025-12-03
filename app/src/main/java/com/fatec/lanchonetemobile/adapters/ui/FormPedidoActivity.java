@@ -22,17 +22,24 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.fatec.lanchonetemobile.LanchoneteApp;
 import com.fatec.lanchonetemobile.R;
 import com.fatec.lanchonetemobile.adapters.adapter.ItemPedidoAdapter;
+import com.fatec.lanchonetemobile.application.dto.CargoDTO;
 import com.fatec.lanchonetemobile.application.dto.ClienteDTO;
 import com.fatec.lanchonetemobile.application.dto.ItemPedidoDTO;
 import com.fatec.lanchonetemobile.application.dto.PedidoDTO;
+import com.fatec.lanchonetemobile.application.exception.PedidoInvalidoException;
 import com.fatec.lanchonetemobile.application.facade.CadastroFacade;
 import com.fatec.lanchonetemobile.application.facade.PedidoFacade;
+import com.fatec.lanchonetemobile.application.mapper.ClienteMapper;
 import com.fatec.lanchonetemobile.application.mapper.ItemPedidoMapper;
 import com.fatec.lanchonetemobile.config.AppBuilder;
 
+import java.sql.Date;
 import java.sql.SQLException;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 import java.util.stream.Collectors;
 
 public class FormPedidoActivity extends AppCompatActivity {
@@ -51,6 +58,7 @@ public class FormPedidoActivity extends AppCompatActivity {
 
     private ClienteDTO cliente;
     private List<ClienteDTO> clientes;
+    private ClienteMapper clienteMapper;
 
     private RecyclerView rvItemPedido;
     private List<ItemPedidoDTO> itens;
@@ -153,7 +161,8 @@ public class FormPedidoActivity extends AppCompatActivity {
         });
         //------------------------------------------------------------------------------------------
 
-        //TODO: AJUSTAR PARA RECUPERAR DADOS DO PEDIDO, INCLUSIVE LISTA DE ITENS
+        carregarSpinnerStatus();
+
         Intent intent = getIntent();
         if (intent != null && intent.hasExtra("PEDIDO_ID")) {
             pedidoId = intent.getIntExtra("PEDIDO_ID", 0);
@@ -175,6 +184,55 @@ public class FormPedidoActivity extends AppCompatActivity {
         }
 
         btnSalvar.setOnClickListener(e -> {
+            try {
+                SimpleDateFormat formatoEntrada = new SimpleDateFormat("dd/MM/yyyy", Locale.getDefault());
+
+                SimpleDateFormat formatoSql = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault());
+
+                java.util.Date dataUtil = formatoEntrada.parse(etData.getText().toString());
+                String dataFormatada = formatoSql.format(dataUtil);
+                if (pedidoId == 0) {
+                    PedidoDTO pedido = new PedidoDTO(
+                            0,
+                            valorTotal,
+                            itens.stream().map(itemMapper::toEntity).collect(Collectors.toList()),
+                            Date.valueOf(dataFormatada),
+                            spStatus.getSelectedItem().toString(),
+                            clienteMapper.toEntity(cliente)
+                    );
+
+                    try {
+                        pedidoFacade.criarPedido(pedido);
+                        mostrarAlerta("Pedido cadastrado!", "Pedido cadastrado com sucesso!");
+                    } catch (PedidoInvalidoException ex) {
+                        mostrarAlerta("Pedido inválido!", "Pedido já está cadastrado no sistema.");
+                    } catch (SQLException sql) {
+                        mostrarAlerta("Erro ao cadastrar pedido!", "Erro ao cadastrar pedido no sistema.");
+                    }
+                }
+                else{
+                    PedidoDTO pedido = new PedidoDTO(
+                            pedidoId,
+                            valorTotal,
+                            itens.stream().map(itemMapper::toEntity).collect(Collectors.toList()),
+                            Date.valueOf(dataFormatada),
+                            spStatus.getSelectedItem().toString(),
+                            clienteMapper.toEntity(cliente)
+                    );
+
+                    try {
+                        pedidoFacade.atualizarPedido(pedido);
+                        mostrarAlerta("Pedido atualizado!", "Pedido atualizado com sucesso!");
+                    } catch (PedidoInvalidoException ex) {
+                        mostrarAlerta("Pedido inválido!", "Pedido já está atualizado no sistema.");
+                    } catch (SQLException sql) {
+                        mostrarAlerta("Erro ao cadastrar pedido!", "Erro ao cadastrar pedido no sistema.");
+                    }
+                }
+            } catch(ParseException parse){
+                parse.printStackTrace();
+                Toast.makeText(this, "Data inválida! Use o formato dd/MM/yyyy", Toast.LENGTH_SHORT).show();
+            }
 
         });
 
