@@ -24,4 +24,9 @@ public record ProdutoDTO(
     public String getCategoriaNome() { return categoria.getNome(); }
     public FornecedorDTO getFornecedorDTO() { return fornecedorMapper.toDTO(fornecedor); }
     public String getFornecedorNome() { return fornecedor.getNome(); }
+
+    @Override
+    public String toString(){
+        return this.nome;
+    }
 }
