@@ -28,13 +28,29 @@
         <activity android:name=".adapters.ui.GerenciarCargoActivity" />
         <activity android:name=".adapters.ui.GerenciarCategoriaActivity" />
         <activity android:name=".adapters.ui.GerenciarPedidoActivity" />
-        <activity android:name=".adapters.ui.GerenciarFuncionarioActivity" />
-        <activity android:name=".adapters.ui.FormPedidoActivity" />
-        <activity android:name=".adapters.ui.FormCargoActivity" />
-        <activity android:name=".adapters.ui.FormFuncionarioActivity" />
-        <activity android:name=".adapters.ui.FormCategoriaActivity" />
-        <activity android:name=".adapters.ui.FormFornecedorActivity" />
-        <activity android:name=".adapters.ui.FormClienteActivity" />
+        <activity android:name=".adapters.ui.GerenciarFuncionarioActivity"  />
+        <activity android:name=".adapters.ui.FormPedidoActivity"
+            android:windowSoftInputMode="adjustPan"
+            android:exported="false" />
+        <activity android:name=".adapters.ui.FormCargoActivity"
+            android:windowSoftInputMode="adjustPan"
+            android:exported="false" />
+        <activity android:name=".adapters.ui.FormFuncionarioActivity"
+            android:windowSoftInputMode="adjustPan"
+            android:exported="false" />
+        <activity android:name=".adapters.ui.FormCategoriaActivity"
+            android:windowSoftInputMode="adjustPan"
+            android:exported="false" />
+        <activity android:name=".adapters.ui.FormFornecedorActivity"
+            android:windowSoftInputMode="adjustPan"
+            android:exported="false" />
+        <activity android:name=".adapters.ui.FormClienteActivity"
+            android:windowSoftInputMode="adjustPan"
+            android:exported="false" />
+        <activity android:name=".adapters.ui.FormProdutoActivity"
+            android:windowSoftInputMode="adjustPan"
+            android:exported="false"
+             />
     </application>
 
 </manifest>
