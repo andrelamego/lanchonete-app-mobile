@@ -56,13 +56,18 @@
     <!--String Main -> Tela -->
     <string name="TituloTelaMain">Choose one option below</string>
     <string name="CadastraFornecedor">Supplier Register</string>
+    <string name="AtualizaFornecedor">Supplier Update</string>
     <string name="CadastraCargo">Role Register</string>
+    <string name="AtualizaCargo">Role Update</string>
     <string name="CadastraCategoria">Category Register</string>
+    <string name="AtualizaCategoria">Category Update</string>
     <string name="CadastraCliente">Customer Register</string>
+    <string name="AtualizaCliente">Customer Update</string>
     <string name="CadastraFuncionario">Worker Register</string>
     <string name="AtualizaFuncionario">Worker Update</string>
     <string name="FazerPedido">Make an Order</string>
     <string name="CadastraProduto">Product Register</string>
+    <string name="AtualizaProduto">Product Update</string>
     <string name="GerenciaPedido">Order Management</string>
 
     <!--String Tela Pedido    -->
