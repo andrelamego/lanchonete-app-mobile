@@ -1,11 +1,13 @@
 package com.fatec.lanchonetemobile.adapters.ui;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Spinner;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
@@ -41,6 +43,7 @@ public class FormFuncionarioActivity extends AppCompatActivity {
     private EditText etEmail;
     private Spinner spCargos;
 
+    private TextView pageTitle;
     private Button btnSalvar;
 
 
@@ -71,6 +74,7 @@ public class FormFuncionarioActivity extends AppCompatActivity {
         cadastroFacade = builder.getCadastroFacade();
         //-----------------------------------------------------------
 
+        pageTitle = findViewById(R.id.pageTitleFormFunc);
 
         etNome = findViewById(R.id.etNomeFormFunc);
         etTelefone = findViewById(R.id.etTelefoneFormFunc);
@@ -121,6 +125,26 @@ public class FormFuncionarioActivity extends AppCompatActivity {
         });
 
         carregarSpinnerCargos();
+
+        Intent intent = getIntent();
+        if (intent != null && intent.hasExtra("FUNCIONARIO_ID")) {
+            int funcionarioId = intent.getIntExtra("FUNCIONARIO_ID", 0);
+
+            try {
+                FuncionarioDTO funcionario = cadastroFacade.buscarFuncionario(funcionarioId);
+
+                etNome.setText(funcionario.getNome());
+                etTelefone.setText(funcionario.getTel());
+                etEmail.setText(funcionario.getEmail());
+                etData.setText(funcionario.getDataContrato().toString());
+                spCargos.setSelection(cargos.indexOf(funcionario.getCargoDTO()));
+
+                pageTitle.setText(R.string.AtualizaFuncionario);
+                btnSalvar.setText(R.string.botaoEditarFuncionario);
+            } catch (SQLException e) {
+                throw new RuntimeException(e);
+            }
+        }
     }
 
     private void carregarSpinnerCargos() {

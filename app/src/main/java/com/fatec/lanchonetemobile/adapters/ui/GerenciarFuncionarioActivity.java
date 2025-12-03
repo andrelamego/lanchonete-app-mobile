@@ -5,8 +5,10 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AlertDialog;
@@ -21,6 +23,7 @@ import com.fatec.lanchonetemobile.LanchoneteApp;
 import com.fatec.lanchonetemobile.R;
 import com.fatec.lanchonetemobile.adapters.adapter.FuncionarioAdapter;
 import com.fatec.lanchonetemobile.application.dto.FuncionarioDTO;
+import com.fatec.lanchonetemobile.application.exception.FuncionarioNaoEncontradoException;
 import com.fatec.lanchonetemobile.application.facade.CadastroFacade;
 import com.fatec.lanchonetemobile.config.AppBuilder;
 import com.google.android.material.card.MaterialCardView;
@@ -71,6 +74,9 @@ public class GerenciarFuncionarioActivity extends AppCompatActivity {
         });
 
         btnBuscarFuncionario = findViewById(R.id.btnBuscarFunc);
+        btnBuscarFuncionario.setOnClickListener(e -> {
+            mostrarBuscarDialog();
+        });
 
         rvFuncionarios = findViewById(R.id.rvListaGerenciarFunc);
 
@@ -106,6 +112,40 @@ public class GerenciarFuncionarioActivity extends AppCompatActivity {
         } catch (SQLException e) {
             e.printStackTrace();
         }
+    }
+
+    private void mostrarBuscarDialog() {
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+
+        LayoutInflater inflater = getLayoutInflater();
+        View dialogView = inflater.inflate(R.layout.dialog_buscar_funcionario, null);
+        builder.setView(dialogView);
+
+        EditText etID = dialogView.findViewById(R.id.etIDBuscarFuncDialog);
+
+        Button btnBuscar = dialogView.findViewById(R.id.btnBuscarFuncDialog);
+        ImageView btnFechar = dialogView.findViewById(R.id.btnCloseBuscarFuncDialog);
+
+        AlertDialog dialog = builder.create();
+
+        btnFechar.setOnClickListener(v -> dialog.dismiss());
+
+        btnBuscar.setOnClickListener(v -> {
+            try {
+                int id = Integer.parseInt(etID.getText().toString());
+                FuncionarioDTO funcionario = cadastroFacade.buscarFuncionario(id);
+
+                mostrarDialogFuncionario(funcionario, 0);
+            } catch (FuncionarioNaoEncontradoException f) {
+                Toast.makeText(this, "Funcionário não encontrado", Toast.LENGTH_SHORT).show();
+            } catch (NumberFormatException e) {
+                Toast.makeText(this, "ID inválido", Toast.LENGTH_SHORT).show();
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        });
+
+        dialog.show();
     }
 
     private void mostrarDialogFuncionario(FuncionarioDTO funcionario, int position) {
