@@ -9,6 +9,7 @@
     <string name="botaoBuscarPorID">Search by ID</string>
     <string name="botaoEditar">Edit</string>
     <string name="botaoExcluir">Delete</string>
+    <string name="botaoProcurar">Search</string>
     <string name="closeButton">Close</string>
 
     <!--String Cargo -->
@@ -59,6 +60,7 @@
     <string name="CadastraCategoria">Category Register</string>
     <string name="CadastraCliente">Customer Register</string>
     <string name="CadastraFuncionario">Worker Register</string>
+    <string name="AtualizaFuncionario">Worker Update</string>
     <string name="FazerPedido">Make an Order</string>
     <string name="CadastraProduto">Product Register</string>
     <string name="GerenciaPedido">Order Management</string>

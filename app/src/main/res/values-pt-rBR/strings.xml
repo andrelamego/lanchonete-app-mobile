@@ -24,6 +24,7 @@
     <string name="CadastraCategoria">Cadastro de Categoria</string>
     <string name="CadastraCliente">Cadastro de Cliente</string>
     <string name="CadastraFuncionario">Cadastro de Funcionário</string>
+    <string name="AtualizaFuncionario">Atualização de Funcionario</string>
     <string name="FazerPedido">Fazer um Pedido</string>
     <string name="CadastraProduto">Cadastro de Produto</string>
     <string name="GerenciaPedido">Gerenciamento de Pedido</string>
@@ -42,6 +43,7 @@
     <string name="botaoEditar">Editar</string>
     <string name="botaoExcluir">Excluir</string>
     <string name="valorTotal">Total: R$</string>
+    <string name="botaoProcurar">Procurar</string>
     <string name="closeButton">Fechar</string>
     <string name="novoPedido">Novo Pedido</string>
     <string name="buscarPedido">Buscar Pedido</string>
