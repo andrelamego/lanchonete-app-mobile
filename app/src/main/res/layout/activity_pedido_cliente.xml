@@ -6,7 +6,7 @@
     android:layout_height="match_parent">
 
     <Button
-        android:id="@+id/salvar"
+        android:id="@+id/btnSalvarFuncionario"
         android:layout_width="119dp"
         android:layout_height="65dp"
         android:text="@string/RemoverProduto"
@@ -16,7 +16,7 @@
         tools:layout_editor_absoluteY="470dp" />
 
     <Button
-        android:id="@+id/excluir"
+        android:id="@+id/btnExcluirFuncionario"
         android:layout_width="119dp"
         android:layout_height="65dp"
         android:text="@string/AdicionarProduto"
@@ -26,7 +26,7 @@
         tools:layout_editor_absoluteY="470dp" />
 
     <Button
-        android:id="@+id/listar"
+        android:id="@+id/btnBuscarFuncionario"
         android:layout_width="119dp"
         android:layout_height="65dp"
         android:text="@string/SalvarPedido"

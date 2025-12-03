@@ -49,31 +49,18 @@ public class FuncionarioAdapter extends RecyclerView.Adapter<FuncionarioAdapter.
 
         TextView tvIDFuncionario;
         TextView tvNomeFuncionario;
-        TextView tvTelefoneFuncionario;
-        TextView tvEmailFuncionario;
-        TextView tvDataContratoFuncionario;
         TextView tvCargoFuncionario;
-        TextView tvSalarioFuncionario;
-
         public FuncionarioViewHolder(@NonNull View itemView) {
             super(itemView);
             tvIDFuncionario = itemView.findViewById(R.id.tvIDFuncionario);
             tvNomeFuncionario = itemView.findViewById(R.id.tvNomeFuncionario);
-            tvTelefoneFuncionario = itemView.findViewById(R.id.tvTelefoneFuncionario);
-            tvEmailFuncionario = itemView.findViewById(R.id.tvEmailFuncionario);
-            tvDataContratoFuncionario = itemView.findViewById(R.id.tvDataContratoFunciorio);
             tvCargoFuncionario = itemView.findViewById(R.id.tvCargoFuncionario);
-            tvSalarioFuncionario = itemView.findViewById(R.id.tvSalarioFuncionario);
         }
 
         public void bind(FuncionarioDTO funcionarioDTO, int position, FuncionarioAdapter.OnFuncionarioClickListener listener) {
             tvIDFuncionario.setText("ID: " + funcionarioDTO.getId());
             tvNomeFuncionario.setText("Nome: " + funcionarioDTO.getNome());
-            tvTelefoneFuncionario.setText("Telefone: " + funcionarioDTO.getTel());
-            tvEmailFuncionario.setText("Email: " + funcionarioDTO.getEmail());
-            tvDataContratoFuncionario.setText("Data do Contrato: " + funcionarioDTO.getDataContrato());
             tvCargoFuncionario.setText("Cargo: " + funcionarioDTO.getCargo());
-            tvSalarioFuncionario.setText("Salário: " + funcionarioDTO.getSalario());
 
             itemView.setOnClickListener(v -> {
                 if (listener != null) {

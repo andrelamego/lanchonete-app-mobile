@@ -5,13 +5,14 @@ import com.fatec.lanchonetemobile.domain.entity.ItemPedido;
 import com.fatec.lanchonetemobile.domain.entity.Pedido;
 import com.fatec.lanchonetemobile.domain.entity.Produto;
 
+import java.sql.Date;
 import java.time.LocalDate;
 import java.util.List;
 
 public class ManterPedidoUseCase {
     public void criarPedido(Pedido pedido, Cliente cliente, List<ItemPedido> itensPedido) {
         pedido.setItensPedido(itensPedido);
-        pedido.setData(LocalDate.now());
+        pedido.setData(Date.valueOf(String.valueOf(LocalDate.now())));
         pedido.setStatus("Criado");
         pedido.setCliente(cliente);
 
