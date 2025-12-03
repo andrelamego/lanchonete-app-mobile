@@ -41,4 +41,9 @@ public record ClienteDTO(
     public String getComplemento() {
         return complemento;
     }
+
+    @Override
+    public String toString() {
+        return nome;
+    }
 }

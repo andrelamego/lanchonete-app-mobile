@@ -2,12 +2,15 @@ package com.fatec.lanchonetemobile.adapters.ui;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.LayoutInflater;
+import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Spinner;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
@@ -26,11 +29,13 @@ import com.fatec.lanchonetemobile.application.dto.CargoDTO;
 import com.fatec.lanchonetemobile.application.dto.ClienteDTO;
 import com.fatec.lanchonetemobile.application.dto.ItemPedidoDTO;
 import com.fatec.lanchonetemobile.application.dto.PedidoDTO;
+import com.fatec.lanchonetemobile.application.dto.ProdutoDTO;
 import com.fatec.lanchonetemobile.application.exception.PedidoInvalidoException;
 import com.fatec.lanchonetemobile.application.facade.CadastroFacade;
 import com.fatec.lanchonetemobile.application.facade.PedidoFacade;
 import com.fatec.lanchonetemobile.application.mapper.ClienteMapper;
 import com.fatec.lanchonetemobile.application.mapper.ItemPedidoMapper;
+import com.fatec.lanchonetemobile.application.mapper.ProdutoMapper;
 import com.fatec.lanchonetemobile.config.AppBuilder;
 
 import java.sql.Date;
@@ -55,15 +60,23 @@ public class FormPedidoActivity extends AppCompatActivity {
     private Button btnAddProduto;
     private Button btnSalvar;
 
+    private PedidoDTO pedido;
+
+
+    private ProdutoDTO produto;
+    private List<ProdutoDTO> produtos;
+    private ProdutoMapper produtoMapper = new ProdutoMapper();
+    private AutoCompleteTextView acProduto;
+
 
     private ClienteDTO cliente;
     private List<ClienteDTO> clientes;
-    private ClienteMapper clienteMapper;
+    private ClienteMapper clienteMapper = new ClienteMapper();
 
     private RecyclerView rvItemPedido;
     private List<ItemPedidoDTO> itens;
     private ItemPedidoAdapter adapter;
-    private ItemPedidoMapper itemMapper;
+    private ItemPedidoMapper itemMapper = new ItemPedidoMapper();
 
     private int pedidoId;
     
@@ -105,6 +118,8 @@ public class FormPedidoActivity extends AppCompatActivity {
         status.add(String.valueOf(R.string.Cancelado));
 
         btnAddProduto = findViewById(R.id.btnAddItemPedido);
+        btnAddProduto.setOnClickListener(e -> mostrarDialogFormItem());
+
         btnSalvar = findViewById(R.id.btnSalvarFormPedido);
 
         btnBack = findViewById(R.id.ivBackFormPedido);
@@ -112,8 +127,11 @@ public class FormPedidoActivity extends AppCompatActivity {
             finish();
         });
 
+
+
         //ADICIONA CLIENTES AO AUTOCOMPLETE
         carregarSpinnerClientes();
+        carregarSpinnerStatus();
 
         acCliente.setOnItemClickListener((parent, view, position, id) -> {
             cliente = (ClienteDTO) parent.getItemAtPosition(position);
@@ -161,8 +179,6 @@ public class FormPedidoActivity extends AppCompatActivity {
         });
         //------------------------------------------------------------------------------------------
 
-        carregarSpinnerStatus();
-
         Intent intent = getIntent();
         if (intent != null && intent.hasExtra("PEDIDO_ID")) {
             pedidoId = intent.getIntExtra("PEDIDO_ID", 0);
@@ -182,10 +198,26 @@ public class FormPedidoActivity extends AppCompatActivity {
                 throw new RuntimeException(e);
             }
         }
+        else {
+            List<ItemPedidoDTO> listaVazia = new ArrayList<>();
+
+            try {
+                pedido = pedidoFacade.criarPedido(new PedidoDTO(0,
+                        0,
+                        listaVazia.stream().map(itemMapper::toEntity).collect(Collectors.toList()),
+                        null,
+                        null,
+                        null));
+
+                pedido = pedidoFacade.criarPedido(pedido);
+            } catch (SQLException e) {
+                throw new RuntimeException(e);
+            }
+        }
 
         btnSalvar.setOnClickListener(e -> {
             try {
-                SimpleDateFormat formatoEntrada = new SimpleDateFormat("dd/MM/yyyy", Locale.getDefault());
+                SimpleDateFormat formatoEntrada = new SimpleDateFormat("ddMMyyyy", Locale.getDefault());
 
                 SimpleDateFormat formatoSql = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault());
 
@@ -247,8 +279,59 @@ public class FormPedidoActivity extends AppCompatActivity {
     private void mostrarDialogItem(ItemPedidoDTO item, int position) {
     }
 
+    private void mostrarDialogFormItem() {
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+
+        LayoutInflater inflater = getLayoutInflater();
+        View dialogView = inflater.inflate(R.layout.dialog_form_item_pedido, null);
+        builder.setView(dialogView);
+
+        acProduto = dialogView.findViewById(R.id.acProdutoItemFormDialog);
+        EditText etQtdItem = dialogView.findViewById(R.id.etQtdItemFormDialog);
+
+        Button btnAdd = dialogView.findViewById(R.id.btnAddItemFormDialog);
+        ImageView btnFechar = dialogView.findViewById(R.id.btnCloseItemFormDialog);
+
+        AlertDialog dialog = builder.create();
+
+        //CARREGAR PRODUTOS NO AUTOCOMPLETE
+        carregarSpinnerProdutos();
+
+        acProduto.setOnItemClickListener((parent, view, position, id) -> {
+            produto = (ProdutoDTO) parent.getItemAtPosition(position);
+            acProduto.setText(produto.getNome());
+        });
+
+        btnFechar.setOnClickListener(v -> dialog.dismiss());
+
+        btnAdd.setOnClickListener(v -> {
+            try {
+                int qtd = Integer.parseInt(etQtdItem.getText().toString());
+                if (qtd > 0) {
+                    ItemPedidoDTO item = new ItemPedidoDTO(
+                            0,
+                            produtoMapper.toEntity(produto),
+                            qtd,
+                            produto.valorUn(),
+                            produto.valorUn() * qtd
+                    );
+
+
+                    pedidoFacade.adicionarItem(item);
+                    itens.add(item);
+                    adapter.notifyItemInserted(itens.size() - 1);
+                    dialog.dismiss();
+                }
+            } catch (SQLException e) {
+                throw new RuntimeException(e);
+            }
+        });
+
+        dialog.show();
+    }
+
     private void carregarSpinnerStatus() {
-        ArrayAdapter<String> adapter = new ArrayAdapter<>(
+        ArrayAdapter adapter = new ArrayAdapter<>(
                 this,
                 android.R.layout.simple_dropdown_item_1line,
                 status
@@ -268,6 +351,24 @@ public class FormPedidoActivity extends AppCompatActivity {
             );
 
             acCliente.setAdapter(adapter);
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+            Toast.makeText(this, "Erro ao carregar clientes", Toast.LENGTH_SHORT).show();
+        }
+    }
+
+    private void carregarSpinnerProdutos() {
+        try {
+            produtos = cadastroFacade.listarProdutos();
+
+            ArrayAdapter<ProdutoDTO> adapter = new ArrayAdapter<>(
+                    this,
+                    android.R.layout.simple_dropdown_item_1line,
+                    produtos
+            );
+
+            acProduto.setAdapter(adapter);
 
         } catch (SQLException e) {
             e.printStackTrace();
