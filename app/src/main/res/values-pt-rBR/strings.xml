@@ -130,4 +130,9 @@
     <string name="QtdEstoque">Quantidade em Estoque</string>
     <string name="Categoria">Categoria</string>
     <string name="Fornecedor">Fornecedor</string>
+    <string name="botaoEditarPedido">Atualizar Pedido</string>
+    <string name="EmPreparo">Preparando</string>
+    <string name="Entregando">Em Entrega</string>
+    <string name="Finalizado">Finalizado</string>
+    <string name="Cancelado">Cancelado</string>
 </resources>

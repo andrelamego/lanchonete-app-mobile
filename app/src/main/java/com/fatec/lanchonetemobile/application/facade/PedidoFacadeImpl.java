@@ -16,6 +16,7 @@ import com.fatec.lanchonetemobile.domain.entity.Produto;
 
 import java.sql.SQLException;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class PedidoFacadeImpl implements PedidoFacade{
 
@@ -64,7 +65,7 @@ public class PedidoFacadeImpl implements PedidoFacade{
     public List<PedidoDTO> listarPedidos() throws SQLException {
         return pedidoService.listarPedidos().stream()
                 .map(pedidoMapper::toDTO)
-                .toList();
+                .collect(Collectors.toList());
     }
 
     @Override
@@ -130,13 +131,13 @@ public class PedidoFacadeImpl implements PedidoFacade{
     public List<ItemPedidoDTO> listarItens() throws SQLException {
         return itemPedidoService.listarItens().stream()
                 .map(itemPedidoMapper::toDTO)
-                .toList();
+                .collect(Collectors.toList());
     }
     
     @Override
     public List<ItemPedidoDTO> listarItensPorNumPedido(int nPedido) throws SQLException {
         return itemPedidoService.listarItensPorNumPedido(nPedido).stream()
                 .map(itemPedidoMapper::toDTO)
-                .toList();
+                .collect(Collectors.toList());
     }
 }

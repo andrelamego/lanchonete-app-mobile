@@ -38,7 +38,7 @@
     <!--String ItemPedido -->
     <string name="Produto">Product</string>
     <string name="Quantidade">Quantity</string>
-    
+
     <!--String Pedido -->
     <string name="NumPedido">Order ID</string>
     <string name="ValorTotal">Total Value</string>
@@ -90,6 +90,12 @@
     <string name="buscarPedido">Search Order</string>
     <string name="nomeCliente">Customer\'s Name</string>
     <string name="dataPedido">Date</string>
+    <string name="botaoEditarPedido">Update Order</string>
+    <!--Strings Status -->
+    <string name="EmPreparo">Preparing</string>
+    <string name="Entregando">Delivering</string>
+    <string name="Finalizado">Finished</string>
+    <string name="Cancelado">Canceled</string>
     <!-- List Itens Pedido -->
     <string name="quantidade">x</string>
     <string name="nomeItem"> - </string>

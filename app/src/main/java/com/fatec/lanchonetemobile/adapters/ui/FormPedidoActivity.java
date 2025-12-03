@@ -16,24 +16,24 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
+import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.fatec.lanchonetemobile.LanchoneteApp;
 import com.fatec.lanchonetemobile.R;
-import com.fatec.lanchonetemobile.application.dto.CategoriaDTO;
+import com.fatec.lanchonetemobile.adapters.adapter.ItemPedidoAdapter;
 import com.fatec.lanchonetemobile.application.dto.ClienteDTO;
-import com.fatec.lanchonetemobile.application.dto.FornecedorDTO;
 import com.fatec.lanchonetemobile.application.dto.ItemPedidoDTO;
 import com.fatec.lanchonetemobile.application.dto.PedidoDTO;
-import com.fatec.lanchonetemobile.application.dto.ProdutoDTO;
-import com.fatec.lanchonetemobile.application.exception.ClienteInvalidoException;
 import com.fatec.lanchonetemobile.application.facade.CadastroFacade;
 import com.fatec.lanchonetemobile.application.facade.PedidoFacade;
+import com.fatec.lanchonetemobile.application.mapper.ItemPedidoMapper;
 import com.fatec.lanchonetemobile.config.AppBuilder;
-import com.fatec.lanchonetemobile.domain.entity.Cliente;
 
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class FormPedidoActivity extends AppCompatActivity {
 
@@ -42,6 +42,8 @@ public class FormPedidoActivity extends AppCompatActivity {
     private AutoCompleteTextView acCliente;
     private EditText etData;
     private Spinner spStatus;
+    private Double valorTotal;
+    private List<String> status;
 
     private Button btnAddProduto;
     private Button btnSalvar;
@@ -52,6 +54,8 @@ public class FormPedidoActivity extends AppCompatActivity {
 
     private RecyclerView rvItemPedido;
     private List<ItemPedidoDTO> itens;
+    private ItemPedidoAdapter adapter;
+    private ItemPedidoMapper itemMapper;
 
     private int pedidoId;
     
@@ -85,6 +89,12 @@ public class FormPedidoActivity extends AppCompatActivity {
         etData = findViewById(R.id.etDataFormPedido);
         spStatus = findViewById(R.id.spStatusFormPedido);
         rvItemPedido = findViewById(R.id.rvItemPedido);
+
+        status = new ArrayList<>();
+        status.add(String.valueOf(R.string.EmPreparo));
+        status.add(String.valueOf(R.string.Entregando));
+        status.add(String.valueOf(R.string.Finalizado));
+        status.add(String.valueOf(R.string.Cancelado));
 
         btnAddProduto = findViewById(R.id.btnAddItemPedido);
         btnSalvar = findViewById(R.id.btnSalvarFormPedido);
@@ -153,23 +163,40 @@ public class FormPedidoActivity extends AppCompatActivity {
 
                 acCliente.setText(pedido.getNomeCliente());
                 etData.setText(String.valueOf(pedido.getDataPedido()));
+                valorTotal = pedido.getValorTotal();
+                spStatus.setSelection(status.indexOf(pedido.getStatus()));
+                itens = pedido.itensPedido().stream().map(itemMapper :: toDTO).collect(Collectors.toList());
+                cliente = pedido.getClienteDTO();
 
-                //TODO: ADICIONAR STRING botaoEditarPedido AO STRINGS.XML
-                //btnSalvar.setText(R.string.botaoEditarPedido);
+                btnSalvar.setText(R.string.botaoEditarPedido);
             } catch (SQLException e) {
                 throw new RuntimeException(e);
             }
         }
 
-        //TODO: IMPLEMENTAR BOTÃO SALVAR
         btnSalvar.setOnClickListener(e -> {
 
         });
+
+        itens = new ArrayList<>();
+
+        rvItemPedido = findViewById(R.id.rvItemPedido);
+        rvItemPedido.setLayoutManager(new LinearLayoutManager(this));
+        adapter = new ItemPedidoAdapter(itens, (item, position) -> mostrarDialogItem(item, position));
+        rvItemPedido.setAdapter(adapter);
     }
 
-    //TODO: IMPLEMENTAR CARREGAMENTO DO SPINNER DE STATUS
-    private void carregarSpinnerStatus() {
+    private void mostrarDialogItem(ItemPedidoDTO item, int position) {
+    }
 
+    private void carregarSpinnerStatus() {
+        ArrayAdapter<String> adapter = new ArrayAdapter<>(
+                this,
+                android.R.layout.simple_dropdown_item_1line,
+                status
+        );
+
+        spStatus.setAdapter(adapter);
     }
 
     private void carregarSpinnerClientes() {
