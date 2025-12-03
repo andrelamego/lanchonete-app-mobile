@@ -4,14 +4,14 @@ import com.fatec.lanchonetemobile.application.mapper.ClienteMapper;
 import com.fatec.lanchonetemobile.domain.entity.Cliente;
 import com.fatec.lanchonetemobile.domain.entity.ItemPedido;
 
-import java.time.LocalDate;
+import java.util.Date;
 import java.util.List;
 
 public record PedidoDTO(
         int nPedido,
         double valorTotal,
         List<ItemPedido> itensPedido,
-        LocalDate dataPedido,
+        Date dataPedido,
         String status,
         Cliente cliente
 ) {
@@ -23,7 +23,7 @@ public record PedidoDTO(
         public double getValorTotal(){
                 return valorTotal;
         }
-        public LocalDate getDataPedido(){
+        public Date getDataPedido(){
                 return dataPedido;
         }
         public String getStatus(){

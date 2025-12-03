@@ -1,14 +1,14 @@
 package com.fatec.lanchonetemobile.domain.entity;
 
-import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 public class Pedido {
     private int nPedido;
     private double valorTotal;
     private List<ItemPedido> itensPedido;
-    private LocalDate data;
+    private Date data;
     private String status;
     private Cliente cliente;
 
@@ -22,7 +22,7 @@ public class Pedido {
         this.itensPedido = new ArrayList<>();
     }
 
-    public Pedido(int nPedido, double valorTotal, List<ItemPedido> itensPedido, LocalDate data, String status, Cliente cliente) {
+    public Pedido(int nPedido, double valorTotal, List<ItemPedido> itensPedido, Date data, String status, Cliente cliente) {
         this.cliente = cliente;
         this.data = data;
         this.itensPedido = itensPedido;
@@ -41,7 +41,7 @@ public class Pedido {
     public List<ItemPedido> getItensPedido() {
         return itensPedido;
     }
-    public LocalDate getData() {
+    public Date getData() {
         return data;
     }
     public String getStatus() {
@@ -59,7 +59,7 @@ public class Pedido {
     public void setItensPedido(List<ItemPedido> itensPedido) {
         this.itensPedido = itensPedido;
     }
-    public void setData(LocalDate data) {
+    public void setData(Date data) {
         this.data = data;
     }
     public void setStatus(String status) {

@@ -83,7 +83,7 @@ public class FuncionarioRepository implements RepositoryNoReturn<Funcionario> {
             entidade.setNome(cursor.getString(cursor.getColumnIndex("Nome_Func")));
             entidade.setTel(cursor.getString(cursor.getColumnIndex("Telefone")));
             entidade.setEmail(cursor.getString(cursor.getColumnIndex("Email")));
-            entidade.setDataContrato(Date.valueOf(cursor.getString(cursor.getColumnIndex("DataContrato"))).toInstant().atZone(ZoneId.systemDefault()).toLocalDate());
+            entidade.setDataContrato(Date.valueOf(cursor.getString(cursor.getColumnIndex("DataContrato"))));
             entidade.setCargo(cargo);
             
             cont++;
@@ -122,7 +122,7 @@ public class FuncionarioRepository implements RepositoryNoReturn<Funcionario> {
             entidade.setNome(cursor.getString(cursor.getColumnIndex("Nome_Func")));
             entidade.setTel(cursor.getString(cursor.getColumnIndex("Telefone")));
             entidade.setEmail(cursor.getString(cursor.getColumnIndex("Email")));
-            entidade.setDataContrato(Date.valueOf(cursor.getString(cursor.getColumnIndex("DataContrato"))).toInstant().atZone(ZoneId.systemDefault()).toLocalDate());
+            entidade.setDataContrato(Date.valueOf(cursor.getString(cursor.getColumnIndex("DataContrato"))));
             entidade.setCargo(cargo);
 
             entidades.add(entidade);
@@ -158,7 +158,7 @@ public class FuncionarioRepository implements RepositoryNoReturn<Funcionario> {
             entidade.setNome(cursor.getString(cursor.getColumnIndex("Nome_Func")));
             entidade.setTel(cursor.getString(cursor.getColumnIndex("Telefone")));
             entidade.setEmail(cursor.getString(cursor.getColumnIndex("Email")));
-            entidade.setDataContrato(Date.valueOf(cursor.getString(cursor.getColumnIndex("DataContrato"))).toInstant().atZone(ZoneId.systemDefault()).toLocalDate());
+            entidade.setDataContrato(Date.valueOf(cursor.getString(cursor.getColumnIndex("DataContrato"))));
             entidade.setCargo(cargo);
 
             cont++;

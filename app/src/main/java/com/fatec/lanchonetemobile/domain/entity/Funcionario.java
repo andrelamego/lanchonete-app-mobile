@@ -1,13 +1,13 @@
 package com.fatec.lanchonetemobile.domain.entity;
 
-import java.time.LocalDate;
+import java.util.Date;
 
 public class Funcionario {
     private int id;
     private String nome;
     private String tel;
     private String email;
-    private LocalDate dataContrato;
+    private Date dataContrato;
     private Cargo cargo;
 
     public Funcionario(){}
@@ -15,7 +15,7 @@ public class Funcionario {
         this.id = id;
     }
 
-    public Funcionario(int id, String nome, String tel, String email, LocalDate dataContrato, Cargo cargo) {
+    public Funcionario(int id, String nome, String tel, String email, Date dataContrato, Cargo cargo) {
         this.id = id;
         this.nome = nome;
         this.tel = tel;
@@ -36,7 +36,7 @@ public class Funcionario {
     public String getEmail() {
         return email;
     }
-    public LocalDate getDataContrato() {
+    public Date getDataContrato() {
         return dataContrato;
     }
     public Cargo getCargo() {
@@ -54,7 +54,7 @@ public class Funcionario {
     public void setEmail(String email) {
         this.email = email;
     }
-    public void setDataContrato(LocalDate dataContrat) {
+    public void setDataContrato(Date dataContrat) {
         this.dataContrato = dataContrat;
     }
     public void setCargo(Cargo cargo) {

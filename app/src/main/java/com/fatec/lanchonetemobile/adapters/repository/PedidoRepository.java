@@ -97,7 +97,7 @@ public class PedidoRepository implements RepositoryReturn<Pedido> {
 
             entidade.setnPedido(cursor.getInt(cursor.getColumnIndex("Num_Pedido")));
             entidade.setValorTotal(cursor.getDouble(cursor.getColumnIndex("ValorTotal")));
-            entidade.setData(Date.valueOf(cursor.getString(cursor.getColumnIndex("DataPedido"))).toInstant().atZone(ZoneId.systemDefault()).toLocalDate());
+            entidade.setData(Date.valueOf(cursor.getString(cursor.getColumnIndex("DataPedido"))));
             entidade.setStatus(cursor.getString(cursor.getColumnIndex("StatusPedido")));
             entidade.setCliente(cliente);
 
@@ -138,7 +138,7 @@ public class PedidoRepository implements RepositoryReturn<Pedido> {
             Pedido entidade = new Pedido();
             entidade.setnPedido(cursor.getInt(cursor.getColumnIndex("Num_Pedido")));
             entidade.setValorTotal(cursor.getDouble(cursor.getColumnIndex("ValorTotal")));
-            entidade.setData(Date.valueOf(cursor.getString(cursor.getColumnIndex("DataPedido"))).toInstant().atZone(ZoneId.systemDefault()).toLocalDate());
+            entidade.setData(Date.valueOf(cursor.getString(cursor.getColumnIndex("DataPedido"))));
             entidade.setStatus(cursor.getString(cursor.getColumnIndex("StatusPedido")));
             entidade.setCliente(cliente);
 
@@ -176,7 +176,7 @@ public class PedidoRepository implements RepositoryReturn<Pedido> {
 
             entidade.setnPedido(cursor.getInt(cursor.getColumnIndex("Num_Pedido")));
             entidade.setValorTotal(cursor.getDouble(cursor.getColumnIndex("ValorTotal")));
-            entidade.setData(Date.valueOf(cursor.getString(cursor.getColumnIndex("DataPedido"))).toInstant().atZone(ZoneId.systemDefault()).toLocalDate());
+            entidade.setData(Date.valueOf(cursor.getString(cursor.getColumnIndex("DataPedido"))));
             entidade.setStatus(cursor.getString(cursor.getColumnIndex("StatusPedido")));
             entidade.setCliente(cliente);
 
