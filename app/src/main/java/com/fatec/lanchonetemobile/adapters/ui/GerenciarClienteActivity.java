@@ -67,7 +67,16 @@ public class GerenciarClienteActivity extends AppCompatActivity {
         //-----------------------------------------------------------
 
         btnAddCliente = findViewById(R.id.btnAddCliente);
+        btnAddCliente.setOnClickListener(e -> {
+            Intent intent = new Intent(this, FormClienteActivity.class);
+            startActivity(intent);
+        });
+
         btnBuscarCliente = findViewById(R.id.btnBuscarCliente);
+        btnBuscarCliente.setOnClickListener(e -> {
+            mostrarBuscarDialog();
+        });
+
 
         rvClientes = findViewById(R.id.rvListaGerenciarCliente);
 
@@ -151,9 +160,7 @@ public class GerenciarClienteActivity extends AppCompatActivity {
         TextView tvNomeCliente = dialogView.findViewById(R.id.tvNomeClienteDialog);
         TextView tvTelefoneCliente = dialogView.findViewById(R.id.tvTelefoneClienteDialog);
         TextView tvCPFCliente = dialogView.findViewById(R.id.tvCPFClienteDialog);
-        TextView tvLogradouroCliente = dialogView.findViewById(R.id.tvLogradouroClienteDialog);
-        TextView tvNumeroCliente = dialogView.findViewById(R.id.tvNumeroClienteDialog);
-        TextView tvCEPCliente = dialogView.findViewById(R.id.tvCEPClienteDialog);
+        TextView tvEnderecoCliente = dialogView.findViewById(R.id.tvEnderecoClienteDialog);
         TextView tvComplementoCliente = dialogView.findViewById(R.id.tvComplementoClienteDialog);
 
         Button btnEditar = dialogView.findViewById(R.id.btnUpdateClienteDialog);
@@ -164,9 +171,7 @@ public class GerenciarClienteActivity extends AppCompatActivity {
         tvNomeCliente.setText("Nome: " + cliente.getNome());
         tvCPFCliente.setText("CPF: " + cliente.getCpf());
         tvTelefoneCliente.setText("Telefone: " + cliente.getTel());
-        tvLogradouroCliente.setText("Logradouro: " + cliente.getLogradouro());
-        tvNumeroCliente.setText("Numero: " + cliente.getNumero());
-        tvCEPCliente.setText("CEP: " + cliente.getCep());
+        tvEnderecoCliente.setText("Endereço: " + cliente.getLogradouro() + ", " + cliente.getNumero() + " - " + cliente.getCep());
         tvComplementoCliente.setText("Complemento: " + cliente.getComplemento());
 
         AlertDialog dialog = builder.create();
@@ -183,7 +188,7 @@ public class GerenciarClienteActivity extends AppCompatActivity {
         btnExcluir.setOnClickListener(v -> {
             new AlertDialog.Builder(this)
                     .setTitle("Confirmar exclusão")
-                    .setMessage("Deseja realmente excluir este pedido?")
+                    .setMessage("Deseja realmente excluir este cliente?")
                     .setPositiveButton("Sim", (d, which) -> {
                         clientes.remove(position);
                         try {

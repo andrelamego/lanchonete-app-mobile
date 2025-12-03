@@ -23,6 +23,7 @@ import com.fatec.lanchonetemobile.LanchoneteApp;
 import com.fatec.lanchonetemobile.R;
 import com.fatec.lanchonetemobile.adapters.adapter.FornecedorAdapter;
 import com.fatec.lanchonetemobile.application.dto.FornecedorDTO;
+import com.fatec.lanchonetemobile.application.exception.FornecedorNaoEncontradoException;
 import com.fatec.lanchonetemobile.application.exception.FuncionarioNaoEncontradoException;
 import com.fatec.lanchonetemobile.application.facade.CadastroFacade;
 import com.fatec.lanchonetemobile.config.AppBuilder;
@@ -66,12 +67,20 @@ public class GerenciarFornecedorActivity extends AppCompatActivity {
         cadastroFacade = builder.getCadastroFacade();
         //-----------------------------------------------------------
 
-        btnAddFornecedor = findViewById(R.id.btnAddFornecedor);
-        btnBuscarFornecedor = findViewById(R.id.btnBuscarFornecedor);
+        btnAddFornecedor = findViewById(R.id.btnAddForn);
+        btnAddFornecedor.setOnClickListener(e -> {
+            Intent intent = new Intent(this, FormFornecedorActivity.class);
+            startActivity(intent);
+        });
 
-        rvFornecedores = findViewById(R.id.rvListaGerenciarFornecedor);
+        btnBuscarFornecedor = findViewById(R.id.btnBuscarForn);
+        btnBuscarFornecedor.setOnClickListener(e -> {
+            mostrarBuscarDialog();
+        });
 
-        ivBack = findViewById(R.id.ivBackGerenciarFornecedor);
+        rvFornecedores = findViewById(R.id.rvListaGerenciarForn);
+
+        ivBack = findViewById(R.id.ivBackGerenciarForn);
         ivBack.setOnClickListener(e -> {
             finish();
         });
@@ -113,10 +122,10 @@ public class GerenciarFornecedorActivity extends AppCompatActivity {
         View dialogView = inflater.inflate(R.layout.dialog_buscar_fornecedor, null);
         builder.setView(dialogView);
 
-        EditText etID = dialogView.findViewById(R.id.etIDBuscarFornecedorDialog);
+        EditText etID = dialogView.findViewById(R.id.etIDBuscarFornDialog);
 
-        Button btnBuscar = dialogView.findViewById(R.id.btnBuscarFornecedorDialog);
-        ImageView btnFechar = dialogView.findViewById(R.id.btnCloseBuscarFornecedorDialog);
+        Button btnBuscar = dialogView.findViewById(R.id.btnBuscarFornDialog);
+        ImageView btnFechar = dialogView.findViewById(R.id.btnCloseBuscarFornDialog);
 
         AlertDialog dialog = builder.create();
 
@@ -128,8 +137,8 @@ public class GerenciarFornecedorActivity extends AppCompatActivity {
                 FornecedorDTO fornecedor = cadastroFacade.buscarFornecedor(id);
 
                 mostrarDialogFornecedor(fornecedor, 0);
-            } catch (FuncionarioNaoEncontradoException f) {
-                Toast.makeText(this, "Funcionário não encontrado", Toast.LENGTH_SHORT).show();
+            } catch (FornecedorNaoEncontradoException f) {
+                Toast.makeText(this, "Fornecedor não encontrado", Toast.LENGTH_SHORT).show();
             } catch (NumberFormatException e) {
                 Toast.makeText(this, "ID inválido", Toast.LENGTH_SHORT).show();
             } catch (SQLException e) {
@@ -147,26 +156,22 @@ public class GerenciarFornecedorActivity extends AppCompatActivity {
         View dialogView = inflater.inflate(R.layout.dialog_fornecedor, null);
         builder.setView(dialogView);
 
-        TextView tvIDFornecedor = dialogView.findViewById(R.id.tvIDFornecedorDialog);
-        TextView tvNomeFornecedor = dialogView.findViewById(R.id.tvNomeFornecedorDialog);
-        TextView tvTelefoneFornecedor = dialogView.findViewById(R.id.tvTelefoneFornecedorDialog);
-        TextView tvCPFFornecedor = dialogView.findViewById(R.id.tvCPFFornecedorDialog);
-        TextView tvLogradouroFornecedor = dialogView.findViewById(R.id.tvLogradouroFornecedorDialog);
-        TextView tvNumeroFornecedor = dialogView.findViewById(R.id.tvNumeroFornecedorDialog);
-        TextView tvCEPFornecedor = dialogView.findViewById(R.id.tvCEPFornecedorDialog);
-        TextView tvComplementoFornecedor = dialogView.findViewById(R.id.tvComplementoFornecedorDialog);
+        TextView tvIDFornecedor = dialogView.findViewById(R.id.tvIDFornDialog);
+        TextView tvNomeFornecedor = dialogView.findViewById(R.id.tvNomeFornDialog);
+        TextView tvTelefoneFornecedor = dialogView.findViewById(R.id.tvTelefoneFornDialog);
+        TextView tvCPFFornecedor = dialogView.findViewById(R.id.tvCNPJFornDialog);
+        TextView tvEnderecoFornecedor = dialogView.findViewById(R.id.tvEnderecoFornDialog);
+        TextView tvComplementoFornecedor = dialogView.findViewById(R.id.tvComplementoFornDialog);
 
-        Button btnEditar = dialogView.findViewById(R.id.btnUpdateFornecedorDialog);
-        Button btnExcluir = dialogView.findViewById(R.id.btnExcluirFornecedorDialog);
-        ImageView btnFechar = dialogView.findViewById(R.id.btnCloseFornecedorDialog);
+        Button btnEditar = dialogView.findViewById(R.id.btnUpdateFornDialog);
+        Button btnExcluir = dialogView.findViewById(R.id.btnExcluirFornDialog);
+        ImageView btnFechar = dialogView.findViewById(R.id.btnCloseFornDialog);
 
         tvIDFornecedor.setText("Fornecedor #" + fornecedor.getId());
         tvNomeFornecedor.setText("Nome: " + fornecedor.getNome());
         tvCPFFornecedor.setText("CPF: " + fornecedor.getCnpj());
         tvTelefoneFornecedor.setText("Telefone: " + fornecedor.getTel());
-        tvLogradouroFornecedor.setText("Logradouro: " + fornecedor.getLogradouro());
-        tvNumeroFornecedor.setText("Numero: " + fornecedor.getNumero());
-        tvCEPFornecedor.setText("CEP: " + fornecedor.getCep());
+        tvEnderecoFornecedor.setText("Endereço: " + fornecedor.getLogradouro() + ", " + fornecedor.getNumero() + " - " + fornecedor.getCep());
         tvComplementoFornecedor.setText("Complemento: " + fornecedor.getComplemento());
 
         AlertDialog dialog = builder.create();
@@ -183,7 +188,7 @@ public class GerenciarFornecedorActivity extends AppCompatActivity {
         btnExcluir.setOnClickListener(v -> {
             new AlertDialog.Builder(this)
                     .setTitle("Confirmar exclusão")
-                    .setMessage("Deseja realmente excluir este pedido?")
+                    .setMessage("Deseja realmente excluir este fornecedor?")
                     .setPositiveButton("Sim", (d, which) -> {
                         fornecedores.remove(position);
                         try {

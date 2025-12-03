@@ -28,7 +28,7 @@ public class FormFornecedorActivity extends AppCompatActivity {
 
     private EditText etNome;
     private EditText etTelefone;
-    private EditText etCPF;
+    private EditText etCNPJ;
     private EditText etLogradouro;
     private EditText etNumero;
     private EditText etCEP;
@@ -62,22 +62,22 @@ public class FormFornecedorActivity extends AppCompatActivity {
         cadastroFacade = builder.getCadastroFacade();
         //-----------------------------------------------------------
 
-        pageTitle = findViewById(R.id.pageTitleFormFornecedor);
+        pageTitle = findViewById(R.id.pageTitleFormForn);
 
-        etNome = findViewById(R.id.etNomeFormFornecedor);
-        etTelefone = findViewById(R.id.etTelefoneFormFornecedor);
-        etCPF = findViewById(R.id.etCPFFormFornecedor);
-        etLogradouro = findViewById(R.id.etLogradouroFormFornecedor);
-        etNumero = findViewById(R.id.etNumeroFormFornecedor);
-        etCEP = findViewById(R.id.etCEPFormFornecedor);
-        etComplemento = findViewById(R.id.etComplementoFormFornecedor);
+        etNome = findViewById(R.id.etNomeFormForn);
+        etTelefone = findViewById(R.id.etTelefoneFormForn);
+        etCNPJ = findViewById(R.id.etCNPJFormForn);
+        etLogradouro = findViewById(R.id.etLogradouroFormForn);
+        etNumero = findViewById(R.id.etNumeroFormForn);
+        etCEP = findViewById(R.id.etCEPFormForn);
+        etComplemento = findViewById(R.id.etComplementoFormForn);
 
-        ivBack = findViewById(R.id.ivBackFormFornecedor);
+        ivBack = findViewById(R.id.ivBackFormForn);
         ivBack.setOnClickListener(e -> {
             finish();
         });
 
-        btnSalvar = findViewById(R.id.btnSalvarFormFornecedor);
+        btnSalvar = findViewById(R.id.btnSalvarFormForn);
 
         Intent intent = getIntent();
         if (intent != null && intent.hasExtra("FORNECEDOR_ID")) {
@@ -88,9 +88,9 @@ public class FormFornecedorActivity extends AppCompatActivity {
 
                 etNome.setText(fornecedor.getNome());
                 etTelefone.setText(fornecedor.getTel());
-                etCPF.setText(fornecedor.getCnpj());
+                etCNPJ.setText(fornecedor.getCnpj());
                 etLogradouro.setText(fornecedor.getLogradouro());
-                etNumero.setText(fornecedor.getNumero());
+                etNumero.setText(String.valueOf(fornecedor.getNumero()));
                 etCEP.setText(fornecedor.getCep());
                 etComplemento.setText(fornecedor.getComplemento());
 
@@ -107,7 +107,7 @@ public class FormFornecedorActivity extends AppCompatActivity {
                         0,
                         etNome.getText().toString(),
                         etTelefone.getText().toString(),
-                        etCPF.getText().toString(),
+                        etCNPJ.getText().toString(),
                         etLogradouro.getText().toString(),
                         Integer.parseInt(etNumero.getText().toString()),
                         etCEP.getText().toString(),
@@ -128,7 +128,7 @@ public class FormFornecedorActivity extends AppCompatActivity {
                         0,
                         etNome.getText().toString(),
                         etTelefone.getText().toString(),
-                        etCPF.getText().toString(),
+                        etCNPJ.getText().toString(),
                         etLogradouro.getText().toString(),
                         Integer.parseInt(etNumero.getText().toString()),
                         etCEP.getText().toString(),

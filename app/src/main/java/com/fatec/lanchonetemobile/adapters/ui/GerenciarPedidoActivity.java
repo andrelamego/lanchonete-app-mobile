@@ -79,16 +79,16 @@ public class GerenciarPedidoActivity extends AppCompatActivity {
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
 
         LayoutInflater inflater = getLayoutInflater();
-        View dialogView = inflater.inflate(R.layout.dialog_pedido_detalhes, null);
+        View dialogView = inflater.inflate(R.layout.dialog_pedido, null);
         builder.setView(dialogView);
 
-        TextView tvNumeroPedido = dialogView.findViewById(R.id.tvNumPedido);
-        TextView tvCliente = dialogView.findViewById(R.id.tvClientePedido);
-        TextView tvData = dialogView.findViewById(R.id.tvDataPedido);
-        TextView tvValor = dialogView.findViewById(R.id.tvTotalPedido);
-        Button btnEditar = dialogView.findViewById(R.id.btnEditarPedido);
-        Button btnExcluir = dialogView.findViewById(R.id.btnDeletarPedido);
-        Button btnFechar = dialogView.findViewById(R.id.btnClosePedido);
+        TextView tvNumeroPedido = dialogView.findViewById(R.id.tvNumPedidoDialog);
+        TextView tvCliente = dialogView.findViewById(R.id.tvClientePedidoDialog);
+        TextView tvData = dialogView.findViewById(R.id.tvDataPedidoDialog);
+        TextView tvValor = dialogView.findViewById(R.id.tvValorTotalPedidoDialog);
+        Button btnEditar = dialogView.findViewById(R.id.btnUpdatePedidoDialog);
+        Button btnExcluir = dialogView.findViewById(R.id.btnExcluirPedidoDialog);
+        Button btnFechar = dialogView.findViewById(R.id.btnClosePedidoDialog);
 
         tvNumeroPedido.setText(R.string.orderListLabel + " " + pedido.getNPedido());
         tvCliente.setText(R.string.orderListCustomerLabel + " " + pedido.getNomeCliente());

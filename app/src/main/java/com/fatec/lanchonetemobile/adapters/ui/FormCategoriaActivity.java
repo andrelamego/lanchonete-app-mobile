@@ -96,9 +96,9 @@ public class FormCategoriaActivity extends AppCompatActivity {
 
                 try {
                     cadastroFacade.novaCategoria(categoria);
-                    mostrarAlerta("Categoria cadastrado!", "Categoria cadastrado com sucesso!");
+                    mostrarAlerta("Categoria cadastrada!", "Categoria cadastrada com sucesso!");
                 } catch (CategoriaInvalidaException ex) {
-                    mostrarAlerta("Categoria inválido!", "Categoria já está cadastrado no sistema.");
+                    mostrarAlerta("Categoria inválida!", "Categoria já está cadastrada no sistema.");
                 } catch (SQLException sql) {
                     mostrarAlerta("Erro ao cadastrar Categoria!", "Erro ao cadastrar Categoria no sistema.");
                 }
@@ -112,7 +112,7 @@ public class FormCategoriaActivity extends AppCompatActivity {
 
                 try {
                     cadastroFacade.atualizarCategoria(categoria);
-                    mostrarAlerta("Categoria atualizado!", "Categoria atualizado com sucesso!");
+                    mostrarAlerta("Categoria atualizada!", "Categoria atualizada com sucesso!");
                 } catch (SQLException sql) {
                     mostrarAlerta("Erro ao atualizar categoria!", "Erro ao atualizar categoria no sistema.");
                 }

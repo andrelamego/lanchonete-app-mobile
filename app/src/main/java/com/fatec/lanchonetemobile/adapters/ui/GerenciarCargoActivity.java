@@ -23,6 +23,7 @@ import com.fatec.lanchonetemobile.LanchoneteApp;
 import com.fatec.lanchonetemobile.R;
 import com.fatec.lanchonetemobile.adapters.adapter.CargoAdapter;
 import com.fatec.lanchonetemobile.application.dto.CargoDTO;
+import com.fatec.lanchonetemobile.application.exception.CargoNaoEncontradoException;
 import com.fatec.lanchonetemobile.application.exception.FuncionarioNaoEncontradoException;
 import com.fatec.lanchonetemobile.application.facade.CadastroFacade;
 import com.fatec.lanchonetemobile.config.AppBuilder;
@@ -136,8 +137,8 @@ public class GerenciarCargoActivity extends AppCompatActivity {
                 CargoDTO cargo = cadastroFacade.buscarCargo(id);
 
                 mostrarDialogCargo(cargo, 0);
-            } catch (FuncionarioNaoEncontradoException f) {
-                Toast.makeText(this, "Funcionário não encontrado", Toast.LENGTH_SHORT).show();
+            } catch (CargoNaoEncontradoException f) {
+                Toast.makeText(this, "Cargo não encontrado", Toast.LENGTH_SHORT).show();
             } catch (NumberFormatException e) {
                 Toast.makeText(this, "ID inválido", Toast.LENGTH_SHORT).show();
             } catch (SQLException e) {

@@ -90,7 +90,7 @@ public class FormClienteActivity extends AppCompatActivity {
                 etTelefone.setText(cliente.getTel());
                 etCPF.setText(cliente.getCpf());
                 etLogradouro.setText(cliente.getLogradouro());
-                etNumero.setText(cliente.getNumero());
+                etNumero.setText(String.valueOf(cliente.getNumero()));
                 etCEP.setText(cliente.getCep());
                 etComplemento.setText(cliente.getComplemento());
 

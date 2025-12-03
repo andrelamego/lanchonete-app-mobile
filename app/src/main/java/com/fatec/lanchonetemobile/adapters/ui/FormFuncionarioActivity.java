@@ -91,13 +91,10 @@ public class FormFuncionarioActivity extends AppCompatActivity {
         btnSalvar.setOnClickListener(e -> {
             try {
 
-                // Formato que o usuário digita (ajuste conforme seu caso)
                 SimpleDateFormat formatoEntrada = new SimpleDateFormat("dd/MM/yyyy", Locale.getDefault());
 
-                // Formato que o SQL espera
                 SimpleDateFormat formatoSql = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault());
 
-                // Converte o texto para Date e depois para o formato SQL
                 java.util.Date dataUtil = formatoEntrada.parse(etData.getText().toString());
                 String dataFormatada = formatoSql.format(dataUtil);
 
@@ -149,13 +146,10 @@ public class FormFuncionarioActivity extends AppCompatActivity {
         btnSalvar.setOnClickListener(e -> {
             try {
 
-                // Formato que o usuário digita (ajuste conforme seu caso)
                 SimpleDateFormat formatoEntrada = new SimpleDateFormat("dd/MM/yyyy", Locale.getDefault());
 
-                // Formato que o SQL espera
                 SimpleDateFormat formatoSql = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault());
 
-                // Converte o texto para Date e depois para o formato SQL
                 java.util.Date dataUtil = formatoEntrada.parse(etData.getText().toString());
                 String dataFormatada = formatoSql.format(dataUtil);
 

@@ -24,6 +24,7 @@ import com.fatec.lanchonetemobile.R;
 import com.fatec.lanchonetemobile.adapters.adapter.CategoriaAdapter;
 import com.fatec.lanchonetemobile.application.dto.CargoDTO;
 import com.fatec.lanchonetemobile.application.dto.CategoriaDTO;
+import com.fatec.lanchonetemobile.application.exception.CategoriaNaoEncontradaException;
 import com.fatec.lanchonetemobile.application.exception.FuncionarioNaoEncontradoException;
 import com.fatec.lanchonetemobile.application.facade.CadastroFacade;
 import com.fatec.lanchonetemobile.config.AppBuilder;
@@ -68,7 +69,15 @@ public class GerenciarCategoriaActivity extends AppCompatActivity {
         //-----------------------------------------------------------
 
         btnAddCategoria = findViewById(R.id.btnAddCateg);
+        btnAddCategoria.setOnClickListener(e -> {
+            Intent intent = new Intent(this, FormCategoriaActivity.class);
+            startActivity(intent);
+        });
+
         btnBuscarCategoria = findViewById(R.id.btnBuscarCateg);
+        btnBuscarCategoria.setOnClickListener(e -> {
+            mostrarBuscarDialog();
+        });
 
         rvCategorias = findViewById(R.id.rvListaGerenciarCateg);
 
@@ -113,10 +122,10 @@ public class GerenciarCategoriaActivity extends AppCompatActivity {
         View dialogView = inflater.inflate(R.layout.dialog_buscar_categoria, null);
         builder.setView(dialogView);
 
-        EditText etID = dialogView.findViewById(R.id.etIDBuscarCategoriaDialog);
+        EditText etID = dialogView.findViewById(R.id.etIDBuscarCategDialog);
 
-        Button btnBuscar = dialogView.findViewById(R.id.btnBuscarCategoriaDialog);
-        ImageView btnFechar = dialogView.findViewById(R.id.btnCloseBuscarCategoriaDialog);
+        Button btnBuscar = dialogView.findViewById(R.id.btnBuscarCategDialog);
+        ImageView btnFechar = dialogView.findViewById(R.id.btnCloseBuscarCategDialog);
 
         AlertDialog dialog = builder.create();
 
@@ -128,8 +137,8 @@ public class GerenciarCategoriaActivity extends AppCompatActivity {
                 CategoriaDTO categoria = cadastroFacade.buscarCategoria(id);
 
                 mostrarDialogCategoria(categoria, 0);
-            } catch (FuncionarioNaoEncontradoException f) {
-                Toast.makeText(this, "Funcionário não encontrado", Toast.LENGTH_SHORT).show();
+            } catch (CategoriaNaoEncontradaException c) {
+                Toast.makeText(this, "Categoria não encontrada", Toast.LENGTH_SHORT).show();
             } catch (NumberFormatException e) {
                 Toast.makeText(this, "ID inválido", Toast.LENGTH_SHORT).show();
             } catch (SQLException e) {
@@ -147,13 +156,13 @@ public class GerenciarCategoriaActivity extends AppCompatActivity {
         View dialogView = inflater.inflate(R.layout.dialog_categoria, null);
         builder.setView(dialogView);
 
-        TextView tvIDCategoria = dialogView.findViewById(R.id.tvIDCategoriaDialog);
-        TextView tvNomeCategoria = dialogView.findViewById(R.id.tvNomeCategoriaDialog);
-        TextView tvDescricaoCategoria = dialogView.findViewById(R.id.tvDescricaoCategoriaDialog);
+        TextView tvIDCategoria = dialogView.findViewById(R.id.tvIDCategDialog);
+        TextView tvNomeCategoria = dialogView.findViewById(R.id.tvNomeCategDialog);
+        TextView tvDescricaoCategoria = dialogView.findViewById(R.id.tvDescricaoCategDialog);
 
-        Button btnEditar = dialogView.findViewById(R.id.btnUpdateCategoriaDialog);
-        Button btnExcluir = dialogView.findViewById(R.id.btnExcluirCategoriaDialog);
-        ImageView btnFechar = dialogView.findViewById(R.id.btnCloseCategoriaDialog);
+        Button btnEditar = dialogView.findViewById(R.id.btnUpdateCategDialog);
+        Button btnExcluir = dialogView.findViewById(R.id.btnExcluirCategDialog);
+        ImageView btnFechar = dialogView.findViewById(R.id.btnCloseCategDialog);
 
         tvIDCategoria.setText("categoria #" + categoria.getId());
         tvNomeCategoria.setText("Nome: " + categoria.getNome());
@@ -165,7 +174,7 @@ public class GerenciarCategoriaActivity extends AppCompatActivity {
 
         btnEditar.setOnClickListener(v -> {
             Intent intent = new Intent(this, FormCategoriaActivity.class);
-            intent.putExtra("CARGO_ID", categoria.getId());
+            intent.putExtra("CATEGORIA_ID", categoria.getId());
             startActivity(intent);
             dialog.dismiss();
         });
@@ -173,7 +182,7 @@ public class GerenciarCategoriaActivity extends AppCompatActivity {
         btnExcluir.setOnClickListener(v -> {
             new AlertDialog.Builder(this)
                     .setTitle("Confirmar exclusão")
-                    .setMessage("Deseja realmente excluir este pedido?")
+                    .setMessage("Deseja realmente excluir esta categoria?")
                     .setPositiveButton("Sim", (d, which) -> {
                         categorias.remove(position);
                         try {
