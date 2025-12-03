@@ -199,20 +199,22 @@ public class FormPedidoActivity extends AppCompatActivity {
             }
         }
         else {
-            List<ItemPedidoDTO> listaVazia = new ArrayList<>();
+            // LOGICA PARA CRIAR PEDIDO VAZIO
 
-            try {
-                pedido = pedidoFacade.criarPedido(new PedidoDTO(0,
-                        0,
-                        listaVazia.stream().map(itemMapper::toEntity).collect(Collectors.toList()),
-                        null,
-                        null,
-                        null));
-
-                pedido = pedidoFacade.criarPedido(pedido);
-            } catch (SQLException e) {
-                throw new RuntimeException(e);
-            }
+//            List<ItemPedidoDTO> listaVazia = new ArrayList<>();
+//
+//            try {
+//                pedido = pedidoFacade.criarPedido(new PedidoDTO(0,
+//                        0,
+//                        listaVazia.stream().map(itemMapper::toEntity).collect(Collectors.toList()),
+//                        null,
+//                        null,
+//                        null));
+//
+//                pedido = pedidoFacade.criarPedido(pedido);
+//            } catch (SQLException e) {
+//                throw new RuntimeException(e);
+//            }
         }
 
         btnSalvar.setOnClickListener(e -> {
