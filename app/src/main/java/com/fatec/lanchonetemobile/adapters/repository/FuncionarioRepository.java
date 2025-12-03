@@ -65,10 +65,10 @@ public class FuncionarioRepository implements RepositoryNoReturn<Funcionario> {
         sql.append("c.ID AS ID_Cargo, c.Nome AS Nome_Cargo, c.Salario, c.Descricao ");
         sql.append("FROM Funcionario f INNER JOIN Cargo c ");
         sql.append("ON f.ID_Cargo = c.ID ");
-        sql.append("WHERE f.ID = ").append(entidade.getId());
+        sql.append("WHERE f.ID = ?");
 
         int cont = 0;
-        Cursor cursor = connection.rawQuery(sql.toString(), null);
+        Cursor cursor = connection.rawQuery(sql.toString(), new String[]{String.valueOf(entidade.getId())});
         cursor.moveToFirst();
 
         if(!cursor.isAfterLast()){
@@ -140,10 +140,10 @@ public class FuncionarioRepository implements RepositoryNoReturn<Funcionario> {
         sql.append("c.ID AS ID_Cargo, c.Nome AS Nome_Cargo, c.Salario, c.Descricao ");
         sql.append("FROM Funcionario f INNER JOIN Cargo c ");
         sql.append("ON f.ID_Cargo = c.ID ");
-        sql.append("WHERE f.Email = ").append(entidade.getEmail());
+        sql.append("WHERE f.Email = ?");
 
         int cont = 0;
-        Cursor cursor = connection.rawQuery(sql.toString(), null);
+        Cursor cursor = connection.rawQuery(sql.toString(), new String[]{entidade.getEmail()});
         cursor.moveToFirst();
 
         if(!cursor.isAfterLast()){
