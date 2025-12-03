@@ -19,10 +19,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.fatec.lanchonetemobile.LanchoneteApp;
 import com.fatec.lanchonetemobile.R;
-import com.fatec.lanchonetemobile.adapters.adapter.CargoAdapter;
 import com.fatec.lanchonetemobile.adapters.adapter.FuncionarioAdapter;
-import com.fatec.lanchonetemobile.adapters.adapter.PedidoAdapter;
-import com.fatec.lanchonetemobile.application.dto.CargoDTO;
 import com.fatec.lanchonetemobile.application.dto.FuncionarioDTO;
 import com.fatec.lanchonetemobile.application.facade.CadastroFacade;
 import com.fatec.lanchonetemobile.config.AppBuilder;
@@ -31,7 +28,6 @@ import com.google.android.material.card.MaterialCardView;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Locale;
 
 public class GerenciarFuncionarioActivity extends AppCompatActivity {
     private MaterialCardView btnAddFuncionario;
