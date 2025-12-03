@@ -2,6 +2,8 @@ package com.fatec.lanchonetemobile;
 
 import android.app.Application;
 
+import androidx.appcompat.app.AppCompatDelegate;
+
 import com.fatec.lanchonetemobile.config.AppBuilder;
 
 import java.sql.SQLException;
@@ -12,6 +14,8 @@ public class LanchoneteApp extends Application {
     @Override
     public void onCreate() {
         super.onCreate();
+        AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
+
         appBuilder = new AppBuilder(getApplicationContext());
     }
 
