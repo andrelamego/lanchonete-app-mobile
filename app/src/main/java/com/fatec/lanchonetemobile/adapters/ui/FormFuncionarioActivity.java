@@ -46,7 +46,7 @@ public class FormFuncionarioActivity extends AppCompatActivity {
     private TextView pageTitle;
     private Button btnSalvar;
 
-
+    private int funcionarioId = 0;
     private List<CargoDTO> cargos;
     private CadastroFacade cadastroFacade;
     private CargoMapper cargoMapper = new CargoMapper();
@@ -128,7 +128,7 @@ public class FormFuncionarioActivity extends AppCompatActivity {
 
         Intent intent = getIntent();
         if (intent != null && intent.hasExtra("FUNCIONARIO_ID")) {
-            int funcionarioId = intent.getIntExtra("FUNCIONARIO_ID", 0);
+            funcionarioId = intent.getIntExtra("FUNCIONARIO_ID", 0);
 
             try {
                 FuncionarioDTO funcionario = cadastroFacade.buscarFuncionario(funcionarioId);
@@ -145,6 +145,61 @@ public class FormFuncionarioActivity extends AppCompatActivity {
                 throw new RuntimeException(e);
             }
         }
+
+        btnSalvar.setOnClickListener(e -> {
+            try {
+
+                // Formato que o usuário digita (ajuste conforme seu caso)
+                SimpleDateFormat formatoEntrada = new SimpleDateFormat("dd/MM/yyyy", Locale.getDefault());
+
+                // Formato que o SQL espera
+                SimpleDateFormat formatoSql = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault());
+
+                // Converte o texto para Date e depois para o formato SQL
+                java.util.Date dataUtil = formatoEntrada.parse(etData.getText().toString());
+                String dataFormatada = formatoSql.format(dataUtil);
+
+                if(funcionarioId == 0) {
+                    FuncionarioDTO funcionario = new FuncionarioDTO(
+                            0,
+                            etNome.getText().toString(),
+                            etTelefone.getText().toString(),
+                            etEmail.getText().toString(),
+                            Date.valueOf(dataFormatada),
+                            cargoMapper.toEntity((CargoDTO) spCargos.getSelectedItem())
+                    );
+
+                    try {
+                        cadastroFacade.novoFuncionario(funcionario);
+                        mostrarAlerta("Funcionario cadastrado!", "Funcionario cadastrado com sucesso!");
+                    } catch (CargoInvalidoException ex) {
+                        mostrarAlerta("Funcionario inválido!", "Funcionario já está cadastrado no sistema.");
+                    } catch (SQLException sql) {
+                        mostrarAlerta("Erro ao cadastrar Funcionario!", "Erro ao cadastrar Funcionario no sistema.");
+                    }
+                }
+                else {
+                    FuncionarioDTO funcionario = new FuncionarioDTO(
+                            funcionarioId,
+                            etNome.getText().toString(),
+                            etTelefone.getText().toString(),
+                            etEmail.getText().toString(),
+                            Date.valueOf(dataFormatada),
+                            cargoMapper.toEntity((CargoDTO) spCargos.getSelectedItem())
+                    );
+
+                    try {
+                        cadastroFacade.atualizarFuncionario(funcionario);
+                        mostrarAlerta("Funcionario atualizado!", "Funcionario atualizado com sucesso!");
+                    } catch (SQLException sql) {
+                        mostrarAlerta("Erro ao atualizar Funcionario!", "Erro ao atualizar Funcionario no sistema.");
+                    }
+                }
+            } catch (ParseException parse) {
+                parse.printStackTrace();
+                Toast.makeText(this, "Data inválida! Use o formato dd/MM/yyyy", Toast.LENGTH_SHORT).show();
+            }
+        });
     }
 
     private void carregarSpinnerCargos() {

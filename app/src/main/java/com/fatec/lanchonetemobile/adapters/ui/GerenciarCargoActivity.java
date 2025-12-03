@@ -5,8 +5,10 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AlertDialog;
@@ -20,9 +22,8 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.fatec.lanchonetemobile.LanchoneteApp;
 import com.fatec.lanchonetemobile.R;
 import com.fatec.lanchonetemobile.adapters.adapter.CargoAdapter;
-import com.fatec.lanchonetemobile.adapters.adapter.PedidoAdapter;
 import com.fatec.lanchonetemobile.application.dto.CargoDTO;
-import com.fatec.lanchonetemobile.application.dto.PedidoDTO;
+import com.fatec.lanchonetemobile.application.exception.FuncionarioNaoEncontradoException;
 import com.fatec.lanchonetemobile.application.facade.CadastroFacade;
 import com.fatec.lanchonetemobile.config.AppBuilder;
 import com.google.android.material.card.MaterialCardView;
@@ -30,7 +31,6 @@ import com.google.android.material.card.MaterialCardView;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Locale;
 
 public class GerenciarCargoActivity extends AppCompatActivity {
     private MaterialCardView btnAddCargo;
@@ -73,6 +73,10 @@ public class GerenciarCargoActivity extends AppCompatActivity {
         });
 
         btnBuscarCargo = findViewById(R.id.btnBuscarCargo);
+        btnBuscarCargo.setOnClickListener(e -> {
+            mostrarBuscarDialog();
+        });
+
 
         rvCargos = findViewById(R.id.rvListaGerenciarCargo);
 
@@ -85,7 +89,7 @@ public class GerenciarCargoActivity extends AppCompatActivity {
 
         rvCargos = findViewById(R.id.rvListaGerenciarCargo);
         rvCargos.setLayoutManager(new LinearLayoutManager(this));
-        adapter = new CargoAdapter(cargos, (cargo, position) -> mostrarDialogPedido(cargo, position));
+        adapter = new CargoAdapter(cargos, (cargo, position) -> mostrarDialogCargo(cargo, position));
         rvCargos.setAdapter(adapter);
 
         carregarCargos();
@@ -110,50 +114,90 @@ public class GerenciarCargoActivity extends AppCompatActivity {
         }
     }
 
-    private void mostrarDialogPedido(CargoDTO cargo, int position) {
-//        AlertDialog.Builder builder = new AlertDialog.Builder(this);
-//
-//        LayoutInflater inflater = getLayoutInflater();
-//        View dialogView = inflater.inflate(R.layout.dialog_pedido_detalhes, null);
-//        builder.setView(dialogView);
-//
-//        TextView tvNumeroPedido = dialogView.findViewById(R.id.tvNumPedido);
-//        TextView tvCliente = dialogView.findViewById(R.id.tvClientePedido);
-//        TextView tvData = dialogView.findViewById(R.id.tvDataPedido);
-//        TextView tvValor = dialogView.findViewById(R.id.tvTotalPedido);
-//        Button btnEditar = dialogView.findViewById(R.id.btnEditarPedido);
-//        Button btnExcluir = dialogView.findViewById(R.id.btnDeletarPedido);
-//        Button btnFechar = dialogView.findViewById(R.id.btnClosePedido);
-//
-//        tvNumeroPedido.setText(R.string.orderListLabel + " " + pedido.getNPedido());
-//        tvCliente.setText(R.string.orderListCustomerLabel + " " + pedido.getNomeCliente());
-//        tvData.setText(R.string.dataPedidoLabel + " " + pedido.getDataPedido());
-//        tvValor.setText(R.string.valorTotal + String.format(Locale.getDefault(), "%.2f", pedido.getValorTotal()));
-//
-//        AlertDialog dialog = builder.create();
-//
-//        btnFechar.setOnClickListener(v -> dialog.dismiss());
-//
-//        btnEditar.setOnClickListener(v -> {
-//            Intent intent = new Intent(this, FormPedidoActivity.class);
-//            intent.putExtra("PEDIDO_ID", pedido.getNPedido());
-//            startActivity(intent);
-//            dialog.dismiss();
-//        });
-//
-//        btnExcluir.setOnClickListener(v -> {
-//            new AlertDialog.Builder(this)
-//                    .setTitle("Confirmar exclusão")
-//                    .setMessage("Deseja realmente excluir este pedido?")
-//                    .setPositiveButton("Sim", (d, which) -> {
-//                        pedidos.remove(position);
-//                        adapter.notifyItemRemoved(position);
-//                        dialog.dismiss();
-//                    })
-//                    .setNegativeButton("Não", null)
-//                    .show();
-//        });
-//
-//        dialog.show();
+    private void mostrarBuscarDialog() {
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+
+        LayoutInflater inflater = getLayoutInflater();
+        View dialogView = inflater.inflate(R.layout.dialog_buscar_cargo, null);
+        builder.setView(dialogView);
+
+        EditText etID = dialogView.findViewById(R.id.etIDBuscarCargoDialog);
+
+        Button btnBuscar = dialogView.findViewById(R.id.btnBuscarCargoDialog);
+        ImageView btnFechar = dialogView.findViewById(R.id.btnCloseBuscarCargoDialog);
+
+        AlertDialog dialog = builder.create();
+
+        btnFechar.setOnClickListener(v -> dialog.dismiss());
+
+        btnBuscar.setOnClickListener(v -> {
+            try {
+                int id = Integer.parseInt(etID.getText().toString());
+                CargoDTO cargo = cadastroFacade.buscarCargo(id);
+
+                mostrarDialogCargo(cargo, 0);
+            } catch (FuncionarioNaoEncontradoException f) {
+                Toast.makeText(this, "Funcionário não encontrado", Toast.LENGTH_SHORT).show();
+            } catch (NumberFormatException e) {
+                Toast.makeText(this, "ID inválido", Toast.LENGTH_SHORT).show();
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        });
+
+        dialog.show();
+    }
+
+    private void mostrarDialogCargo(CargoDTO cargo, int position) {
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+
+        LayoutInflater inflater = getLayoutInflater();
+        View dialogView = inflater.inflate(R.layout.dialog_cargo, null);
+        builder.setView(dialogView);
+
+        TextView tvIDCargo = dialogView.findViewById(R.id.tvIDCargoDialog);
+        TextView tvNomeCargo = dialogView.findViewById(R.id.tvNomeCargoDialog);
+        TextView tvSalarioCargo = dialogView.findViewById(R.id.tvSalarioCargoDialog);
+        TextView tvDescricaoCargo = dialogView.findViewById(R.id.tvDescricaoCargoDialog);
+
+        Button btnEditar = dialogView.findViewById(R.id.btnUpdateCargoDialog);
+        Button btnExcluir = dialogView.findViewById(R.id.btnExcluirCargoDialog);
+        ImageView btnFechar = dialogView.findViewById(R.id.btnCloseCargoDialog);
+
+        tvIDCargo.setText("Cargo #" + cargo.getId());
+        tvNomeCargo.setText("Nome: " + cargo.getNome());
+        tvSalarioCargo.setText("Salário: " + cargo.getSalario());
+        tvDescricaoCargo.setText("Descrição: " + cargo.getDescricao());
+
+        AlertDialog dialog = builder.create();
+
+        btnFechar.setOnClickListener(v -> dialog.dismiss());
+
+        btnEditar.setOnClickListener(v -> {
+            Intent intent = new Intent(this, FormCargoActivity.class);
+            intent.putExtra("CARGO_ID", cargo.getId());
+            startActivity(intent);
+            dialog.dismiss();
+        });
+
+        btnExcluir.setOnClickListener(v -> {
+            new AlertDialog.Builder(this)
+                    .setTitle("Confirmar exclusão")
+                    .setMessage("Deseja realmente excluir este pedido?")
+                    .setPositiveButton("Sim", (d, which) -> {
+                        cargos.remove(position);
+                        try {
+                            cadastroFacade.removerCargo(cargo.getId());
+                        } catch (SQLException e) {
+                            e.printStackTrace();
+                        }
+                        adapter.notifyItemRemoved(position);
+                        dialog.dismiss();
+                    })
+                    .setNegativeButton("Não", null)
+                    .show();
+        });
+
+        dialog.show();
     }
 }
