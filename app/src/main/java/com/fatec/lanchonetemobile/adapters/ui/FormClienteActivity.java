@@ -125,7 +125,7 @@ public class FormClienteActivity extends AppCompatActivity {
             }
             else{
                 ClienteDTO cliente = new ClienteDTO(
-                        0,
+                        clienteId,
                         etNome.getText().toString(),
                         etTelefone.getText().toString(),
                         etCPF.getText().toString(),

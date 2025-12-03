@@ -189,7 +189,7 @@ public class FormProdutoActivity extends AppCompatActivity {
             }
             else{
                 ProdutoDTO produto = new ProdutoDTO(
-                        0,
+                        produtoId,
                         etNome.getText().toString(),
                         Integer.parseInt(etQtd.getText().toString()),
                         Double.parseDouble(etValorUnit.getText().toString()),

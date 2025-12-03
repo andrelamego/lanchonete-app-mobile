@@ -125,7 +125,7 @@ public class FormFornecedorActivity extends AppCompatActivity {
             }
             else{
                 FornecedorDTO fornecedor = new FornecedorDTO(
-                        0,
+                        fornecedorId,
                         etNome.getText().toString(),
                         etTelefone.getText().toString(),
                         etCNPJ.getText().toString(),
