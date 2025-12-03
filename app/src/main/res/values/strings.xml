@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Lanchonete Mobile</string>
+    <string name="app_name" translatable="false">Lanchonete Mobile</string>
 
     <!--Botões CRUD -->
     <string name="atualizar">Update</string>
@@ -38,12 +38,12 @@
     <string name="CadastraCategoria">Category Register</string>
     <string name="CadastraCliente">Customer Register</string>
     <string name="CadastraFuncionario">Worker Register</string>
-    <string name="FazerPedido">Make a wish</string>
+    <string name="FazerPedido">Make an Order</string>
     <string name="CadastraProduto">Product Register</string>
     <string name="GerenciaPedido">Order Management</string>
     <!--String Tela Pedido    -->
     <string name="TituloTelaPedido">Order Management</string>
-    <string name="AdicionarProduto">Add product</string>
+    <string name="AdicionarProduto">Add Product</string>
     <string name="RemoverProduto">Remove</string>
     <string name="SalvarPedido">Save Order</string>
     <string name="Cliente">Customer</string>
@@ -64,7 +64,7 @@
     <!-- Tela Gerenciar Pedido -->
     <string name="novoPedido">New Order</string>
     <string name="buscarPedido">Search Order</string>
-    <string name="nomeCliente">Customer Name</string>
+    <string name="nomeCliente">Customer\'s Name</string>
     <string name="dataPedido">Date</string>
 
     <!-- List Itens Pedido -->

@@ -71,11 +71,14 @@ public class ItemPedidoRepository implements RepositoryListById<ItemPedido>{
         sql.append("ON ip.ID_Produto = p.ID ");
         sql.append("INNER JOIN Categoria c ");
         sql.append("ON p.ID_Categoria = c.ID ");
-        sql.append("WHERE ip.Num_Pedido = ").append(entidade.getNumPedido());
-        sql.append("AND ip.ID_Produto = ").append(entidade.getProduto().getId());
+        sql.append("WHERE ip.Num_Pedido = ?");
+        sql.append("AND ip.ID_Produto = ?");
 
         int cont = 0;
-        Cursor cursor = connection.rawQuery(sql.toString(), null);
+        Cursor cursor = connection.rawQuery(sql.toString(), new String[]{
+                String.valueOf(entidade.getNumPedido()),
+                String.valueOf(entidade.getProduto().getId())
+            });
         cursor.moveToFirst();
 
         if(!cursor.isAfterLast()){
@@ -163,10 +166,10 @@ public class ItemPedidoRepository implements RepositoryListById<ItemPedido>{
         sql.append("ON ip.ID_Produto = p.ID ");
         sql.append("INNER JOIN Categoria c ");
         sql.append("ON p.ID_Categoria = c.ID ");
-        sql.append("WHERE ip.Num_Pedido = ").append(nPedido);
+        sql.append("WHERE ip.Num_Pedido = ?");
 
         List<ItemPedido> entidades = new ArrayList<>();
-        Cursor cursor = connection.rawQuery(sql.toString(), null);
+        Cursor cursor = connection.rawQuery(sql.toString(), new String[]{String.valueOf(nPedido)});
         cursor.moveToFirst();
 
         while(!cursor.isAfterLast()){
@@ -208,10 +211,10 @@ public class ItemPedidoRepository implements RepositoryListById<ItemPedido>{
         sql.append("ON ip.ID_Produto = p.ID ");
         sql.append("INNER JOIN Categoria c ");
         sql.append("ON p.ID_Categoria = c.ID ");
-        sql.append("WHERE p.Nome LIKE ").append(entidade.getProduto().getNome());
+        sql.append("WHERE p.Nome LIKE ?");
 
         int cont = 0;
-        Cursor cursor = connection.rawQuery(sql.toString(), null);
+        Cursor cursor = connection.rawQuery(sql.toString(), new String[]{entidade.getProduto().getNome() + "%"});
         cursor.moveToFirst();
 
         if(!cursor.isAfterLast()){

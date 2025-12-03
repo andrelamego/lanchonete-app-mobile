@@ -55,10 +55,10 @@ public class CargoRepository implements RepositoryNoReturn<Cargo> {
     @SuppressLint("Range")
     @Override
     public Cargo buscarPorID(Cargo entidade) throws SQLException{
-        String sql = "SELECT ID, Nome, Salario, Descricao FROM Cargo WHERE ID = " + entidade.getId();
+        String sql = "SELECT ID, Nome, Salario, Descricao FROM Cargo WHERE ID = ?";
 
         int cont = 0;
-        Cursor cursor = connection.rawQuery(sql, null);
+        Cursor cursor = connection.rawQuery(sql, new String[]{String.valueOf(entidade.getId())});
         cursor.moveToFirst();
 
         if(!cursor.isAfterLast()){
@@ -107,9 +107,8 @@ public class CargoRepository implements RepositoryNoReturn<Cargo> {
     public Cargo buscarPorChaveSecundaria(Cargo entidade) {
 
         String sql = "SELECT ID, Nome, Salario, Descricao FROM Cargo WHERE Nome LIKE ?";
-        String[] args = new String[]{ entidade.getNome() + "%" };
 
-        Cursor cursor = connection.rawQuery(sql, args);
+        Cursor cursor = connection.rawQuery(sql, new String[]{ entidade.getNome() + "%"});
 
         if (cursor.moveToFirst()) {
             entidade.setId(cursor.getInt(cursor.getColumnIndex("ID")));

@@ -52,10 +52,10 @@ public class CategoriaRepository implements RepositoryNoReturn<Categoria> {
     @SuppressLint("Range")
     @Override
     public Categoria buscarPorID(Categoria entidade) throws SQLException {
-        String sql = "SELECT ID, Nome, Descricao FROM Categoria WHERE ID = " + entidade.getId();
+        String sql = "SELECT ID, Nome, Descricao FROM Categoria WHERE ID = ?";
 
         int cont = 0;
-        Cursor cursor = connection.rawQuery(sql, null);
+        Cursor cursor = connection.rawQuery(sql, new String[]{String.valueOf(entidade.getId())});
         cursor.moveToFirst();
 
         if(!cursor.isAfterLast()){
@@ -100,10 +100,10 @@ public class CategoriaRepository implements RepositoryNoReturn<Categoria> {
     @SuppressLint("Range")
     @Override
     public Categoria buscarPorChaveSecundaria(Categoria entidade) throws SQLException {
-       String sql = "SELECT ID, Nome, Descricao FROM Categoria WHERE Nome LIKE " + entidade.getNome() + "%";
+       String sql = "SELECT ID, Nome, Descricao FROM Categoria WHERE Nome LIKE ?" ;
 
         int cont = 0;
-        Cursor cursor = connection.rawQuery(sql, null);
+        Cursor cursor = connection.rawQuery(sql, new String[]{entidade.getNome() + "%"});
         cursor.moveToFirst();
 
         if(!cursor.isAfterLast()){
