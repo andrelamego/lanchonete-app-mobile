@@ -23,6 +23,7 @@ import com.fatec.lanchonetemobile.LanchoneteApp;
 import com.fatec.lanchonetemobile.R;
 import com.fatec.lanchonetemobile.adapters.adapter.ClienteAdapter;
 import com.fatec.lanchonetemobile.application.dto.ClienteDTO;
+import com.fatec.lanchonetemobile.application.exception.ClienteNaoEncontradoException;
 import com.fatec.lanchonetemobile.application.exception.FuncionarioNaoEncontradoException;
 import com.fatec.lanchonetemobile.application.facade.CadastroFacade;
 import com.fatec.lanchonetemobile.config.AppBuilder;
@@ -137,8 +138,8 @@ public class GerenciarClienteActivity extends AppCompatActivity {
                 ClienteDTO cliente = cadastroFacade.buscarCliente(id);
 
                 mostrarDialogCliente(cliente, 0);
-            } catch (FuncionarioNaoEncontradoException f) {
-                Toast.makeText(this, "Funcionário não encontrado", Toast.LENGTH_SHORT).show();
+            } catch (ClienteNaoEncontradoException f) {
+                Toast.makeText(this, "Cliente não encontrado", Toast.LENGTH_SHORT).show();
             } catch (NumberFormatException e) {
                 Toast.makeText(this, "ID inválido", Toast.LENGTH_SHORT).show();
             } catch (SQLException e) {
