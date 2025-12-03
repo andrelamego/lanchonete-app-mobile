@@ -1,37 +1,58 @@
 <resources>
     <string name="app_name" translatable="false">Lanchonete Mobile</string>
 
-    <!--Botões CRUD -->
-    <string name="atualizar">Update</string>
-    <string name="remove">Remove</string>
-    <string name="Salvar">Create</string>
-    <string name="Procurar">Search</string>
     <!--Gerais-->
     <string name="Nome">Name</string>
     <string name="ID">ID</string>
-    <!--String Cargo    -->
-    <string name="Salario">Payment</string>
-    <string name="Função">Role</string>
-    <string name="TituloTelaCargo">Role Management</string>
-    <!--String Categoria    -->
     <string name="Descrição">Description</string>
+    <string name="Telefone">Phone Number</string>
+    <string name="botaoBuscarPorID">Search by ID</string>
+    <string name="botaoEditar">Edit</string>
+    <string name="botaoExcluir">Delete</string>
+    <string name="closeButton">Close</string>
+
+    <!--String Cargo -->
+    <string name="Salario">Payment</string>
+    <string name="TituloTelaCargo">Role Management</string>
+
+    <!--String Categoria -->
     <string name="TituloTelaCategoria">Category Management</string>
 
     <!--String Cliente & Fornecedor -->
     <string name="CPF">CPF</string>
+    <string name="CNPJ">CNPJ</string>
     <string name="Logradouro">Street</string>
     <string name="Numero">Number</string>
     <string name="CEP">Postal Code</string>
     <string name="Complemento">Complement</string>
-    <string name="Telefone">Phone Number</string>
     <string name="TituloTelaCliente">Customer Management</string>
     <string name="TituloTelaFornecedor">Supply Management</string>
-    <string name="CNPJ">CNPJ</string>
-    <!--String Funcionario    -->
+
+    <!--String Funcionario -->
     <string name="Email">Email</string>
+    <string name="DataContrato">Admission Date</string>
+    <string name="Cargo">Role</string>
     <string name="TituloTelaFuncionario">Worker Management</string>
-    <string name="DataHint">Admission Date</string>
-    <!--String Main -> Tela    -->
+
+    <!--String ItemPedido -->
+    <string name="Produto">Product</string>
+    <string name="Quantidade">Quantity</string>
+    
+    <!--String Pedido -->
+    <string name="NumPedido">Order ID</string>
+    <string name="ValorTotal">Total Value</string>
+    <string name="ItensPedido">Order Items</string>
+    <string name="Data">Date</string>
+    <string name="Status">Status</string>
+    <string name="Cliente">Customer</string>
+
+    <!--String Produto -->
+    <string name="QtdEstoque">Stock Quantity</string>
+    <string name="ValorUnit">Unit Value</string>
+    <string name="Categoria">Category</string>
+    <string name="Fornecedor">Supplier</string>
+
+    <!--String Main -> Tela -->
     <string name="TituloTelaMain">Choose one option below</string>
     <string name="CadastraFornecedor">Supplier Register</string>
     <string name="CadastraCargo">Role Register</string>
@@ -41,13 +62,12 @@
     <string name="FazerPedido">Make an Order</string>
     <string name="CadastraProduto">Product Register</string>
     <string name="GerenciaPedido">Order Management</string>
+
     <!--String Tela Pedido    -->
     <string name="TituloTelaPedido">Order Management</string>
     <string name="AdicionarProduto">Add Product</string>
     <string name="RemoverProduto">Remove</string>
     <string name="SalvarPedido">Save Order</string>
-    <string name="Cliente">Customer</string>
-    <string name="Status">Status</string>
     <string name="ordersLabel">Orders:</string>
     <string name="orderListLabel">Order #</string>
     <string name="orderListCustomerLabel">Customer: </string>
@@ -56,17 +76,13 @@
     <!-- Dialog Pedido -->
     <string name="dataPedidoLabel">Date: </string>
     <string name="produtosPedido">Products:</string>
-    <string name="botaoEditar">Edit</string>
-    <string name="botaoExcluir">Delete</string>
     <string name="valorTotal">Total: $</string>
-    <string name="closeButton">Close</string>
 
     <!-- Tela Gerenciar Pedido -->
     <string name="novoPedido">New Order</string>
     <string name="buscarPedido">Search Order</string>
     <string name="nomeCliente">Customer\'s Name</string>
     <string name="dataPedido">Date</string>
-
     <!-- List Itens Pedido -->
     <string name="quantidade">x</string>
     <string name="nomeItem"> - </string>
@@ -149,7 +165,6 @@
 
     <string name="TituloTelaProduto">Product Management</string>
     <string name="TituloTelaPedido2">Order</string>
-    <string name="NumPedido">Order ID</string>
 
     <string name="back">Back</string>
     <string name="welcome_text">Welcome!</string>

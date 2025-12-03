@@ -1,13 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="atualizar">Atualizar</string>
-    <string name="remove">Remover</string>
-    <string name="Salvar">Salvar</string>
-    <string name="Procurar">Procurar</string>
     <string name="Nome">Nome</string>
     <string name="ID">ID</string>
     <string name="Salario">Salario</string>
-    <string name="Função">Cargo</string>
     <string name="TituloTelaCargo">Gerenciamento de Cargo</string>
     <string name="Descrição">Descrição</string>
     <string name="TituloTelaCategoria">Gerenciamento de Categoria</string>
@@ -22,7 +17,7 @@
     <string name="CNPJ">CNPJ</string>
     <string name="Email">Email</string>
     <string name="TituloTelaFuncionario">"Gerenciamento de "</string>
-    <string name="DataHint">Data de Contratação</string>
+    <string name="DataContrato">Data de Contratação</string>
     <string name="TituloTelaMain">Escolha uma opção abaixo</string>
     <string name="CadastraFornecedor">Cadastro de Fornecedor</string>
     <string name="CadastraCargo">Cadastro de Cargo</string>
@@ -117,4 +112,15 @@
     <string name="NumPedido">ID do Pedido</string>
     <string name="back">Voltar</string>
     <string name="welcome_text">Bem-vindo (a)!</string>
+    <string name="Cargo">Cargo</string>
+    <string name="Produto">Produto</string>
+    <string name="botaoBuscarPorID">Buscar por ID</string>
+    <string name="Quantidade">Quantidade</string>
+    <string name="ValorUnit">Valor Unitário</string>
+    <string name="ValorTotal">Total Value</string>
+    <string name="ItensPedido">Itens do Pedido</string>
+    <string name="Data">Data</string>
+    <string name="QtdEstoque">Quantidade em Estoque</string>
+    <string name="Categoria">Categoria</string>
+    <string name="Fornecedor">Fornecedor</string>
 </resources>
