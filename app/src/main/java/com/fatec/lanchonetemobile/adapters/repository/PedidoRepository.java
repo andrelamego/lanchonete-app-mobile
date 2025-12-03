@@ -78,10 +78,10 @@ public class PedidoRepository implements RepositoryReturn<Pedido> {
         sql.append("c.ID, c.Nome, c.Telefone, c.Logradouro, c.Numero, c.CEP, c.Complemento ");
         sql.append("FROM Pedido p INNER JOIN Cliente c ");
         sql.append("ON p.ID_Cliente = c.ID ");
-        sql.append("WHERE p.Num_Pedido = ").append(entidade.getnPedido());
+        sql.append("WHERE p.Num_Pedido = ?");
 
         int cont = 0;
-        Cursor cursor = connection.rawQuery(sql.toString(), null);
+        Cursor cursor = connection.rawQuery(sql.toString(), new String[]{String.valueOf(entidade.getnPedido())});
         cursor.moveToFirst();
 
         if(!cursor.isAfterLast()){
@@ -157,10 +157,10 @@ public class PedidoRepository implements RepositoryReturn<Pedido> {
         sql.append("c.ID, c.Nome, c.Telefone, c.Logradouro, c.Numero, c.CEP, c.Complemento ");
         sql.append("FROM Pedido p INNER JOIN Cliente c ");
         sql.append("ON p.ID_Cliente = c.ID ");
-        sql.append("WHERE p.DataPedido = ").append(entidade.getData());
+        sql.append("WHERE p.DataPedido = ?");
 
         int cont = 0;
-        Cursor cursor = connection.rawQuery(sql.toString(), null);
+        Cursor cursor = connection.rawQuery(sql.toString(), new String[]{String.valueOf(entidade.getData())});
         cursor.moveToFirst();
 
         if(!cursor.isAfterLast()){

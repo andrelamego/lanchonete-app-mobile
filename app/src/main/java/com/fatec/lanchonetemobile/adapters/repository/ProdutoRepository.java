@@ -79,10 +79,10 @@ public class ProdutoRepository implements RepositoryReturn<Produto> {
         sql.append("ON p.ID_Categoria = c.ID ");
         sql.append("INNER JOIN Fornecedor f ");
         sql.append("ON p.ID_Fornecedor = f.ID ");
-        sql.append("WHERE p.ID = ").append(entidade.getId());
+        sql.append("WHERE p.ID = ?");
 
         int cont = 0;
-        Cursor cursor = connection.rawQuery(sql.toString(), null);
+        Cursor cursor = connection.rawQuery(sql.toString(), new String[]{String.valueOf(entidade.getId())});
         cursor.moveToFirst();
 
         if(!cursor.isAfterLast()){
@@ -178,10 +178,10 @@ public class ProdutoRepository implements RepositoryReturn<Produto> {
         sql.append("ON p.ID_Categoria = c.ID ");
         sql.append("INNER JOIN Fornecedor f ");
         sql.append("ON p.ID_Fornecedor = f.ID ");
-        sql.append("WHERE p.Nome LIKE ").append(entidade.getNome());
+        sql.append("WHERE p.Nome LIKE ?");
 
         int cont = 0;
-        Cursor cursor = connection.rawQuery(sql.toString(), null);
+        Cursor cursor = connection.rawQuery(sql.toString(), new String[]{entidade.getNome() + "%"});
         cursor.moveToFirst();
 
         if(!cursor.isAfterLast()){

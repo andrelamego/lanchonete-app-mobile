@@ -63,10 +63,10 @@ public class FornecedorRepository implements RepositoryNoReturn<Fornecedor>{
     @SuppressLint("Range")
     @Override
     public Fornecedor buscarPorID(Fornecedor entidade) throws SQLException {
-        String sql = "SELECT ID, Nome, Telefone, CNPJ, Logradouro, Numero, CEP, Complemento FROM Fornecedor WHERE ID = " + entidade.getId();
+        String sql = "SELECT ID, Nome, Telefone, CNPJ, Logradouro, Numero, CEP, Complemento FROM Fornecedor WHERE ID = ?";
 
         int cont = 0;
-        Cursor cursor = connection.rawQuery(sql, null);
+        Cursor cursor = connection.rawQuery(sql, new String[]{String.valueOf(entidade.getId())});
         cursor.moveToFirst();
 
         if(!cursor.isAfterLast()){
@@ -121,10 +121,10 @@ public class FornecedorRepository implements RepositoryNoReturn<Fornecedor>{
     @SuppressLint("Range")
     @Override
     public Fornecedor buscarPorChaveSecundaria(Fornecedor entidade) throws SQLException {
-        String sql = "SELECT ID, Nome, Telefone, CNPJ, Logradouro, Numero, CEP, Complemento FROM Fornecedor WHERE CNPJ = " + entidade.getCnpj();
+        String sql = "SELECT ID, Nome, Telefone, CNPJ, Logradouro, Numero, CEP, Complemento FROM Fornecedor WHERE CNPJ = ?";
 
         int cont = 0;
-        Cursor cursor = connection.rawQuery(sql, null);
+        Cursor cursor = connection.rawQuery(sql, new String[]{entidade.getCnpj()});
         cursor.moveToFirst();
 
         if(!cursor.isAfterLast()){

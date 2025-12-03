@@ -63,9 +63,9 @@ public class ClienteRepository implements RepositoryNoReturn<Cliente> {
     @SuppressLint("Range")
     @Override
     public Cliente buscarPorID(Cliente entidade) throws SQLException {
-        String sql = "SELECT ID, Nome, Telefone, CPF, Logradouro, Numero, CEP, Complemento FROM Cliente WHERE ID = " + entidade.getId();
+        String sql = "SELECT ID, Nome, Telefone, CPF, Logradouro, Numero, CEP, Complemento FROM Cliente WHERE ID = ?";
         int cont = 0;
-        Cursor cursor = connection.rawQuery(sql, null);
+        Cursor cursor = connection.rawQuery(sql, new String[]{String.valueOf(entidade.getId())});
         cursor.moveToFirst();
 
         if(!cursor.isAfterLast()){
@@ -120,10 +120,10 @@ public class ClienteRepository implements RepositoryNoReturn<Cliente> {
     @SuppressLint("Range")
     @Override
     public Cliente buscarPorChaveSecundaria(Cliente entidade) throws SQLException {
-        String sql = "SELECT ID, Nome, Telefone, CPF, Logradouro, Numero, CEP, Complemento FROM Cliente WHERE CPF = " + entidade.getCpf();
+        String sql = "SELECT ID, Nome, Telefone, CPF, Logradouro, Numero, CEP, Complemento FROM Cliente WHERE CPF = ?";
 
         int cont = 0;
-        Cursor cursor = connection.rawQuery(sql, null);
+        Cursor cursor = connection.rawQuery(sql, new String[]{entidade.getCpf()});
         cursor.moveToFirst();
 
         if(!cursor.isAfterLast()){
