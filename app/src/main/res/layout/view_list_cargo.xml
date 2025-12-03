@@ -4,7 +4,8 @@
     android:id="@+id/view_list_cargo"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:padding="12dp">
+    android:paddingTop="12dp"
+    android:paddingBottom="12dp">
 
     <TextView
         android:id="@+id/tvNomeCargo"
