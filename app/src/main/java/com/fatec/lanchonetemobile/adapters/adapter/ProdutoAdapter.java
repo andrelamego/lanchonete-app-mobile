@@ -49,28 +49,19 @@ public class ProdutoAdapter extends RecyclerView.Adapter<ProdutoAdapter.ProdutoV
 
         TextView tvIDProduto;
         TextView tvNomeProduto;
-        TextView tvQtdEstoqueProduto;
         TextView tvValorUnitProduto;
-        TextView tvCategoriaProduto;
-        TextView tvFornecedorProduto;
 
         public ProdutoViewHolder(@NonNull View itemView) {
             super(itemView);
             tvIDProduto = itemView.findViewById(R.id.tvIDProduto);
             tvNomeProduto = itemView.findViewById(R.id.tvNomeProduto);
-            tvQtdEstoqueProduto = itemView.findViewById(R.id.tvQtdEstoqueProduto);
             tvValorUnitProduto = itemView.findViewById(R.id.tvValorUnitProduto);
-            tvCategoriaProduto = itemView.findViewById(R.id.tvCategoriaProduto);
-            tvFornecedorProduto = itemView.findViewById(R.id.tvFornecedorProduto);
         }
 
         public void bind(ProdutoDTO produtoDTO, int position, ProdutoAdapter.OnProdutoClickListener listener) {
             tvIDProduto.setText("ID: " + produtoDTO.getId());
             tvNomeProduto.setText("Nome: " + produtoDTO.getNome());
-            tvQtdEstoqueProduto.setText("QtdEstoque: " + produtoDTO.getQtdEstoque());
             tvValorUnitProduto.setText("ValorUnit: " + produtoDTO.getValorUn());
-            tvCategoriaProduto.setText("Categoria: " + produtoDTO.getCategoriaNome());
-            tvFornecedorProduto.setText("Fornecedor: " + produtoDTO.getFornecedorNome());
 
             itemView.setOnClickListener(v -> {
                 if (listener != null) {

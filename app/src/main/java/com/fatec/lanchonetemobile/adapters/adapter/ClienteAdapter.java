@@ -49,34 +49,19 @@ public class ClienteAdapter extends RecyclerView.Adapter<ClienteAdapter.ClienteV
 
         TextView tvIDCliente;
         TextView tvNomeCliente;
-        TextView tvTelefoneCliente;
         TextView tvCPFCliente;
-        TextView tvLogradouroCliente;
-        TextView tvNumeroCliente;
-        TextView tvCEPCliente;
-        TextView tvComplementoCliente;
 
         public ClienteViewHolder(@NonNull View itemView) {
             super(itemView);
             tvIDCliente = itemView.findViewById(R.id.tvIDCliente);
             tvNomeCliente = itemView.findViewById(R.id.tvNomeCliente);
-            tvTelefoneCliente = itemView.findViewById(R.id.tvTelefoneCliente);
             tvCPFCliente = itemView.findViewById(R.id.tvCPFCliente);
-            tvLogradouroCliente = itemView.findViewById(R.id.tvLogradouroCliente);
-            tvNumeroCliente = itemView.findViewById(R.id.tvNumeroCliente);
-            tvCEPCliente = itemView.findViewById(R.id.tvCEPCliente);
-            tvComplementoCliente = itemView.findViewById(R.id.tvComplementoCliente);
         }
 
         public void bind(ClienteDTO clienteDTO, int position, ClienteAdapter.OnClienteClickListener listener) {
             tvIDCliente.setText("ID: " + clienteDTO.getId());
             tvNomeCliente.setText("Nome: " + clienteDTO.getNome());
-            tvTelefoneCliente.setText("Telefone: " + clienteDTO.getTel());
             tvCPFCliente.setText("CPF: " + clienteDTO.getCpf());
-            tvLogradouroCliente.setText("Logradouro: " + clienteDTO.getLogradouro());
-            tvNumeroCliente.setText("Numero: " + clienteDTO.getNumero());
-            tvCEPCliente.setText("CEP: " + clienteDTO.getCep());
-            tvComplementoCliente.setText("Complemento: " + clienteDTO.getComplemento());
 
             itemView.setOnClickListener(v -> {
                 if (listener != null) {

@@ -46,25 +46,18 @@ public class ItemPedidoAdapter extends RecyclerView.Adapter<ItemPedidoAdapter.It
     }
 
     public static class ItemPedidoViewHolder extends RecyclerView.ViewHolder {
-
-        //TextView tvNumPedidoItemPedido;
-        //TextView tvIDProdutoItemPedido;
         TextView tvQtdItemPedido;
         TextView tvValorUnitItemPedido;
         TextView tvValorTotalItemPedido;
 
         public ItemPedidoViewHolder(@NonNull View itemView) {
             super(itemView);
-            //tvNumPedidoItemPedido = itemView.findViewById(R.id.tvNumPedidoItemPedido);
-            //tvIDProdutoItemPedido = itemView.findViewById(R.id.tvIDProdutoItemPedido);
             tvQtdItemPedido = itemView.findViewById(R.id.tvQuantidadeItem);
             tvValorUnitItemPedido = itemView.findViewById(R.id.tvValorUnItem);
             tvValorTotalItemPedido = itemView.findViewById(R.id.tvValorTotalItem);
         }
 
         public void bind(ItemPedidoDTO itemPedidoDTO, int position, ItemPedidoAdapter.OnItemPedidoClickListener listener) {
-            //tvNumPedidoItemPedido.setText("Número do Pedido: " + itemPedidoDTO.getNPedido());
-            //tvIDProdutoItemPedido.setText("ID do Produto: " + itemPedidoDTO.getIdProduto());
             tvQtdItemPedido.setText("Quantidade: " + itemPedidoDTO.getQtd());
             tvValorUnitItemPedido.setText("Valor Unitário: " + itemPedidoDTO.getValorUnit());
             tvValorTotalItemPedido.setText("Valor Total: " + itemPedidoDTO.getValorTotal());
